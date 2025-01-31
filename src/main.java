@@ -5,6 +5,6 @@ public class main {
     }
 
     public void Mathew(){
-
+        System.out.println("Gg");
     }
 }
