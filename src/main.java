@@ -3,4 +3,8 @@ public class main {
         System.out.println("Hello");
         System.out.println("hello my namsssdae is ");
     }
+
+    public void Mathew(){
+
+    }
 }
