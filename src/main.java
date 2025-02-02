@@ -6,5 +6,6 @@ public class main {
 
     public void Mathew(){
         System.out.println("Gg");
+        System.out.println("yes");
     }
 }
