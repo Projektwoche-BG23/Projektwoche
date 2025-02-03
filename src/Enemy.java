@@ -1,4 +1,5 @@
 /**
+ *
  *  This class contains all enemy types and there Base values. Values can be changed and called by set and get funktions
  */
 public class Enemy {
