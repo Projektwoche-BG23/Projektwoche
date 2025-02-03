@@ -13,7 +13,6 @@ public class Game {
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
 
-    int playerHP = 100;
     String weapon = "";
 
     String position;
@@ -33,20 +32,21 @@ public class Game {
         frame.setLocationRelativeTo(null);
 
         titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(100, 100, 600, 150);
+        titleNamePanel.setBounds(120, 120, 1400, 350);
         titleNamePanel.setBackground(new Color(23, 32, 56));
         titleNameLabel = new JLabel("(Spiel Name)");
         titleNameLabel.setForeground(new Color(222, 158,65));
-        titleNameLabel.setFont(titleFont);
+        titleNameLabel.setFont(new Font("Times New Roman", Font.PLAIN, 170));
         titleNamePanel.add(titleNameLabel);
 
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(300, 400, 200, 100);
+        startButtonPanel.setBounds(339, 400, 900, 200);
         startButtonPanel.setBackground(new Color(23, 32, 56));
-        startButton = new JButton("Start");
+        startButton = new JButton("  Start  ");
+        startButton.setPreferredSize(new Dimension(250, 100));
         startButton.setBackground(new Color(23, 32, 56));
         startButton.setForeground(new Color(222, 158,65));
-        startButton.setFont(normalFont);
+        startButton.setFont(new Font("Times New Roman", Font.PLAIN, 50));
         startButton.addActionListener(new TitleScreenHandler());
         startButtonPanel.add(startButton);
 
@@ -60,7 +60,7 @@ public class Game {
         startButtonPanel.setVisible(false);
 
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100, 100, 600, 250);
+        mainTextPanel.setBounds(0, 0, 1599, 600);
         mainTextPanel.setBackground(new Color(23, 32, 56));
         frame.add(mainTextPanel);
 
@@ -139,7 +139,4 @@ public class Game {
         }
     }
 
-    public static void main(String[] args) {
-        new Game();
-    }
 }
