@@ -1,5 +1,4 @@
 public class main {
-
     static RNG rng = new RNG();
     static Inventory inv = new Inventory();
     public static void main(String[] args)
@@ -18,8 +17,6 @@ public class main {
         rng.randomDrop("chest1");
 
         System.out.println(inv.getInventory());
-
-
         //Game game = new Game();
     }
 
