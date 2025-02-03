@@ -1,6 +1,7 @@
 public class main {
 
     static RNG rng = new RNG();
+    static Inventory inv = new Inventory();
     public static void main(String[] args)
     {
         /* --Ein Beispiel Code für chest öffnen und item drop!!!
@@ -11,7 +12,15 @@ public class main {
          }
          */
 
-        Game game = new Game();
+        rng.randomDrop("chest1");
+        rng.randomDrop("chest1");
+        rng.randomDrop("chest1");
+        rng.randomDrop("chest1");
+
+        System.out.println(inv.getInventory());
+
+
+        //Game game = new Game();
     }
 
 }
