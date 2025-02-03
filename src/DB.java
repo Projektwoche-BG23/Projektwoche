@@ -57,4 +57,16 @@ public class DB
         }
         return user_ID;
     }
+
+    public void createAcc(String username, String password) throws SQLException
+    {
+
+        sql = "INSERT INTO login (name, password) VALUES(?,?)";
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setString(1, username);
+        stmt.setString(2, password);
+        stmt.executeUpdate();
+    }
+
+
 }
