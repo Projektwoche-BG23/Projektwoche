@@ -36,7 +36,7 @@ public class Game {
         titleNamePanel.setBackground(new Color(23, 32, 56));
         titleNameLabel = new JLabel("(Spiel Name)");
         titleNameLabel.setForeground(new Color(222, 158,65));
-        titleNameLabel.setFont(new Font("Times New Roman", Font.PLAIN, 170));
+        titleNameLabel.setFont(new Font("Times New Roman ", Font.PLAIN, 170));
         titleNamePanel.add(titleNameLabel);
 
         startButtonPanel = new JPanel();
