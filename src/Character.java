@@ -7,6 +7,7 @@ public class Character
     private int specialDefense;
     private int agility;
 
+
     private int getAttack()
     {
         return attack;
