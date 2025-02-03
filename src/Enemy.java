@@ -99,7 +99,7 @@ public class Enemy {
     /**
      * Set a new Health Value to an Enemy Unit.
      * If the new Health Value is below 0, it is set to 0.
-     * @param newHealth new Helath value as int
+     * @param newHealth new Health value as int
      */
     public void setEnemyHealth(int newHealth) {
         if(newHealth>=0){
