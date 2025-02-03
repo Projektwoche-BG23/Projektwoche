@@ -70,13 +70,44 @@ public class Enemy {
         return agility;
     }
 
+    /**
+     * Set a new Health Value to an Enemy Unit.
+     * If the new Health Value is below 0, it is set to 0.
+     * @param newHealth new Helath value as int
+     */
+    public void setEnemyHealth(int newHealth) {
+        if(newHealth>=0){
+            health = newHealth;
+        }
+        else{
+            health=0;
+        }
+    }
+    /**
+     * Sets a new Attack Value to an enemy Unit
+     * If the new Attack Value is below 0, it is set to 0.
+     * @param newAttack new attack value as int
+     */
     public void setEnemyAttack(int newAttack) {
-         attack = newAttack;
+        if(newAttack>=0){
+            attack = newAttack;
+        }
+        else{
+            attack=0;
+        }
     }
-
-    public int setEnemyHealth(int newHealth) {
-        return health;
+    /**
+     * Sets a new Defense Value to an enemy Unit
+     * If the new Defense Value is below 0, it is set to 0.
+     * @param newDefense new defense value as int
+     */
+    public void setEnemyDefense(int newDefense) {
+        if(newDefense>=0){
+            attack = newDefense;
+        }
+        else{
+            attack=0;
+        }
     }
-
 
 }
