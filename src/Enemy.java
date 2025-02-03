@@ -7,7 +7,7 @@ public class Enemy {
     private int defense;        //defense of the Unit in %
     private int spec_defense;   //special (Magic) defense of the Unit in %
     private int attack;         //Flat attack of the Unit
-    private int spec_attack;    //Flat special (Magic) damage of the Unit
+    private int spec_attack;    //Flat special (Magic) damage to the Unit
     private int agility;        //Agility of the Unit
 
     public Enemy(String enemyName){
@@ -23,6 +23,8 @@ public class Enemy {
 
         }
     }
+
+
 
     /**
      * Outputs the Health value o the Enemy Unit
@@ -67,5 +69,14 @@ public class Enemy {
     public int getEnemyAgility(){
         return agility;
     }
+
+    public void setEnemyAttack(int newAttack) {
+         attack = newAttack;
+    }
+
+    public int setEnemyHealth(int newHealth) {
+        return health;
+    }
+
 
 }
