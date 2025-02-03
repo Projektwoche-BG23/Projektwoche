@@ -47,7 +47,7 @@ public class Game {
         startButton.setBackground(new Color(23, 32, 56));
         startButton.setForeground(new Color(222, 158,65));
         startButton.setFont(normalFont);
-        startButton.addActionListener(new TitleScreenHandler());
+      //  startButton.addActionListener(new TitleScreenHandler());
         startButtonPanel.add(startButton);
 
         frame.add(titleNamePanel);
