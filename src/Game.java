@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
         TitleScreenHandler tsHandler = new TitleScreenHandler();
 
         Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
-        Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+        Font normalFont = new Font("Times New Roman", Font.PLAIN, 31);
 
 
 
