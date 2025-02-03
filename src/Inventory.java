@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Inventory {
 
+    RNG rng = new RNG();
     private List<String> inventory;
 
     public Inventory(){
@@ -15,7 +16,6 @@ public class Inventory {
 
     public void addItem(String itemName) {
         inventory.add(itemName);
-        System.out.println(itemName + " added");
     }
 
     public void removeItem(String itemName) {
@@ -28,7 +28,12 @@ public class Inventory {
 
     public void addRandom(String chestName)
     {
-
+        String[] drops = rng.randomDrop(chestName);
+        for (int i = 0; i < drops.length; i++)
+        {
+            inventory.add(drops[i]);
+        }
+        //return drops;
     }
 
 }

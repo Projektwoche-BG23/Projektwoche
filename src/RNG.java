@@ -6,7 +6,7 @@ public class RNG {
     static ItemsDictionary dictionary = new ItemsDictionary();
     static Random rand = new Random();
 
-    public static Object[] randomDrop(String chest)
+    public static String[] randomDrop(String chest)
     {
         switch (chest){
             default:
@@ -69,8 +69,7 @@ public class RNG {
 
                 // Check if the random chance is less than the drop chance
                 if (chance < dropChance) {
-                    Object[] droppedItem = dictionary.items((String) chanceEntry[0]);  // Get item using its name
-                    droppedItems[i] = (String) droppedItem[0];
+                    droppedItems[i] = (String) chanceEntry[0];
                     break;  // Exit the loop once an item is dropped
                 }
             }
