@@ -1,5 +1,5 @@
 /**
- *
+ *  This class contains all enemy types and there Base values. Values can be changed and called by set and get funktions
  */
 public class Enemy {
 
@@ -10,8 +10,12 @@ public class Enemy {
     private int spec_attack;    //Flat special (Magic) damage to the Unit
     private int agility;        //Agility of the Unit
 
+    /**
+     * Ths creates a new Enemy Unit
+     * @param enemyName determins the enemy Type. Available are SKELETON, GOBLIN, GHOST and KING
+     */
     public Enemy(String enemyName){
-        if(enemyName .equals("Skeleton")){
+        if(enemyName .equals("SKELETON")){
             health = 100;
             defense = 10;
             spec_defense = 20;
@@ -19,8 +23,27 @@ public class Enemy {
             spec_attack = 0;
             agility = 10;
         }
-        else if (enemyName .equals("Goblin")) {
-
+        else if (enemyName .equals("GOBLIN")) {
+            health = 150;
+            defense = 20;
+            spec_defense = 10;
+            attack = 25;
+            spec_attack = 0;
+            agility = 20;
+        } else if (enemyName .equals("GHOST")) {
+            health = 175;
+            defense = 50;
+            spec_defense = 0;
+            attack = 0;
+            spec_attack = 30;
+            agility = 25;
+        } else if (enemyName .equals("KING")) {
+            health = 400;
+            defense = 25;
+            spec_defense = 25;
+            attack = 30;
+            spec_attack = 30;
+            agility = 15;
         }
     }
 
@@ -86,7 +109,7 @@ public class Enemy {
     /**
      * Sets a new Attack Value to an enemy Unit
      * If the new Attack Value is below 0, it is set to 0.
-     * @param newAttack new attack value as int
+     * @param newAttack new Attack value as int
      */
     public void setEnemyAttack(int newAttack) {
         if(newAttack>=0){
@@ -97,9 +120,22 @@ public class Enemy {
         }
     }
     /**
+     * Sets a new Special Attack (Magic) Value to an enemy Unit
+     * If the new Special Attack (Magic) Value is below 0, it is set to 0.
+     * @param newSpec_Attack new Special Attack value as int
+     */
+    public void setEnemySpec_Attack(int newSpec_Attack) {
+        if(newSpec_Attack>=0){
+            spec_attack = newSpec_Attack;
+        }
+        else{
+            spec_defense=0;
+        }
+    }
+    /**
      * Sets a new Defense Value to an enemy Unit
      * If the new Defense Value is below 0, it is set to 0.
-     * @param newDefense new defense value as int
+     * @param newDefense new Defense value as int
      */
     public void setEnemyDefense(int newDefense) {
         if(newDefense>=0){
@@ -107,6 +143,32 @@ public class Enemy {
         }
         else{
             attack=0;
+        }
+    }
+    /**
+     * Sets a new Special Defense (Magic) Value to an enemy Unit
+     * If the new Special Defense (Magic) Value is below 0, it is set to 0.
+     * @param newSpec_Defense new Special Defense value as int
+     */
+    public void setEnemySpec_Defense(int newSpec_Defense) {
+        if(newSpec_Defense>=0){
+            spec_attack = newSpec_Defense;
+        }
+        else{
+            spec_defense=0;
+        }
+    }
+    /**
+     * Sets a new Special Attack (Magic) Value to an enemy Unit
+     * If the new Special Attack (Magic) Value is below 0, it is set to 0.
+     * @param newAgility new Agility value as int
+     */
+    public void setEnemyAgility(int newAgility) {
+        if(newAgility>=0){
+            spec_attack = newAgility;
+        }
+        else{
+            spec_defense=0;
         }
     }
 
