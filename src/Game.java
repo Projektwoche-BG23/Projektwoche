@@ -7,8 +7,11 @@ public class Game {
     JFrame frame;
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
     JLabel titleNameLabel;
-    JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+    JButton startButton, ladenButton, einstellungenButton, verlassenButton;
+    JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JTextArea mainTextArea;
+    TitleScreenHandler tsHandler = new TitleScreenHandler();
+    ChoiceHandler choiceHandler = new ChoiceHandler();
 
     /**
      * Dies sind die Schriftarten. Nach belieben ändern
@@ -22,6 +25,10 @@ public class Game {
      * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
      */
     String position;
+
+    /**
+     * @Game Titelbildschirm des Spieles
+     */
 
     public Game() {
         try {
@@ -40,40 +47,67 @@ public class Game {
         frame.getContentPane().setBackground(new Color(23, 32, 56));
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
 
         /**
          * Dieses Panel ist für das anzeigen des Titels
          */
 
         titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(100, 100, 1200, 250);
+        titleNamePanel.setBounds(0, 0, 1600, 300);
         titleNamePanel.setBackground(new Color(23, 32, 56));
         frame.add(titleNamePanel);
 
         /**
-         * Dieses Label
+         * Dieses Label ist der Titel
          */
 
-        titleNameLabel = new JLabel("(Spiel Name)");
+        titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
         titleNameLabel.setForeground(new Color(222, 158,65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
 
+        /**
+         * Dies Panel bietet Platz für die Buttons des Titelscreens
+         */
+
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(545, 500, 300, 150);
+        startButtonPanel.setBounds(300, 450, 1000, 350);
         startButtonPanel.setBackground(new Color(23, 32, 56));
+        startButtonPanel.setLayout(new GridLayout(4,1));
 
         /**
-         * Dies ist für das Anzeigen des Start Buttons
+         * Dies ist für das Anzeigen des Start-Buttons
          */
 
         startButton = new JButton("Start");
         startButton.setBackground(new Color(23, 32, 56));
         startButton.setForeground(new Color(222, 158,65));
         startButton.setFont(startButtonFont);
-        startButton.addActionListener(new TitleScreenHandler());
+        startButton.addActionListener(tsHandler);
         startButton.setFocusPainted(false);
         startButtonPanel.add(startButton);
+
+        ladenButton = new JButton("Laden");
+        ladenButton.setBackground(new Color(23, 32, 56));
+        ladenButton.setForeground(new Color(222, 158,65));
+        ladenButton.setFont(startButtonFont);
+        //Action Listener hinzufügen für Funktion
+        startButtonPanel.add(ladenButton);
+
+        einstellungenButton = new JButton("Einstellungen");
+        einstellungenButton.setBackground(new Color(23, 32, 56));
+        einstellungenButton.setForeground(new Color(222, 158,65));
+        einstellungenButton.setFont(startButtonFont);
+        //Action Listener hinzufügen für Funktion
+        startButtonPanel.add(einstellungenButton);
+
+        verlassenButton = new JButton("Verlassen");
+        verlassenButton.setBackground(new Color(23, 32, 56));
+        verlassenButton.setForeground(new Color(222, 158,65));
+        verlassenButton.setFont(startButtonFont);
+        //Action Listener hinzufügen für Funktion
+        startButtonPanel.add(verlassenButton);
 
 
         frame.add(titleNamePanel);
@@ -81,7 +115,13 @@ public class Game {
         frame.setVisible(true);
     }
 
+    /**
+     * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
+     */
     public void createGameScreen() {
+        /**
+         * Löscht den Vorherigen Inhalt
+         */
         titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
 
@@ -116,13 +156,23 @@ public class Game {
         choiceButtonPanel.setLayout(new GridLayout(2, 2));
         frame.add(choiceButtonPanel);
 
+        /**
+         * Erste Option
+         */
+
         choiceButton1 = new JButton();
         choiceButton1.setBackground(new Color(23, 32, 56));
         choiceButton1.setForeground(new Color(222, 158,65));
         choiceButton1.setFont(normalFont);
         choiceButton1.addActionListener(new ChoiceHandler());
         choiceButton1.setFocusPainted(false);
+        choiceButton1.setActionCommand("c1");
+        choiceButton1.addActionListener(choiceHandler);
         choiceButtonPanel.add(choiceButton1);
+
+        /**
+         * Zweite Option
+         */
 
         choiceButton2 = new JButton();
         choiceButton2.setBackground(new Color(23, 32, 56));
@@ -130,8 +180,13 @@ public class Game {
         choiceButton2.setFont(normalFont);
         choiceButton2.addActionListener(new ChoiceHandler());
         choiceButton2.setFocusPainted(false);
+        choiceButton2.setActionCommand("c2");
+        choiceButton2.addActionListener(choiceHandler);
         choiceButtonPanel.add(choiceButton2);
 
+        /**
+         * dritte Option
+         */
 
         choiceButton3 = new JButton();
         choiceButton3.setBackground(new Color(23, 32, 56));
@@ -139,7 +194,13 @@ public class Game {
         choiceButton3.setFont(normalFont);
         choiceButton3.addActionListener(new ChoiceHandler());
         choiceButton3.setFocusPainted(false);
+        choiceButton3.setActionCommand("c3");
+        choiceButton3.addActionListener(choiceHandler);
         choiceButtonPanel.add(choiceButton3);
+
+        /**
+         * Vierte Option
+         */
 
         choiceButton4 = new JButton();
         choiceButton4.setBackground(new Color(23, 32, 56));
@@ -147,6 +208,8 @@ public class Game {
         choiceButton4.setFont(normalFont);
         choiceButton4.addActionListener(new ChoiceHandler());
         choiceButton4.setFocusPainted(false);
+        choiceButton4.setActionCommand("c4");
+        choiceButton4.addActionListener(choiceHandler);
         choiceButtonPanel.add(choiceButton4);
 
         /**
@@ -162,13 +225,21 @@ public class Game {
     }
 
     public void startGame() {
-        position = "Scene 1";
-        mainTextArea.setText("Dies ist der Anfangs Text der beim starten des Spieles Angezeigt wird\n" +
-                "");
-        choiceButton1.setText("hallo");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        position = "AnfangsSzene";
+        mainTextArea.setText("Dies ist der Anfangs Text der beim starten des Spieles Angezeigt wird\n" + "");
+        choiceButton1.setText("Option 1");
+        choiceButton2.setText("Option 2");
+        choiceButton3.setText("Option 3");
+        choiceButton4.setText("Option 4");
+    }
+
+    public void beispielSzene1(){
+        position = "BeispielOrt1";
+        mainTextArea.setText("Beschreibung der ersten Szene");
+        choiceButton1.setText("Option 1");
+        choiceButton2.setText("Option 2");
+        choiceButton3.setText("Option 3");
+        choiceButton4.setText("Option4");
     }
 
 
@@ -180,8 +251,43 @@ public class Game {
 
     public class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            String choice = event.getActionCommand();
+            String yourChoice = event.getActionCommand();
 
+            /**
+             * Der erste Switch erfasst den Ort/ die Szene in der, der Spieler gerade ist. Für jede Szene gibt
+             * es mehrere Antworten die mit einem weiteren Switch Statement erfasst werden
+             * Pro ausgewählter Option gibt es verschieden Methoden die dann aufgerufen werden.
+             */
+
+            switch (position) {
+                case "AnfangsSzene":
+                    switch (yourChoice) {
+                        case "c1":
+                            beispielSzene1();
+                            break;
+                        case "c2":
+                            break;
+                        case "c3":
+                            break;
+                        case "c4":
+                            break;
+                    }
+                    break;
+
+                case "BeispielSzene1":
+                    switch (yourChoice) {
+                        case "c1":
+                            break;
+                        case "c2":
+                            break;
+                        case "c3":
+                            break;
+                        case "c4":
+                            break;
+
+                    }
+                    break;
+            }
         }
     }
 }
