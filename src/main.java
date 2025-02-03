@@ -1,10 +1,9 @@
 public class main {
+
+    static RNG rng = new RNG();
+
     public static void main(String[] args) {
-        System.out.println("Hello");
-        System.out.println("hello my namsssdae is ");
+        rng.randomDrop("chest1");
     }
 
-    public void Mathew(){
-        System.out.println("Gg");
-    }
 }
