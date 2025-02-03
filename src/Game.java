@@ -93,7 +93,7 @@ import java.awt.event.ActionListener;
             choicebutton3.setForeground(Color.white);
             choicebuttonPannel.add(choicebutton3);
 
-            choicebutton4 = new JButton("choice 4");
+            choicebutton4 = new JButton("choice 4.");
             choicebutton4.setBackground(Color.black);
             choicebutton4.setForeground(Color.white);
             choicebuttonPannel.add(choicebutton4);
