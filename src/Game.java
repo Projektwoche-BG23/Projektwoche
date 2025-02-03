@@ -1,114 +1,145 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-/**
- * Positionen der Elemente müssen noch bearbeitet werden
- * Bug: Text are muss markiert werden um angezeigt zu werden
- */
+public class Game {
+    JFrame frame;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+    JLabel titleNameLabel;
+    JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+    JTextArea mainTextArea;
 
-    public class Game {
-        JFrame frame;
-        JPanel titleNamePanel, startButtonPannel, mainTextPanel, choicebuttonPannel, playerPanel;
-        JLabel titleNameLabel;
-        JButton startButton, choicebutton1, choicebutton2, choicebutton3, choicebutton4;
-        JTextArea mainTextArea;
-        TitleScreenHandler tsHandler = new TitleScreenHandler();
+    Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
 
-        // Fonts stehen noch nicht fest. Bitte ändern
-        Font titleFont = new Font("Futura", Font.PLAIN, 90);
-        Font normalFont = new Font("Futura", Font.PLAIN, 31);
+    int playerHP = 100;
+    String weapon = "";
 
+    String position;
 
-
-        public Game() {
-            try {
-                UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            frame = new JFrame("Screen Size");
-            frame.setBounds(100, 100, 1600,900);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().setBackground(new Color(23, 32, 56));
-            frame.setLayout(null);
-
-
-            /**
-             * bestimmt die Designelemente des Titelbildschirms
-             * Titel muss noch geändert werden
-             */
-
-            titleNamePanel = new JPanel();
-            titleNamePanel.setBounds(100, 100, 600, 150);
-            titleNamePanel.setBackground(new Color(23, 32, 56));
-            titleNameLabel = new JLabel("(Spiel Name)");
-            titleNameLabel.setForeground(new Color(222, 158,65));
-            titleNameLabel.setFont(titleFont);
-
-            startButtonPannel = new JPanel();
-            startButtonPannel.setBounds(300, 400, 200, 100);
-            startButtonPannel.setBackground(new Color(23, 32, 56));
-
-            startButton = new JButton("Start");
-            startButton.setBackground(new Color(23, 32, 56));
-            startButton.setForeground(new Color(222, 158,65));
-            startButton.setFont(normalFont);
-            startButton.addActionListener(tsHandler);
-
-            titleNamePanel.add(titleNameLabel);
-            startButtonPannel.add(startButton);
-            frame.add(titleNamePanel);
-            frame.add(startButtonPannel);
-            frame.setVisible(true);
+    public Game() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        /**
-         * Hauptlayout des Spieles
-         * Wird noch bearbeitet
-         */
-        public void createGameScreen() {
-            titleNameLabel.setVisible(false);
-            startButtonPannel.setVisible(false);
+        frame = new JFrame();
+        frame.setSize(1600, 900);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setBackground(new Color(23, 32, 56));
+        frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
 
-            mainTextPanel = new JPanel();
-            mainTextPanel.setBounds(100, 100, 600, 250);
-            mainTextPanel.setBackground(new Color(23, 32, 56));
-            frame.add(mainTextPanel);
+        titleNamePanel = new JPanel();
+        titleNamePanel.setBounds(100, 100, 600, 150);
+        titleNamePanel.setBackground(new Color(23, 32, 56));
+        titleNameLabel = new JLabel("(Spiel Name)");
+        titleNameLabel.setForeground(new Color(222, 158,65));
+        titleNameLabel.setFont(titleFont);
+        titleNamePanel.add(titleNameLabel);
 
-            mainTextArea = new JTextArea("This is the main text");
-            mainTextArea.setBounds(100, 100, 600, 250);
-            mainTextArea.setBackground(new Color(23, 32, 56));
-            mainTextArea.setForeground(new Color(222, 158,65));
-            mainTextArea.setFont(normalFont);
-            mainTextArea.setLineWrap(true);
-            mainTextPanel.add(mainTextArea);
+        startButtonPanel = new JPanel();
+        startButtonPanel.setBounds(300, 400, 200, 100);
+        startButtonPanel.setBackground(new Color(23, 32, 56));
+        startButton = new JButton("Start");
+        startButton.setBackground(new Color(23, 32, 56));
+        startButton.setForeground(new Color(222, 158,65));
+        startButton.setFont(normalFont);
+        startButton.addActionListener(new TitleScreenHandler());
+        startButtonPanel.add(startButton);
 
-            choicebuttonPannel = new JPanel();
-            choicebuttonPannel.setBounds(250, 350, 300, 150);
-            choicebuttonPannel.setBackground(new Color(23, 32, 56));
-            choicebuttonPannel.setLayout(new GridLayout(4, 1));
-            frame.add(choicebuttonPannel);
+        frame.add(titleNamePanel);
+        frame.add(startButtonPanel);
+        frame.setVisible(true);
+    }
 
-            choicebutton1 = new JButton("choice 1");
-            choicebutton1.setBackground(new Color(23, 32, 56));
-            choicebutton1.setForeground(new Color(222, 158,65));
-            choicebuttonPannel.add(choicebutton1);
+    public void createGameScreen() {
+        titleNamePanel.setVisible(false);
+        startButtonPanel.setVisible(false);
 
-            choicebutton2 = new JButton("choice 2");
-            choicebutton2.setBackground(new Color(23, 32, 56));
-            choicebutton2.setForeground(new Color(222, 158,65));
-            choicebuttonPannel.add(choicebutton2);
+        mainTextPanel = new JPanel();
+        mainTextPanel.setBounds(100, 100, 600, 250);
+        mainTextPanel.setBackground(new Color(23, 32, 56));
+        frame.add(mainTextPanel);
 
-            choicebutton3 = new JButton("choice 3");
-            choicebutton3.setBackground(new Color(23, 32, 56));
-            choicebutton3.setForeground(new Color(222, 158,65));
-            choicebuttonPannel.add(choicebutton3);
+        mainTextArea = new JTextArea();
+        mainTextArea.setBounds(100, 100, 600, 250);
+        mainTextArea.setBackground(new Color(23, 32, 56));
+        mainTextArea.setForeground(new Color(222, 158,65));
+        mainTextArea.setFont(normalFont);
+        mainTextArea.setLineWrap(true);
+        mainTextArea.setEditable(false);
+        mainTextPanel.add(mainTextArea);
 
-            choicebutton4 = new JButton("choice 4.");
-            choicebutton4.setBackground(new Color(23, 32, 56));
-            choicebutton4.setForeground(new Color(222, 158,65));
-            choicebuttonPannel.add(choicebutton4);
-        }
+        choiceButtonPanel = new JPanel();
+        choiceButtonPanel.setBounds(250, 350, 300, 150);
+        choiceButtonPanel.setBackground(new Color(23, 32, 56));
+        choiceButtonPanel.setLayout(new GridLayout(4, 1));
+        frame.add(choiceButtonPanel);
+
+        choiceButton1 = new JButton();
+        choiceButton1.setBackground(new Color(23, 32, 56));
+        choiceButton1.setForeground(new Color(222, 158,65));
+        choiceButton1.setFont(normalFont);
+        choiceButton1.addActionListener(new ChoiceHandler());
+        choiceButtonPanel.add(choiceButton1);
+
+        choiceButton2 = new JButton();
+        choiceButton2.setBackground(new Color(23, 32, 56));
+        choiceButton2.setForeground(new Color(222, 158,65));
+        choiceButton2.setFont(normalFont);
+        choiceButton2.addActionListener(new ChoiceHandler());
+        choiceButtonPanel.add(choiceButton2);
+
+        choiceButton3 = new JButton();
+        choiceButton3.setBackground(new Color(23, 32, 56));
+        choiceButton3.setForeground(new Color(222, 158,65));
+        choiceButton3.setFont(normalFont);
+        choiceButton3.addActionListener(new ChoiceHandler());
+        choiceButtonPanel.add(choiceButton3);
+
+        choiceButton4 = new JButton();
+        choiceButton4.setBackground(new Color(23, 32, 56));
+        choiceButton4.setForeground(new Color(222, 158,65));
+        choiceButton4.setFont(normalFont);
+        choiceButton4.addActionListener(new ChoiceHandler());
+        choiceButtonPanel.add(choiceButton4);
+
+        playerPanel = new JPanel();
+        playerPanel.setBounds(100, 15, 600, 50);
+        playerPanel.setBackground(Color.blue);
+        playerPanel.setLayout(new GridLayout(1, 4));
+        frame.add(playerPanel);
+        startGame();
+    }
+
+    public void startGame() {
+        position = "Scene 1";
+        mainTextArea.setText("Text 1\n" +
+                "");
+        choiceButton1.setText("hallo");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
     }
 
 
+    public class TitleScreenHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            createGameScreen();
+        }
+    }
+
+    public class ChoiceHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            String choice = event.getActionCommand();
+
+        }
+    }
+
+    public static void main(String[] args) {
+        new Game();
+    }
+}
