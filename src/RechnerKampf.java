@@ -3,29 +3,25 @@
  */
 public class RechnerKampf
 {
-
-    private int damage;
+    Character c = new Character();
     /**
      * Methode um zu gucken wie viel Schaden der Gegner nimmt.
      */
-    private void Attack()
+
+    private void attack()
     {
-
+        //int dmg = Attacker.getAttack-(held.getAttack * 100 / defender.getDefense);
+        //defender.setHealth(defender.getHealth - dmg);
     }
-
-    /**
-     * Methode um zu gucken wie viel Schaden der Charakter nimmt
-     */
-    private void takeDamage()
+    private void specialAttack()
     {
-
-
-
+        //int dmg = (Attacker.getAttack * 2)-(held.getAttack * 100 / defender.getDefense);
+        //defender.setHealth(defender.getHealth - dmg);
+    }
+    private void magicAttack()
+    {
+        //int dmg = Attacker.getAttack-(held.getAttack * 100 / defender.getSpec_Defense);
+        //defender.setHealth(defender.getHealth - dmg);
     }
 
-    public static void main(String[] args) {
-        RechnerKampf k = new RechnerKampf();
-        k.takeDamage();
-
-    }
 }

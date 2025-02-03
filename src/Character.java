@@ -1,37 +1,78 @@
 public class Character
 {
-    private int health;
-    private int attack;
-    private int specialAttack;
-    private int defense;
-    private int specialDefense;
-    private int agility;
+    private int health = 5;
+    private int attack = 5;
+    private int specialAttack = 5;
+    private int defense = 5;
+    private int specialDefense = 5;
+    private int agility = 5;
 
 
-    private int getAttack()
+    public int getAttack()
     {
         return attack;
     }
-
-    private int getHealth()
+    public int getHealth()
     {
         return health;
     }
-
-    private int getSpecialAttack()
+    public int getSpecialAttack()
     {
         return specialAttack;
     }
-    private int getDefense()
+    public int getDefense()
     {
         return defense;
     }
-    private int getSpecialDefense()
+    public int getSpecialDefense()
     {
         return specialDefense;
     }
-    private int getAgility()
+    public int getAgility()
     {
         return agility;
+    }
+
+    /**
+     * Setzt den attack Wert des Characters mit Item fest
+     */
+    private void setAttack()
+    {
+
+    }
+    /**
+     * Setzt den Verteidigzngswert  des Characters mit dem Item
+     */
+    private void setDefense()
+    {
+
+    }
+    /**
+     * Setzt den Lebenswert des Characters mit dem Item fest
+     */
+    private void setHealth()
+    {
+
+    }
+    /**
+     * Setzt den spezialangriff des Characters mit dem item fest
+     */
+    private void setSpecialAttack()
+    {
+
+    }
+    /**
+     * Setzt die Spezialverteidigung des Characters fest mit dem Item
+     */
+    private void setSpecialDefense()
+    {
+
+    }
+    /**
+     * Setzt den Agilitätswert des Characters fest mit Item
+     */
+    private  void setAgility()
+    {
+
     }
 }
