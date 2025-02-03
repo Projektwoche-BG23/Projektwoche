@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
         JLabel titleNameLabel, hpLabel,hpLabelnumber, weaponLabel, weaponLabelNumber;
         JButton startButton, choicebutton1, choicebutton2, choicebutton3, choicebutton4;
         JTextArea mainTextArea;
-        TitleScreenHandler tsHandler = new TitleScreenHandler();
+    //    TitleScreenHandler tsHandler = new TitleScreenHandler();
 
         Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
         Font normalFont = new Font("Times New Roman", Font.PLAIN, 31);
@@ -47,7 +47,7 @@ import java.awt.event.ActionListener;
             startButton.setBackground(Color.black);
             startButton.setForeground(Color.white);
             startButton.setFont(normalFont);
-            startButton.addActionListener(tsHandler);
+          //  startButton.addActionListener(tsHandler);
 
             titleNamePanel.add(titleNameLabel);
             startButtonPannel.add(startButton);

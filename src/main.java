@@ -1,6 +1,7 @@
 public class main {
 
     static RNG rng = new RNG();
+
     public static void main(String[] args)
     {
         /* --Ein Beispiel Code für chest öffnen und item drop!!!
