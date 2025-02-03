@@ -45,6 +45,9 @@ public class Enemy {
             spec_attack = 30;
             agility = 15;
         }
+        else{
+            System.err.println("Gbeinen Validen Gegner Typ ein");
+        }
     }
 
 
