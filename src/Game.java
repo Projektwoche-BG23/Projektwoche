@@ -88,7 +88,7 @@ import java.awt.event.ActionListener;
             choicebutton2.setForeground(Color.white);
             choicebuttonPannel.add(choicebutton2);
 
-            choicebutton3 = new JButton("choice 3");
+            choicebutton3 = new JButton("choice 3.");
             choicebutton3.setBackground(Color.black);
             choicebutton3.setForeground(Color.white);
             choicebuttonPannel.add(choicebutton3);
