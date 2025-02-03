@@ -1,15 +1,18 @@
 import  java.util.Random;
+import java.util.Stack;
 
 public class RNG {
 
     static ItemsDictionary dictionary = new ItemsDictionary();
     static Random rand = new Random();
 
-    public static void randomDrop(String chest)
+    public static Object[] randomDrop(String chest)
     {
         switch (chest){
+            default:
+                return null;
             case "chest1":
-                chest1();
+                return chest1();
         }
     }
 
@@ -19,10 +22,10 @@ public class RNG {
      */
     static private int itemDropCount()
     {
-        int chanceFor1 = 50;
-        int chanceFor2 = 80;
-        int chanceFor3 = 90;
-        int chanceFor0 = 100;
+        int chanceFor1 = 50; //50%
+        int chanceFor2 = 80; //30%
+        int chanceFor3 = 90; //10%
+        int chanceFor0 = 100; //10%
 
         int chance = rand.nextInt(100);
 
@@ -42,16 +45,18 @@ public class RNG {
     /**
      * gibt an welche item der spieler aus chest1 bekommen soll
      */
-    private static void chest1()
+    private static String[] chest1()
     {
+
         //Chest Inhalt
         Object[] chances = new Object[3];
-        chances[0] = new Object[]{"healthPotion", 33}; //name, chance
-        chances[1] = new Object[]{"manaPotion", 66};
+        chances[0] = new Object[]{"healthPotion", 34}; //name, chance
+        chances[1] = new Object[]{"manaPotion", 67};
         chances[2] = new Object[]{"luckPotion", 100};
 
+        //Item anzahl bestimmen
         int itemRate = itemDropCount();
-        Object[] drops = new Object[itemRate];
+        String[] droppedItems = new String[itemRate];
 
         for (int i = 0; i < itemRate; i++)
         {
@@ -65,13 +70,13 @@ public class RNG {
                 // Check if the random chance is less than the drop chance
                 if (chance < dropChance) {
                     Object[] droppedItem = dictionary.items((String) chanceEntry[0]);  // Get item using its name
-                    System.out.println("Name: " + droppedItem[0]);
-                    System.out.println("Description: " + droppedItem[1]);
-                    System.out.println("Stats: " + droppedItem[2]);
+                    droppedItems[i] = (String) droppedItem[0];
                     break;  // Exit the loop once an item is dropped
                 }
             }
         }
+
+        return droppedItems;
 
     }
 
