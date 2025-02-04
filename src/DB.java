@@ -143,4 +143,25 @@ public class DB {
         }
         return item;
     }
+
+    /*
+     * Indicates how much the player has of a certain item
+     * @param userID: userID of the player
+     */
+    public String[] getInventory(int userID) throws SQLException
+    {
+        sql = "SELECT * FROM inventory WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, userID);
+        rs = stmt.executeQuery();
+        String[] inv = new String[20];
+        while (rs.next())
+        {
+            for (int i = 0; i < 14; i++)
+            {
+                inv[i] = rs.getString(i+1);
+            }
+        }
+        return inv;
+    }
 }
