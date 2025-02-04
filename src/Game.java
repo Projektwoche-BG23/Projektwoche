@@ -2,16 +2,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+
 
 public class Game {
     JFrame frame;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-    JLabel titleNameLabel;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
+    JLabel titleNameLabel, healtbartext, waffentext;
     JButton startButton, ladenButton, einstellungenButton, verlassenButton;
     JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JTextArea mainTextArea;
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
+
+    /**
+     * Dies sind die Leben.
+     */
+    int healt;
+
+    /**
+     * Dies ist die aktuelle Waffe die von dem Spieler verwendet wird.
+     */
+    String waffe = "Fists";
+
 
     /**
      * Dies sind die Schriftarten. Nach belieben ändern
@@ -66,6 +79,41 @@ public class Game {
         titleNameLabel.setForeground(new Color(222, 158,65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
+
+        /**
+         * Healtbar Anzeige.
+         */
+
+        healtbartextpanel = new JPanel();
+        healtbartextpanel.setBackground(new Color(23, 32, 56));
+        healtbartextpanel.setBounds(0, 10, 800, 100);
+        frame.add(healtbartextpanel);
+
+        healtbartext = new JLabel("Player Health: "+healt, SwingConstants.CENTER);
+        healtbartext.setForeground(new Color(222, 158,65));
+        healtbartext.setFont(normalFont);
+        healtbartext.setBackground(new Color(23, 32, 56));
+        healtbartext.setBounds(0, 10, 100, 100);
+        healtbartextpanel.add(healtbartext);
+        healtbartext.setVisible(false);
+
+        /**
+         * Waffen anzeige.
+         */
+
+        waffentextpanel = new JPanel();
+        waffentextpanel.setBackground(new Color(23, 32, 56));
+        waffentextpanel.setBounds(800, 10, 800, 100);
+        frame.add(waffentextpanel);
+
+        waffentext = new JLabel("Current Weapon: "+waffe, SwingConstants.CENTER);
+        waffentext.setForeground(new Color(222, 158,65));
+        waffentext.setFont(normalFont);
+        waffentext.setBackground(new Color(23, 32, 56));
+        waffentext.setBounds(0, 10, 100, 100);
+        waffentextpanel.add(waffentext);
+        waffentext.setVisible(false);
+
 
         /**
          * Dies Panel bietet Platz für die Buttons des Titelscreens
@@ -124,6 +172,8 @@ public class Game {
          */
         titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
+        waffentext.setVisible(true);
+        healtbartext.setVisible(true);
 
         /**
          * Dies Panel beinhaltet das Dialog Feld
@@ -198,6 +248,8 @@ public class Game {
         choiceButton4.addActionListener(choiceHandler);
         choiceButtonPanel.add(choiceButton4);
 
+
+
         /**
          * Dies Panel beinaltet die Stats des Spielers
          */
@@ -207,10 +259,10 @@ public class Game {
         playerPanel.setBackground(new Color(23, 32, 56));
         playerPanel.setLayout(new GridLayout(1, 4));
         frame.add(playerPanel);
-        startGame();
+        anfangsSzene1();
     }
 
-    public void startGame() {
+    public void anfangsSzene1() {
         position = "AnfangsSzene";
         mainTextArea.setText("The year 384 of the (.) cycle in the kingdom of (placeholder). The great royal family Seidler has\n" +
                 "ruled the land for 13 cycles. For years the country has been struggling with the brutal rule of the\n" +
@@ -221,11 +273,20 @@ public class Game {
         choiceButton4.setText("");
     }
 
-    public void introScene(){
-        position = "BeispielOrt1";
+    public void anfangsSzene2(){
+        position = "AnfangsSzene2";
         mainTextArea.setText("and the country .... can save is the one true blood heir to the throne (name of princess) but she\n" +
                 "was driven out some time ago by the corrupt powers of the land. (name of princess)s location is\n" +
                 "unknown nd and bring her back to save the country. \n");
+        choiceButton1.setText("Weiter");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
+
+    public void cheapterOneCenter(){
+        position = "Stadtmitte";
+        mainTextArea.setText("Player is in a tavern in the center of the kingdom (name of the kingdom)");
         choiceButton1.setText("Weiter");
         choiceButton2.setText("");
         choiceButton3.setText("");
@@ -253,7 +314,7 @@ public class Game {
                 case "AnfangsSzene":
                     switch (yourChoice) {
                         case "c1":
-                            introScene();
+                            anfangsSzene2();
                             break;
                         case "c2":
                             break;
@@ -264,7 +325,22 @@ public class Game {
                     }
                     break;
 
-                case "BeispielOrt1":
+                case "AnfangsSzene2":
+                    switch (yourChoice) {
+                        case "c1":
+                            cheapterOneCenter();
+                            break;
+                        case "c2":
+                            break;
+                        case "c3":
+                            break;
+                        case "c4":
+                            break;
+
+                    }
+                    break;
+
+                case "CityCenter":
                     switch (yourChoice) {
                         case "c1":
                             break;
@@ -274,7 +350,6 @@ public class Game {
                             break;
                         case "c4":
                             break;
-
                     }
                     break;
             }
