@@ -28,6 +28,7 @@ public class Enemy {
                 luck = 10;
 
                 break;
+				
             case "GOBLIN":
                 health = 150;
                 defense = 20;
