@@ -95,7 +95,7 @@ public class Game {
         mainTextPanel.add(mainTextArea);
 
         /**
-         * Auswahlbuttons Panelxd
+         * Auswahlbuttons Panelx d
          */
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(250, 350, 300, 150);
