@@ -261,7 +261,7 @@ public class Game {
 
             /**
              * Der erste Switch erfasst den Ort/ die Szene in der, der Spieler gerade ist. Für jede Szene gibt
-             * es mehrere Antworten die mit einem weiteren Switch Statement erfasst werden.
+             * es mehrere Antworten die mit einem weiteren Switch Statement erfasst werden
              * Pro ausgewählter Option gibt es verschieden Methoden die dann aufgerufen werden.
              */
 
