@@ -62,8 +62,6 @@ public class DB {
         stmt.setString(2, password);
         stmt.executeUpdate();
     }
-
-
     /*
      * Method to get the stats of items
      * @param itemID the id of the target item
