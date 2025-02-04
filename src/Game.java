@@ -7,6 +7,8 @@ import java.awt.event.MouseAdapter;
 
 //version 1.0
 
+//version 1.0
+
 public class Game {
     JFrame frame;
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
@@ -409,8 +411,11 @@ public class Game {
             }
         }
     }
-    private class deathScreenHandler {
+    private class deathScreenHandler{
+
     }
 
+    public static void main(String[] args) {
+        new Game();
+    }
 }
-
