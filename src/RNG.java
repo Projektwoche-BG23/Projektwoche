@@ -1,13 +1,13 @@
+import java.sql.SQLException;
 import  java.util.Random;
 import java.util.Stack;
 
 public class RNG {
 
-    static ItemsDictionary dictionary = new ItemsDictionary();
     static Random rand = new Random();
+    static  DB db = new DB();
 
-    public static Object[] randomDrop(String chest)
-    {
+    public static Object[] randomDrop(String chest) throws SQLException {
         switch (chest){
             default:
                 return null;
@@ -45,18 +45,17 @@ public class RNG {
     /**
      * gibt an welche item der spieler aus chest1 bekommen soll
      */
-    private static String[] chest1()
-    {
+    private static Object[] chest1() throws SQLException {
 
         //Chest Inhalt
         Object[] chances = new Object[3];
-        chances[0] = new Object[]{"healthPotion", 34}; //name, chance
-        chances[1] = new Object[]{"manaPotion", 67};
-        chances[2] = new Object[]{"luckPotion", 100};
+        chances[0] = new Object[]{1, 34}; // ItemID, chance
+        chances[1] = new Object[]{2, 67};
+        chances[2] = new Object[]{3, 100};
 
         //Item anzahl bestimmen
         int itemRate = itemDropCount();
-        String[] droppedItems = new String[itemRate];
+        Object[] droppedItems = new Object[itemRate];
 
         for (int i = 0; i < itemRate; i++)
         {
@@ -69,8 +68,9 @@ public class RNG {
 
                 // Check if the random chance is less than the drop chance
                 if (chance < dropChance) {
-                    Object[] droppedItem = dictionary.items((String) chanceEntry[0]);  // Get item using its name
-                    droppedItems[i] = (String) droppedItem[0];
+                    int itemID = (int) chanceEntry[0];
+                    Object[] droppedItem = db.itemInfo(itemID);
+                    droppedItems[i] = droppedItem;
                     break;  // Exit the loop once an item is dropped
                 }
             }
