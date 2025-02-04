@@ -63,7 +63,24 @@ public class DB {
         stmt.executeUpdate();
     }
 
-
+    /*
+     * Method to get the stats of items
+     * @param itemID the id of the target item
+     * returns a String arry of information
+     * 0 = item_ID
+     * 1 = item_name
+     * 2 = path to image
+     * 3 = defence value
+     * 4 = special_defence value
+     * 5 = agility value
+     * 6 = health value
+     * 7 = health_regen value
+     * 8 = mana value
+     * 9 = mana_regen value
+     * 10 = magic_power value
+     * 11 = luck value
+     * 12 = damage value
+     * 13 = strength value
     /*
      * Method to get the stats of items
      * @param itemID the id of the target item
