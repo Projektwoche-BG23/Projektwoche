@@ -145,23 +145,24 @@ public class DB {
     }
 
     /*
-     * Indicates how much the player has of a certain item
+     * Retrieves information about the player's position and decisions
      * @param userID: userID of the player
      */
-    public String[] getInventory(int userID) throws SQLException
+    public String[] playerInfo(int userID) throws SQLException
     {
-        sql = "SELECT * FROM inventory WHERE user_ID=?";
+        sql = "SELECT * FROM gamefiles WHERE user_ID=?";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, userID);
         rs = stmt.executeQuery();
-        String[] inv = new String[20];
+        String[] player = new String[3];
         while (rs.next())
         {
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 3; i++)
             {
-                inv[i] = rs.getString(i+1);
+                player[i] = rs.getString(i+1);
             }
         }
-        return inv;
+        return player;
+
     }
 }
