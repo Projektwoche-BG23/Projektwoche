@@ -3,28 +3,47 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//version 1.0
+
 public class Game {
-    JFrame frame;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-    JLabel titleNameLabel;
-    JButton startButton, ladenButton, einstellungenButton, verlassenButton;
-    JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
-    JTextArea mainTextArea;
-    TitleScreenHandler tsHandler = new TitleScreenHandler();
-    ChoiceHandler choiceHandler = new ChoiceHandler();
+    public JFrame frame;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel, playerPositionPanel;
+    JLabel titleNameLabel, healtbartext, waffentext, playerPositiontext;
+    public JButton startButton, ladenButton, einstellungenButton, verlassenButton;
+    public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+    public JTextArea mainTextArea;
+    public TitleScreenHandler tsHandler = new TitleScreenHandler();
+    public ChoiceHandler choiceHandler = new ChoiceHandler();
 
     /**
      * Dies sind die Schriftarten. Nach belieben ändern
      */
 
-    Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
-    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
+    public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
+    public Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+    public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
     /**
      * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
      */
     String position;
+
+    /**
+     * Dies ist die Waffen Variable.
+     */
+    String waffe = "Fists";
+
+    /**
+     * Dies ist die Healt/Leben Variable.
+     */
+    int healt = 0;
+
+
+    /**
+     * Dies ist die PlayerPositions Varbiable.
+     */
+    String playerPosition = "Intro";
+
 
     /**
      * @Game Titelbildschirm des Spieles
@@ -109,6 +128,57 @@ public class Game {
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(verlassenButton);
 
+        /**
+         * Dies ist die Healtbar anzeige
+         */
+
+        healtbartextpanel = new JPanel();
+        healtbartextpanel.setBackground(new Color(23, 32, 56));
+        healtbartextpanel.setBounds(0, 10, 533, 100);
+        frame.add(healtbartextpanel);
+
+        healtbartext = new JLabel("Player Health: "+healt, SwingConstants.CENTER);
+        healtbartext.setForeground(new Color(222, 158,65));
+        healtbartext.setFont(normalFont);
+        healtbartext.setBackground(new Color(23, 32, 56));
+        healtbartext.setBounds(0, 10, 100, 100);
+        healtbartextpanel.add(healtbartext);
+        healtbartext.setVisible(false);
+
+        /**
+         * Dies ist die Waffen anzeige
+         */
+
+        waffentextpanel = new JPanel();
+        waffentextpanel.setBackground(new Color(23, 32, 56));
+        waffentextpanel.setBounds(533, 10, 533, 100);
+        frame.add(waffentextpanel);
+
+        waffentext = new JLabel("Current Weapon: "+waffe, SwingConstants.CENTER);
+        waffentext.setForeground(new Color(222, 158,65));
+        waffentext.setFont(normalFont);
+        waffentext.setBackground(new Color(23, 32, 56));
+        waffentext.setBounds(0, 10, 100, 100);
+        waffentextpanel.add(waffentext);
+        waffentext.setVisible(false);
+
+        /**
+         * Dies ist die Position des Spielers anzeige
+         */
+
+        playerPositionPanel = new JPanel();
+        playerPositionPanel.setBackground(new Color(23, 32, 56));
+        playerPositionPanel.setBounds(1033, 10, 533, 100);
+        frame.add(playerPositionPanel);
+
+        playerPositiontext = new JLabel("Current Player Position: "+playerPosition, SwingConstants.CENTER);
+        playerPositiontext.setForeground(new Color(222, 158,65));
+        playerPositiontext.setFont(normalFont);
+        playerPositiontext.setBackground(new Color(23, 32, 56));
+        playerPositiontext.setBounds(0, 10, 100, 100);
+        playerPositionPanel.add(playerPositiontext);
+        playerPositiontext.setVisible(false);
+
 
         frame.add(titleNamePanel);
         frame.add(startButtonPanel);
@@ -124,6 +194,9 @@ public class Game {
          */
         titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
+        waffentext.setVisible(true);
+        healtbartext.setVisible(true);
+        playerPositiontext.setVisible(true);
 
         /**
          * Dies Panel beinhaltet das Dialog Feld
@@ -198,48 +271,70 @@ public class Game {
         choiceButton4.addActionListener(choiceHandler);
         choiceButtonPanel.add(choiceButton4);
 
-        /**
-         * Dies Panel beinaltet die Stats des Spielers
-         */
-
-        playerPanel = new JPanel();
-        playerPanel.setBounds(100, 15, 600, 50);
-        playerPanel.setBackground(new Color(23, 32, 56));
-        playerPanel.setLayout(new GridLayout(1, 4));
-        frame.add(playerPanel);
         startGame();
+
+
     }
 
     public void startGame() {
-        position = "AnfangsSzene";
-        mainTextArea.setText("The year 384 of the (.) cycle in the kingdom of (placeholder). The great royal family Seidler has\n" +
-                "ruled the land for 13 cycles. For years the country has been struggling with the brutal rule of the\n" +
-                "13th King Thomas von Seidler. But there is hope the only person who can save the KING's city\n");
+        position = "anfangsSzene";
+        mainTextArea.setText("The year 384 of the 534 cycle in the kingdom of Possehl.\n" +
+                             "The great royal family Seidler has ruled the land for 13 cycles.\n" +
+                             "For years the country has been struggling with the brutal rule of the 13th King Heuer.\n");
         choiceButton1.setText("Weiter");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
 
-    public void introScene(){
-        position = "BeispielOrt1";
-        mainTextArea.setText("and the country .... can save is the one true blood heir to the throne (name of princess) but she\n" +
-                "was driven out some time ago by the corrupt powers of the land. (name of princess)s location is\n" +
-                "unknown nd and bring her back to save the country. \n");
+    public void anfangsSzene(){
+        position = "anfangsSzene2";
+        mainTextArea.setText("But there is hope the only person who can save the KING's city\n"+
+                             "and the country can save is the one true blood heir to the throne princess Seidler\n" +
+                             "but she was driven out some time ago by the corrupt powers of the land.\n" +
+                             "Seidler’s location is unknown find and bring her back to save the country.\n");
         choiceButton1.setText("Weiter");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
 
+    public void tavernSzene(){
+        position = "tavern";
+        mainTextArea.setText("A drunken knight steps forward \n" +
+                "Drunken knight:What are you doing here, you haven't been a knight for a long time\n" +
+                "Drunken knight:Didn't I tell you never to show your face here again\n" +
+                "Drunken knight:You left me behind\n" +
+                "Drunken knight:GET OUT OF THIS TOWN NOW");
+        choiceButton1.setText("...");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
 
-    public class TitleScreenHandler implements ActionListener {
+    public void tavernSzene2(){
+        position = "tavern2";
+        mainTextArea.setText("Drunken knight: Wrong answer");
+        choiceButton1.setText("FIGHT");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
+
+
+    private class TitleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             createGameScreen();
         }
     }
 
-    public class ChoiceHandler implements ActionListener {
+
+
+
+
+
+//LEtssas
+    private class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String yourChoice = event.getActionCommand();
 
@@ -250,38 +345,50 @@ public class Game {
              */
 
             switch (position) {
-                case "AnfangsSzene":
+                case "anfangsSzene":
                     switch (yourChoice) {
                         case "c1":
-                            introScene();
+                            anfangsSzene();
                             break;
-                        case "c2":
-                            break;
-                        case "c3":
-                            break;
-                        case "c4":
-                            break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
                     }
                     break;
 
-                case "BeispielOrt1":
+                case "anfangsSzene2":
                     switch (yourChoice) {
                         case "c1":
+                            tavernSzene();
                             break;
-                        case "c2":
-                            break;
-                        case "c3":
-                            break;
-                        case "c4":
-                            break;
-
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
                     }
                     break;
+                case "tavern":
+                    switch (yourChoice) {
+                        case "c1":
+                            tavernSzene2();
+                            break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
+                    }
+                case "tavern2":
+                    switch (yourChoice) {
+                        case "c1":
+                            //Füge Kampf Methode hier ein
+                            break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
+                    }
             }
         }
     }
-
-    public static void main(String[] args) {
-        new Game();
+    private class deathScreenHandler {
     }
+
 }
+
