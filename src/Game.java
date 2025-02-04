@@ -349,12 +349,6 @@ public class Game {
         }
     }
 
-
-
-
-
-
-//LEtssas
     private class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String yourChoice = event.getActionCommand();
