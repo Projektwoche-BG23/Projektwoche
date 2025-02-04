@@ -10,9 +10,16 @@ public class Game {
     JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JTextArea mainTextArea;
 
+    /**
+     * Schriftarten
+     */
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
+    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
+    /**
+     * Spielerwerte
+     */
     int playerHP = 100;
     String weapon = "";
 
@@ -25,6 +32,9 @@ public class Game {
             e.printStackTrace();
         }
 
+        /**
+         * Hauptframe
+         */
         frame = new JFrame();
         frame.setSize(1600, 900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,6 +42,9 @@ public class Game {
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
 
+        /**
+         * Titel Panel
+         */
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(100, 100, 600, 150);
         titleNamePanel.setBackground(new Color(23, 32, 56));
@@ -40,14 +53,19 @@ public class Game {
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
 
+        /**
+         * Startbutton Panel
+         */
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(300, 400, 200, 100);
+        startButtonPanel.setBounds(545, 500, 300, 150);
         startButtonPanel.setBackground(new Color(23, 32, 56));
+
         startButton = new JButton("Start");
         startButton.setBackground(new Color(23, 32, 56));
         startButton.setForeground(new Color(222, 158,65));
-        startButton.setFont(normalFont);
+        startButton.setFont(startButtonFont);
         startButton.addActionListener(new TitleScreenHandler());
+        startButton.setFocusPainted(false);
         startButtonPanel.add(startButton);
 
         frame.add(titleNamePanel);
@@ -59,13 +77,16 @@ public class Game {
         titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
 
+        /**
+         * Haupttext Panel
+         */
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100, 100, 600, 250);
+        mainTextPanel.setBounds(100,100,1400, 200);
         mainTextPanel.setBackground(new Color(23, 32, 56));
         frame.add(mainTextPanel);
 
         mainTextArea = new JTextArea();
-        mainTextArea.setBounds(100, 100, 600, 250);
+        mainTextArea.setBounds(0, 0, 1400, 200);
         mainTextArea.setBackground(new Color(23, 32, 56));
         mainTextArea.setForeground(new Color(222, 158,65));
         mainTextArea.setFont(normalFont);
@@ -73,6 +94,9 @@ public class Game {
         mainTextArea.setEditable(false);
         mainTextPanel.add(mainTextArea);
 
+        /**
+         * Auswahlbuttons Panel
+         */
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(250, 350, 300, 150);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
@@ -91,6 +115,7 @@ public class Game {
         choiceButton2.setForeground(new Color(222, 158,65));
         choiceButton2.setFont(normalFont);
         choiceButton2.addActionListener(new ChoiceHandler());
+        choiceButton2.setFocusPainted(false);
         choiceButtonPanel.add(choiceButton2);
 
         choiceButton3 = new JButton();
@@ -112,19 +137,18 @@ public class Game {
         playerPanel.setBackground(Color.blue);
         playerPanel.setLayout(new GridLayout(1, 4));
         frame.add(playerPanel);
+
         startGame();
     }
 
     public void startGame() {
         position = "Scene 1";
-        mainTextArea.setText("Text 1\n" +
-                "");
-        choiceButton1.setText("hallo");
+        mainTextArea.setText("Text 1\n");
+        choiceButton1.setText("Hallo");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
-
 
     public class TitleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
@@ -135,7 +159,6 @@ public class Game {
     public class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String choice = event.getActionCommand();
-
         }
     }
 }
