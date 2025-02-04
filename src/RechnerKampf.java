@@ -1,3 +1,4 @@
+
 /**
  * Class to calculate the damage dealt or taken during combat.
  */
@@ -33,4 +34,3 @@ public class RechnerKampf {
         defender.setHealth(defender.getHealth() - dmg);
     }
 }
-
