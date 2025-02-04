@@ -407,9 +407,3 @@ public class Game {
     }
     private class deathScreenHandler{
 
-    }
-
-    public static void main(String[] args) {
-        new Game();
-    }
-}
