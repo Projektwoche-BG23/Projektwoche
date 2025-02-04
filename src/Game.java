@@ -7,8 +7,8 @@ import java.awt.event.MouseAdapter;
 
 public class Game {
     JFrame frame;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
-    JLabel titleNameLabel, healtbartext, waffentext;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel, playerPositionPanel;
+    JLabel titleNameLabel, healtbartext, waffentext, playerPositiontext;
     JButton startButton, ladenButton, einstellungenButton, verlassenButton;
     JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JTextArea mainTextArea;
@@ -25,6 +25,12 @@ public class Game {
      */
     String waffe = "Fists";
 
+    /**
+     * Dies ist die Position des Spielers
+     */
+
+    String position;
+
 
     /**
      * Dies sind die Schriftarten. Nach belieben ändern
@@ -37,7 +43,7 @@ public class Game {
     /**
      * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
      */
-    String position;
+    String playerPosition = "Intro";
 
     /**
      * @Game Titelbildschirm des Spieles
@@ -75,7 +81,7 @@ public class Game {
          * Dieses Label ist der Titel
          */
 
-        titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
+        titleNameLabel = new JLabel("Seidler's Lagacy", SwingConstants.CENTER);
         titleNameLabel.setForeground(new Color(222, 158,65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
@@ -86,7 +92,7 @@ public class Game {
 
         healtbartextpanel = new JPanel();
         healtbartextpanel.setBackground(new Color(23, 32, 56));
-        healtbartextpanel.setBounds(0, 10, 800, 100);
+        healtbartextpanel.setBounds(0, 10, 533, 100);
         frame.add(healtbartextpanel);
 
         healtbartext = new JLabel("Player Health: "+healt, SwingConstants.CENTER);
@@ -103,7 +109,7 @@ public class Game {
 
         waffentextpanel = new JPanel();
         waffentextpanel.setBackground(new Color(23, 32, 56));
-        waffentextpanel.setBounds(800, 10, 800, 100);
+        waffentextpanel.setBounds(533, 10, 533, 100);
         frame.add(waffentextpanel);
 
         waffentext = new JLabel("Current Weapon: "+waffe, SwingConstants.CENTER);
@@ -113,6 +119,23 @@ public class Game {
         waffentext.setBounds(0, 10, 100, 100);
         waffentextpanel.add(waffentext);
         waffentext.setVisible(false);
+
+        /**
+         * Postion des Spielers
+         */
+
+        playerPositionPanel = new JPanel();
+        playerPositionPanel.setBackground(new Color(23, 32, 56));
+        playerPositionPanel.setBounds(1033, 10, 533, 100);
+        frame.add(playerPositionPanel);
+
+        playerPositiontext = new JLabel("Current Player Position: "+playerPosition, SwingConstants.CENTER);
+        playerPositiontext.setForeground(new Color(222, 158,65));
+        playerPositiontext.setFont(normalFont);
+        playerPositiontext.setBackground(new Color(23, 32, 56));
+        playerPositiontext.setBounds(0, 10, 100, 100);
+        playerPositionPanel.add(playerPositiontext);
+        playerPositiontext.setVisible(false);
 
 
         /**
@@ -174,6 +197,7 @@ public class Game {
         startButtonPanel.setVisible(false);
         waffentext.setVisible(true);
         healtbartext.setVisible(true);
+        playerPositiontext.setVisible(true);
 
         /**
          * Dies Panel beinhaltet das Dialog Feld
@@ -354,9 +378,5 @@ public class Game {
                     break;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Game();
     }
 }
