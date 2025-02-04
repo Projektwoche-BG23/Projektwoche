@@ -49,7 +49,7 @@ public class Game {
         titleNamePanel.setBounds(100, 100, 600, 150);
         titleNamePanel.setBackground(new Color(23, 32, 56));
         titleNameLabel = new JLabel("(Spiel Name)");
-        titleNameLabel.setForeground(new Color(222, 158,65));
+        titleNameLabel.setForeground(new Color(222, 158, 65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
 
@@ -62,7 +62,7 @@ public class Game {
 
         startButton = new JButton("Start");
         startButton.setBackground(new Color(23, 32, 56));
-        startButton.setForeground(new Color(222, 158,65));
+        startButton.setForeground(new Color(222, 158, 65));
         startButton.setFont(startButtonFont);
         startButton.addActionListener(new TitleScreenHandler());
         startButton.setFocusPainted(false);
@@ -81,21 +81,21 @@ public class Game {
          * Haupttext Panel
          */
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100,100,1400, 200);
+        mainTextPanel.setBounds(100, 100, 1400, 200);
         mainTextPanel.setBackground(new Color(23, 32, 56));
         frame.add(mainTextPanel);
 
         mainTextArea = new JTextArea();
         mainTextArea.setBounds(0, 0, 1400, 200);
         mainTextArea.setBackground(new Color(23, 32, 56));
-        mainTextArea.setForeground(new Color(222, 158,65));
+        mainTextArea.setForeground(new Color(222, 158, 65));
         mainTextArea.setFont(normalFont);
         mainTextArea.setLineWrap(true);
         mainTextArea.setEditable(false);
         mainTextPanel.add(mainTextArea);
 
         /**
-         * Auswahlbuttons Panelx d
+         * Auswahlbuttons Panel
          */
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(250, 350, 300, 150);
@@ -105,14 +105,14 @@ public class Game {
 
         choiceButton1 = new JButton();
         choiceButton1.setBackground(new Color(23, 32, 56));
-        choiceButton1.setForeground(new Color(222, 158,65));
+        choiceButton1.setForeground(new Color(222, 158, 65));
         choiceButton1.setFont(normalFont);
         choiceButton1.addActionListener(new ChoiceHandler());
         choiceButtonPanel.add(choiceButton1);
 
         choiceButton2 = new JButton();
         choiceButton2.setBackground(new Color(23, 32, 56));
-        choiceButton2.setForeground(new Color(222, 158,65));
+        choiceButton2.setForeground(new Color(222, 158, 65));
         choiceButton2.setFont(normalFont);
         choiceButton2.addActionListener(new ChoiceHandler());
         choiceButton2.setFocusPainted(false);
@@ -120,14 +120,14 @@ public class Game {
 
         choiceButton3 = new JButton();
         choiceButton3.setBackground(new Color(23, 32, 56));
-        choiceButton3.setForeground(new Color(222, 158,65));
+        choiceButton3.setForeground(new Color(222, 158, 65));
         choiceButton3.setFont(normalFont);
         choiceButton3.addActionListener(new ChoiceHandler());
         choiceButtonPanel.add(choiceButton3);
 
         choiceButton4 = new JButton();
         choiceButton4.setBackground(new Color(23, 32, 56));
-        choiceButton4.setForeground(new Color(222, 158,65));
+        choiceButton4.setForeground(new Color(222, 158, 65));
         choiceButton4.setFont(normalFont);
         choiceButton4.addActionListener(new ChoiceHandler());
         choiceButtonPanel.add(choiceButton4);
