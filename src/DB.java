@@ -62,4 +62,46 @@ public class DB {
         stmt.setString(2, password);
         stmt.executeUpdate();
     }
+
+
+    /*
+     * Method to get the stats of items
+     * @param itemID the id of the target item
+     * returns a String array of information
+     * 0 = item_ID
+     * 1 = item_name
+     * 2 = path to image
+     * 3 = slot_ID:   1 = Brustpanzer, 2 = Hose, 3 = Waffe, 4 = Offhand, 5 = Accessory
+     * 4 = defence value
+     * 5 = special_defence value
+     * 6 = agility value
+     * 7 = health value
+     * 8 = health_regen value
+     * 9 = mana value
+     * 10 = mana_regen value
+     * 11 = magic_power value
+     * 12 = luck value
+     * 13 = damage value
+     * 14 = strength value
+     *
+     * Usage example:
+     * Sting[] item = db.itemInfo(1);
+     * int defence = Integer.parseInt(item[4]);
+     */
+    public String[] itemInfo(int itemID) throws SQLException
+    {
+        sql = "SELECT * FROM items WHERE item_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, itemID);
+        rs = stmt.executeQuery();
+        String[] item = new String[14];
+        while (rs.next())
+        {
+            for(int i = 0; i<14; i++)
+            {
+                item[i] = rs.getString(i+1);
+            }
+        }
+        return item;
+    }
 }
