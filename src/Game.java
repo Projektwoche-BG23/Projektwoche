@@ -25,6 +25,12 @@ public class Game {
      */
     String waffe = "Fists";
 
+    /**
+     * Dies ist die Position des Spielers
+     */
+
+    String position;
+
 
     /**
      * Dies sind die Schriftarten. Nach belieben ändern
@@ -34,7 +40,10 @@ public class Game {
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
-    String position;
+    /**
+     * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
+     */
+    String playerPosition = "Intro";
 
     /**
      * @Game Titelbildschirm des Spieles
@@ -351,5 +360,9 @@ public class Game {
                     break;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Game();
     }
 }
