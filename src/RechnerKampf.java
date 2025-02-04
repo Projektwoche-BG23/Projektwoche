@@ -4,12 +4,6 @@
  */
 public class RechnerKampf {
 
-    private Character character;
-
-    public RechnerKampf(Character character) {
-        this.character = character;
-    }
-
     /**
      * Calculates the damage dealt by a normal attack.
      */

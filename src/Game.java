@@ -34,9 +34,6 @@ public class Game {
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
-    /**
-     * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
-     */
     String position;
 
     /**
@@ -354,9 +351,5 @@ public class Game {
                     break;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Game();
     }
 }
