@@ -11,19 +11,15 @@ public class Game {
     JTextArea mainTextArea;
 
     /**
-     * Dies sind die Schriftarten. Nach belieben ändern
-     */
-
-    Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
-    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
-
-    /**
-     * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
+     * Schriftarten
      */
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
+    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
+    /**
+     * Spielerwerte
+     */
     int playerHP = 100;
     String weapon = "";
 
@@ -37,10 +33,8 @@ public class Game {
         }
 
         /**
-         * Dies ist der Hauptframe, auf dem alle anderen Frames hinzugefügt werden.
+         * Hauptframe
          */
-
-
         frame = new JFrame();
         frame.setSize(1600, 900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,17 +42,23 @@ public class Game {
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
 
-
+        /**
+         * Titel Panel
+         */
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(100, 100, 600, 150);
         titleNamePanel.setBackground(new Color(23, 32, 56));
-		
-        startButtonPanel.setBounds(545, 500, 300, 150);
-        startButtonPanel.setBackground(new Color(23, 32, 56));
+        titleNameLabel = new JLabel("(Spiel Name)");
+        titleNameLabel.setForeground(new Color(222, 158,65));
+        titleNameLabel.setFont(titleFont);
+        titleNamePanel.add(titleNameLabel);
 
         /**
-         * Dies ist für das Anzeigen des Start Buttons
+         * Startbutton Panel
          */
+        startButtonPanel = new JPanel();
+        startButtonPanel.setBounds(545, 500, 300, 150);
+        startButtonPanel.setBackground(new Color(23, 32, 56));
 
         startButton = new JButton("Start");
         startButton.setBackground(new Color(23, 32, 56));
@@ -66,17 +66,6 @@ public class Game {
         startButton.setFont(startButtonFont);
         startButton.addActionListener(new TitleScreenHandler());
         startButton.setFocusPainted(false);
-        startButtonPanel.add(startButton);
-
-
-
-        startButtonPanel.setBounds(300, 400, 200, 100);
-        startButtonPanel.setBackground(new Color(23, 32, 56));
-        startButton = new JButton("Start");
-        startButton.setBackground(new Color(23, 32, 56));
-        startButton.setForeground(new Color(222, 158,65));
-        startButton.setFont(normalFont);
-      //  startButton.addActionListener(new TitleScreenHandler());
         startButtonPanel.add(startButton);
 
         frame.add(titleNamePanel);
@@ -88,29 +77,16 @@ public class Game {
         titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
 
-
         /**
-         * Dies Panel beinhaltet das Dialog Feld
+         * Haupttext Panel
          */
         mainTextPanel = new JPanel();
         mainTextPanel.setBounds(100,100,1400, 200);
         mainTextPanel.setBackground(new Color(23, 32, 56));
         frame.add(mainTextPanel);
 
-        /**
-         * Hier wird der Dialog angezeigt
-         */
-
         mainTextArea = new JTextArea();
         mainTextArea.setBounds(0, 0, 1400, 200);
-
-        mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100, 100, 600, 250);
-        mainTextPanel.setBackground(new Color(23, 32, 56));
-        frame.add(mainTextPanel);
-
-        mainTextArea = new JTextArea();
-        mainTextArea.setBounds(100, 100, 600, 250);
         mainTextArea.setBackground(new Color(23, 32, 56));
         mainTextArea.setForeground(new Color(222, 158,65));
         mainTextArea.setFont(normalFont);
@@ -118,16 +94,13 @@ public class Game {
         mainTextArea.setEditable(false);
         mainTextPanel.add(mainTextArea);
 
-
         /**
-         * Dies Feld beinhaltet die Buttons
+         * Auswahlbuttons Panel
          */
-
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(250, 350, 300, 150);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
         choiceButtonPanel.setLayout(new GridLayout(4, 1));
-
         frame.add(choiceButtonPanel);
 
         choiceButton1 = new JButton();
@@ -135,7 +108,6 @@ public class Game {
         choiceButton1.setForeground(new Color(222, 158,65));
         choiceButton1.setFont(normalFont);
         choiceButton1.addActionListener(new ChoiceHandler());
-
         choiceButtonPanel.add(choiceButton1);
 
         choiceButton2 = new JButton();
@@ -143,12 +115,7 @@ public class Game {
         choiceButton2.setForeground(new Color(222, 158,65));
         choiceButton2.setFont(normalFont);
         choiceButton2.addActionListener(new ChoiceHandler());
-
         choiceButton2.setFocusPainted(false);
-        choiceButtonPanel.add(choiceButton2);
-
-
-
         choiceButtonPanel.add(choiceButton2);
 
         choiceButton3 = new JButton();
@@ -156,7 +123,6 @@ public class Game {
         choiceButton3.setForeground(new Color(222, 158,65));
         choiceButton3.setFont(normalFont);
         choiceButton3.addActionListener(new ChoiceHandler());
-
         choiceButtonPanel.add(choiceButton3);
 
         choiceButton4 = new JButton();
@@ -164,8 +130,6 @@ public class Game {
         choiceButton4.setForeground(new Color(222, 158,65));
         choiceButton4.setFont(normalFont);
         choiceButton4.addActionListener(new ChoiceHandler());
-		
-
         choiceButtonPanel.add(choiceButton4);
 
         playerPanel = new JPanel();
@@ -173,19 +137,18 @@ public class Game {
         playerPanel.setBackground(Color.blue);
         playerPanel.setLayout(new GridLayout(1, 4));
         frame.add(playerPanel);
+
         startGame();
     }
 
     public void startGame() {
         position = "Scene 1";
-
-        mainTextArea.setText("Text 1\n" +"");
-        choiceButton1.setText("hallo");
+        mainTextArea.setText("Text 1\n");
+        choiceButton1.setText("Hallo");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
-
 
     public class TitleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
@@ -196,7 +159,6 @@ public class Game {
     public class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String choice = event.getActionCommand();
-
         }
     }
 }
