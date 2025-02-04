@@ -121,4 +121,25 @@ public class DB {
         }
         return item;
     }
+
+    /*
+     * Retrieves information about the player's position and decisions
+     * @param userID: userID of the player
+     */
+    public String[] playerInfo(int userID) throws SQLException
+    {
+        sql = "SELECT * FROM gamefiles WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, userID);
+        rs = stmt.executeQuery();
+        String[] player = new String[3];
+        while (rs.next())
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                player[i] = rs.getString(i+1);
+            }
+        }
+        return player;
+    }
 }
