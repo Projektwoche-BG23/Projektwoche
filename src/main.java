@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         System.out.println("Hello");
-        System.out.println("hello my namsssdae is ");
+        System.out.println("hello my name is ");
 
         DB db = new DB();
         System.out.println(db.getUser_ID("test", "123"));

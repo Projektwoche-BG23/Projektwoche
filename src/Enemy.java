@@ -1,113 +1,96 @@
 /**
- *
+ * This class contains all enemy types and their base values.
+ * Values can be changed and accessed using getter and setter methods.
  */
 public class Enemy {
 
-    private int health;         //Health value of the Unit
-    private int defense;        //defense of the Unit in %
-    private int spec_defense;   //special (Magic) defense of the Unit in %
-    private int attack;         //Flat attack of the Unit
-    private int spec_attack;    //Flat special (Magic) damage to the Unit
-    private int agility;        //Agility of the Unit
-
-    public Enemy(String enemyName){
-        if(enemyName .equals("Skeleton")){
-            health = 100;
-            defense = 10;
-            spec_defense = 20;
-            attack = 15;
-            spec_attack = 0;
-            agility = 10;
-        }
-        else if (enemyName .equals("Goblin")) {
-
-        }
-    }
-
-
+    private int health;         // Health points
+    private int defense;        // Defense in %
+    private int specDefense;    // Magic Defense in %
+    private int attack;         // Flat attack
+    private int specAttack;     // Flat Magic damage
+    private int agility;        // Speed in turns and dodge chance at higher values
+    private int luck;           //Critical hit chance
 
     /**
-     * Outputs the Health value o the Enemy Unit
-     * @return healt as int
+     * Creates a new Enemy unit based on the given type.
+     * @param enemyName Determines the enemy type. Available: SKELETON, GOBLIN, GHOST, KING
      */
-    public int getEnemyHealth(){
-        return health;
-    }
-    /**
-     * Outputs the Defense Value of the Enemy Unit
-     * @return defense as int
-     */
-    public int getEnemyDefense(){
-        return defense;
-    }
-    /**
-     * Outputs the Special (Magic) defense of the Enemy Unit
-     * @return spec_health as int
-     */
-    public int getEnemySpec_Defense(){
-        return spec_defense;
-    }
+    public Enemy(String enemyName) {
+        switch (enemyName.toUpperCase()) {
+            case "SKELETON":
+                health = 100;
+                defense = 10;
+                specDefense = 20;
+                attack = 15;
+                specAttack = 0;
+                agility = 10;
+                luck = 10;
 
-    /**
-     * Outputs the Attack Value of the enemy Unit
-     * @return attack as int
-     */
-    public int getEnemyAttack(){
-        return attack;
-    }
-    /**
-     * Outputs the Special (Magic) Attack Value of the enemy Unit
-     * @return spec_attack as int
-     */
-    public int getEnemySpec_Attack(){
-        return spec_attack;
-    }
-    /**
-     * Outputs the Agility Value of the enemy Unit
-     * @return agility as int
-     */
-    public int getEnemyAgility(){
-        return agility;
-    }
+                break;
+				
+            case "GOBLIN":
+                health = 150;
+                defense = 20;
+                specDefense = 10;
+                attack = 25;
+                specAttack = 0;
+                agility = 20;
+                luck = 15;
+            
+                break;
+            case "GHOST":
+                health = 175;
+                defense = 50;
+                specDefense = 0;
+                attack = 0;
+                specAttack = 30;
+                agility = 25;
+                luck = 20;
+                break;
+            
+            case "KING":
+                health = 400;
+                defense = 25;
+                specDefense = 25;
+                attack = 30;
+                specAttack = 30;
+                agility = 15;
+                luck = 10;
+                break;
+            
+            case "DRUNKEN_KNIGHT":
+                health = 50;
+                defense = 0;
+                specDefense = 0;
+                attack = 5;
+                specAttack = 0;
+                agility = 5;
+                luck = 1;
+                break;
 
-    /**
-     * Set a new Health Value to an Enemy Unit.
-     * If the new Health Value is below 0, it is set to 0.
-     * @param newHealth new Helath value as int
-     */
-    public void setEnemyHealth(int newHealth) {
-        if(newHealth>=0){
-            health = newHealth;
-        }
-        else{
-            health=0;
-        }
-    }
-    /**
-     * Sets a new Attack Value to an enemy Unit
-     * If the new Attack Value is below 0, it is set to 0.
-     * @param newAttack new attack value as int
-     */
-    public void setEnemyAttack(int newAttack) {
-        if(newAttack>=0){
-            attack = newAttack;
-        }
-        else{
-            attack=0;
-        }
-    }
-    /**
-     * Sets a new Defense Value to an enemy Unit
-     * If the new Defense Value is below 0, it is set to 0.
-     * @param newDefense new defense value as int
-     */
-    public void setEnemyDefense(int newDefense) {
-        if(newDefense>=0){
-            attack = newDefense;
-        }
-        else{
-            attack=0;
+            default:
+                throw new IllegalArgumentException("Invalid enemy type: " + enemyName);
         }
     }
 
+    // Getter methods
+    public int getHealth() { return health; }
+    public int getDefense() { return defense; }
+    public int getSpecDefense() { return specDefense; }
+    public int getAttack() { return attack; }
+    public int getSpecAttack() { return specAttack; }
+    public int getAgility() { return agility; }
+    public int getLuck() { return luck; }
+
+    // Setter methods
+    public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
+    public void setDefense(int newDefense) { defense = Math.max(newDefense, 0); }
+    public void setSpecDefense(int newSpecDefense) { specDefense = Math.max(newSpecDefense, 0); }
+    public void setAttack(int newAttack) { attack = Math.max(newAttack, 0); }
+    public void setSpecAttack(int newSpecAttack) { specAttack = Math.max(newSpecAttack, 0); }
+    public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
+  
+    public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
 }
+
