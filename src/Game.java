@@ -4,18 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Game {
-    JFrame frame;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-    JLabel titleNameLabel;
-    JButton startButton, ladenButton, einstellungenButton, verlassenButton;
-    JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
-    JTextArea mainTextArea;
-    TitleScreenHandler tsHandler = new TitleScreenHandler();
-    ChoiceHandler choiceHandler = new ChoiceHandler();
+    public JFrame frame;
+    public JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+    public JLabel titleNameLabel;
+    public JButton startButton, ladenButton, einstellungenButton, verlassenButton;
+    public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+    public JTextArea mainTextArea;
+    public TitleScreenHandler tsHandler = new TitleScreenHandler();
+    public ChoiceHandler choiceHandler = new ChoiceHandler();
 
-    Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
-    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
+    public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
+    public Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+    public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
     String position;
 
@@ -145,6 +145,7 @@ public class Game {
         playerPanel.setBackground(new Color(23, 32, 56));
         playerPanel.setLayout(new GridLayout(1, 4));
         frame.add(playerPanel);
+
         startGame();
     }
 
@@ -166,13 +167,22 @@ public class Game {
         choiceButton4.setText("");
     }
 
-    public class TitleScreenHandler implements ActionListener {
+    public void tavernSzene2() {
+        position = "tavern2";
+        mainTextArea.setText("Drunken knight: Wrong answer");
+        choiceButton1.setText("FIGHT");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
+
+    private class TitleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             createGameScreen();
         }
     }
 
-    public class ChoiceHandler implements ActionListener {
+    private class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String yourChoice = event.getActionCommand();
 
@@ -186,9 +196,5 @@ public class Game {
                     break;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        new Game();
     }
 }
