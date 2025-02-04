@@ -2,6 +2,7 @@ import java.sql.SQLException;
 
 public class Main {
     static RNG rng = new RNG();
+    static Inventory inv = new Inventory();
 
     public static void main(String[] args) throws SQLException {
         System.out.println("Hello");
@@ -17,6 +18,14 @@ public class Main {
         for (Object drop : drops) {
             System.out.println(drop); // Item-Namen ausgeben
         }
+
+        // Chest drops (previous functionality)
+        rng.randomDrop("chest1");
+        rng.randomDrop("chest1");
+        rng.randomDrop("chest1");
+        rng.randomDrop("chest1");
+
+        System.out.println(inv.getInventory());
     }
 
     public void mathew() {
