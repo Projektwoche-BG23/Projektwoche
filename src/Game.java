@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//version 1.0
+
 public class Game {
     public JFrame frame;
     public JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
@@ -308,11 +310,5 @@ public class Game {
             }
         }
     }
-    private class deathScreenHandler{
-
-    }
-
-    public static void main(String[] args) {
-        new Game();
-    }
-}
+    private class deathScreenHandler {
+    }}
