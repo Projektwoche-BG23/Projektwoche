@@ -77,9 +77,7 @@ public class Enemy {
     public int getLuck() { return luck; }
 
     // Setter methods
-    /**
-     * Negaitve Values will be set to a minimum of 0
-     */
+    // Negative values are set to 0
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
     public void setDefense(int newDefense) { defense = Math.max(newDefense, 0); }
     public void setSpecDefense(int newSpecDefense) { specDefense = Math.max(newSpecDefense, 0); }
