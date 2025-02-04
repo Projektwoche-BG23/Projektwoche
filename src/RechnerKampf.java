@@ -1,3 +1,4 @@
+
 /**
  * Class to calculate the damage dealt or taken during combat.
  */
@@ -14,7 +15,7 @@ public class RechnerKampf {
      */
     private void attack(Character attacker, Character defender) {
         int dmg = attacker.getAttack() - (defender.getDefense() * 100 / attacker.getAttack());
-        defender.setHealth(defender.getHealth() - dmg);
+    //    defender.setHealth(defender.getHealth() - dmg);
     }
 
     /**
@@ -22,7 +23,7 @@ public class RechnerKampf {
      */
     private void specialAttack(Character attacker, Character defender) {
         int dmg = (attacker.getAttack() * 2) - (defender.getDefense() * 100 / attacker.getAttack());
-        defender.setHealth(defender.getHealth() - dmg);
+     //   defender.setHealth(defender.getHealth() - dmg);
     }
 
     /**
@@ -30,7 +31,7 @@ public class RechnerKampf {
      */
     private void magicAttack(Character attacker, Character defender) {
         int dmg = attacker.getAttack() - (defender.getSpecDefense() * 100 / attacker.getAttack());
-        defender.setHealth(defender.getHealth() - dmg);
+      //  defender.setHealth(defender.getHealth() - dmg);
     }
 }
 
