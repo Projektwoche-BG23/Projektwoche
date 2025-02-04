@@ -5,6 +5,7 @@ public class Inventory {
 
     RNG rng = new RNG();
     private List<String> inventory;
+    private String[] itemSlots = new String[6];
 
     public Inventory(){
         inventory = new ArrayList<>();
@@ -26,14 +27,18 @@ public class Inventory {
         return inventory.contains(itemName);
     }
 
-    public void addRandom(String chestName)
+    public void equipItem(String itemName) {
+
+    }
+
+    public String[] addRandom(String chestName)
     {
         String[] drops = rng.randomDrop(chestName);
         for (int i = 0; i < drops.length; i++)
         {
             inventory.add(drops[i]);
         }
-        //return drops;
+        return drops;
     }
 
 }
