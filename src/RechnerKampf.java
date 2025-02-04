@@ -1,27 +1,36 @@
 /**
- * Class to find out how much Damage U make or take
+ * Class to calculate the damage dealt or taken during combat.
  */
-public class RechnerKampf
-{
-    Character c = new Character();
+public class RechnerKampf {
+
+    private Character character;
+
+    public RechnerKampf(Character character) {
+        this.character = character;
+    }
+
     /**
-     * Methode um zu gucken wie viel Schaden der Gegner nimmt.
+     * Calculates the damage dealt by a normal attack.
      */
-
-    private void attack()
-    {
-        //int dmg = Attacker.getAttack-(held.getAttack * 100 / defender.getDefense);
-        //defender.setHealth(defender.getHealth - dmg);
-    }
-    private void specialAttack()
-    {
-        //int dmg = (Attacker.getAttack * 2)-(held.getAttack * 100 / defender.getDefense);
-        //defender.setHealth(defender.getHealth - dmg);
-    }
-    private void magicAttack()
-    {
-        //int dmg = Attacker.getAttack-(held.getAttack * 100 / defender.getSpec_Defense);
-        //defender.setHealth(defender.getHealth - dmg);
+    private void attack(Character attacker, Character defender) {
+        int dmg = attacker.getAttack() - (defender.getDefense() * 100 / attacker.getAttack());
+        defender.setHealth(defender.getHealth() - dmg);
     }
 
+    /**
+     * Calculates the damage dealt by a special attack.
+     */
+    private void specialAttack(Character attacker, Character defender) {
+        int dmg = (attacker.getAttack() * 2) - (defender.getDefense() * 100 / attacker.getAttack());
+        defender.setHealth(defender.getHealth() - dmg);
+    }
+
+    /**
+     * Calculates the damage dealt by a magic attack.
+     */
+    private void magicAttack(Character attacker, Character defender) {
+        int dmg = attacker.getAttack() - (defender.getSpecDefense() * 100 / attacker.getAttack());
+        defender.setHealth(defender.getHealth() - dmg);
+    }
 }
+
