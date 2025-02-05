@@ -4,27 +4,21 @@ import java.util.List;
 
 public class Inventory {
 
-    DB db = new DB();
     RNG rng = new RNG();
     private List<String> inventory;
     private String[] itemSlots = new String[6];
 
     public Inventory(){
         inventory = new ArrayList<>();
-
     }
 
     public List<String> getInventory() {
         return inventory;
     }
 
-    public String[] getEquiped() {
-        return itemSlots;
-    }
-
-    public void addItem(String itemID) {
-        System.out.println("added item: " + itemID);
-        inventory.add(itemID);
+    public void addItem(String itemName) {
+        System.out.println("added item: " + itemName);
+        inventory.add(itemName);
     }
 
     public void removeItem(String itemName) {
@@ -35,25 +29,19 @@ public class Inventory {
         return inventory.contains(itemName);
     }
 
-    public void equipItem(String itemID) throws SQLException {
-
-        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID));
-
-        System.out.println("ItemID: " + itemID);
-
-        int slotID = Integer.parseInt((String) itemAttributes[3]);
-        System.out.println("SlotID: " + slotID);
-        itemSlots[slotID - 1] = itemID;
+    public void equipItem(String itemName) {
 
     }
-
-    public String[] addRandom(String chestName) throws SQLException {
+/**
+    public String[] addRandom(String chestName)
+    {
         String[] drops = rng.randomDrop(chestName);
         for (int i = 0; i < drops.length; i++)
         {
-            addItem(drops[i]);
+            inventory.add(drops[i]);
         }
         return drops;
     }
+*/
 
 }
