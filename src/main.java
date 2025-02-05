@@ -20,12 +20,13 @@ public class main {
     public static void main(String[] args) throws SQLException {
         System.out.println("Hello");
         System.out.println("hello my name is ");
-
+     //   LoginGUI loginGUI = new LoginGUI();
+        //loginGUI.openLoginWindow();
         DB db = new DB();
         System.out.println(db.getUser_ID("test", "123"));
 
         Game game = new Game();
-
+        //UPDATE
         // Beispielcode für das Öffnen einer Kiste und das Erhalten von Items
         Object[] drops = rng.randomDrop("chest1");
         for (Object drop : drops) {
