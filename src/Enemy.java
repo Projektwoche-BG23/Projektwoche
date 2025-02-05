@@ -48,7 +48,6 @@ public class Enemy {
                 agility = 25;
                 luck = 20;
                 break;
-
             case "KING":
                 health = 400;
                 defense = 25;
@@ -68,7 +67,6 @@ public class Enemy {
                 agility = 5;
                 luck = 1;
                 break;
-
             default:
                 throw new IllegalArgumentException("Invalid enemy type: " + enemyName);
         }
@@ -91,5 +89,9 @@ public class Enemy {
     public void setMagicAttack(int newSpecAttack) { magicAttack = Math.max(newSpecAttack, 0); }
     public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
     public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
+
+    public int getAttackTyp() {
+        return 3;
+    }
 }
 
