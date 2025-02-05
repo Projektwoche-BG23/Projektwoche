@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 
 //version 1.0
 
+//version 1.0
+
 public class Game {
     JFrame frame;
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
@@ -40,6 +42,10 @@ public class Game {
      * Dies sind die Schriftarten. Nach belieben ändern
      */
 
+    /**
+     * Dies sind die Schriftarten. Nach belieben ändern
+     */
+
     public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
     public Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
@@ -65,6 +71,10 @@ public class Game {
      */
     String playerPosition = "Intro";
 
+
+    /**
+     * @Game Titelbildschirm des Spieles
+     */
 
     /**
      * @Game Titelbildschirm des Spieles
@@ -311,6 +321,12 @@ public class Game {
         choiceButton4.setText("");
     }
 
+    public void anfangsSzene(){
+        position = "anfangsSzene2";
+        mainTextArea.setText("But there is hope the only person who can save the KING's city\n"+
+                             "and the country can save is the one true blood heir to the throne princess Seidler\n" +
+                             "but she was driven out some time ago by the corrupt powers of the land.\n" +
+                             "Seidler’s location is unknown find and bring her back to save the country.\n");
     public void cheapterOneCenter(){
         position = "Stadtmitte";
         mainTextArea.setText("Player is in a tavern in the center of the kingdom (name of the kingdom)");
@@ -354,7 +370,7 @@ public class Game {
 
 
 
-
+//LEtssas
     private class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String yourChoice = event.getActionCommand();
@@ -362,54 +378,53 @@ public class Game {
             /**
              * Der erste Switch erfasst den Ort/ die Szene in der, der Spieler gerade ist. Für jede Szene gibt
              * es mehrere Antworten die mit einem weiteren Switch Statement erfasst werden
-             * Pro asgewählter Option gibt es verschieden Methoden die dann aufgerufen werden.
+             * Pro ausgewählter Option gibt es verschieden Methoden die dann aufgerufen werden.
              */
 
             switch (position) {
-                case "AnfangsSzene":
+                case "anfangsSzene":
                     switch (yourChoice) {
                         case "c1":
-                            anfangsSzene2();
+                            anfangsSzene();
                             break;
-                        case "c2":
-                            break;
-                        case "c3":
-                            break;
-                        case "c4":
-                            break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
                     }
                     break;
 
-                case "AnfangsSzene2":
+                case "anfangsSzene2":
                     switch (yourChoice) {
                         case "c1":
-                            cheapterOneCenter();
+                            tavernSzene();
                             break;
-                        case "c2":
-                            break;
-                        case "c3":
-                            break;
-                        case "c4":
-                            break;
-
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
                     }
                     break;
-
-                case "CityCenter":
+                case "tavern":
                     switch (yourChoice) {
                         case "c1":
                             tavernSzene2();
                             break;
-                        case "c2":
-                            break;
-                        case "c3":
-                            break;
-                        case "c4":
-                            break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
                     }
-                    break;
+                case "tavern2":
+                    switch (yourChoice) {
+                        case "c1":
+                            //Füge Kampf Methode hier ein
+                            break;
+                        case "c2": break;
+                        case "c3": break;
+                        case "c4": break;
+                    }
             }
         }
     }
-}
+    private class deathScreenHandler {
+    }}
+
 
