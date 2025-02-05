@@ -31,7 +31,6 @@ public class DB {
 
     /**
      * Checks if the login information is correct and returns the user_ID
-     *
      * @param username Username of the Player
      * @param password Password of the Player
      * @return user_ID if correct, 0 if incorrect
@@ -55,7 +54,6 @@ public class DB {
 
     /**
      * Creates a new account in the database
-     *
      * @param username Desired username
      * @param password Desired password
      * @throws SQLException if the query fails
@@ -109,25 +107,7 @@ public class DB {
         return true;
     }
 
-    /*
-     * Method to get the stats of items
-     * @param itemID the id of the target item
-     * returns a String arry of information
-     * 0 = item_ID
-     * 1 = item_name
-     * 2 = path to image
-     * 3 = defence value
-     * 4 = special_defence value
-     * 5 = agility value
-     * 6 = health value
-     * 7 = health_regen value
-     * 8 = mana value
-     * 9 = mana_regen value
-     * 10 = magic_power value
-     * 11 = luck value
-     * 12 = damage value
-     * 13 = strength value
-    /*
+    /**
      * Method to get the stats of items
      * @param itemID the id of the target item
      * returns a String array of information
@@ -152,102 +132,156 @@ public class DB {
      * int defence = Integer.parseInt(item[4]);
      */
 
-    public String[] itemInfo(int itemID) throws SQLException {
+    public String[] itemInfo(int itemID) throws SQLException
+    {
         sql = "SELECT * FROM items WHERE item_ID=?";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, itemID);
         rs = stmt.executeQuery();
         String[] item = new String[14];
-        while (rs.next()) {
-            for (int i = 0; i < 14; i++) {
-                item[i] = rs.getString(i + 1);
+        while (rs.next())
+        {
+            for(int i = 0; i<14; i++)
+            {
+                item[i] = rs.getString(i+1);
             }
         }
         return item;
     }
 
-
-    /*     * Indicates how much the player has of a certain item
+    /**
+     * Retrieves information about the player's position and decisions
      * @param userID: userID of the player
      */
-  /**
-    public String[] getInventory(int userID) throws SQLException {
+    public String[] playerInfo(int userID) throws SQLException
+    {
+        sql = "SELECT * FROM gamefiles WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, userID);
+        rs = stmt.executeQuery();
+        String[] player = new String[3];
+        while (rs.next())
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                player[i] = rs.getString(i+1);
+            }
+        }
+        return player;
+    }
+
+
+    /**
+     * Method to update the location of the player
+     * @param location: the new location to save.
+     */
+    public void updateLocation(int user_ID, String location) throws SQLException {
+        sql = "UPDATE gamefiles SET location = ? WHERE user_ID = ? ";
+        stmt = con.prepareStatement(sql);
+        stmt.setString(1, location);
+        stmt.setInt(2, user_ID);
+        stmt.executeUpdate();
+    }
+
+    /**
+     * Method to make an important decision, that has consequences in the future.
+     */
+    public void makeDecision(int user_ID, String whichDecision, int howItWasDecided) throws SQLException {
+        sql = "UPDATE gamefiles SET important_decision_" + whichDecision + " = ? WHERE user_ID = ? ";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, howItWasDecided);
+        stmt.setInt(2, user_ID);
+        stmt.executeUpdate();
+    }
+
+    /**
+     * Indicates how much the player has of a certain item
+     * @param userID: userID of the player
+     *
+     * Usage example:
+     * Sting[] item = db.getInventory(1);
+     * int schwert = Integer.parseInt(item[6]);
+     */
+    public String[] getInventory(int userID) throws SQLException
+    {
         sql = "SELECT * FROM inventory WHERE user_ID=?";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, userID);
         rs = stmt.executeQuery();
         String[] inv = new String[20];
-        while (rs.next()) {
-            for (int i = 0; i < 14; i++) {
-                inv[i] = rs.getString(i + 1);
+        while (rs.next())
+        {
+            for (int i = 0; i < 14; i++)
+            {
+                inv[i] = rs.getString(i+1);
             }
         }
-        return player;
-
+        return inv;
     }
 
-   /**
-
-
-        /**
- * Retrieves information about the player's position and decisions
- * @param userID: userID of the player
- */
-
-        public String[] playerInfo ( int userID) throws SQLException
+    /**
+     * Adds a specific item to the inventory.
+     * Can also be used to subtract items by using negative number.
+     * @param user_ID: user_ID of the player
+     * @param item_ID: item_ID of the item
+     * @param anzahl: Number of the added/subtracted items
+     */
+    public void addItem(int user_ID, int item_ID, int anzahl) throws SQLException
+    {
+        int itemCount = 0;
+        sql = "SELECT * FROM inventory WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        rs = stmt.executeQuery();
+        while (rs.next())
         {
-            sql = "SELECT * FROM gamefiles WHERE user_ID=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, userID);
-            rs = stmt.executeQuery();
-            String[] inv = new String[20];
-            while (rs.next()) {
-                for (int i = 0; i < 14; i++) {
-                    inv[i] = rs.getString(i + 1);
-                }
-            }
-            return inv;
-        }
-        /**
-         * Retrieves information about the player's position and decisions
-         * @param userID: userID of the player
-         */
-
-        /**
-         * Tells what item ist equipped in which slot
-         * @param user_ID: user_ID of teh player
-         */
-
-        public String[] getEquipped ( int user_ID) throws SQLException
-        {
-            sql = "SELECT * FROM equipped_items WHERE user_ID=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, user_ID);
-            rs = stmt.executeQuery();
-            String[] equipped = new String[6];
-            while (rs.next()) {
-                for (int i = 0; i < 6; i++) {
-                    equipped[i] = rs.getString(i + 1);
-                }
-            }
-            return equipped;
+            itemCount = rs.getInt(item_ID+1);
         }
 
-
-        /*
-         * Equip an item to a item slot
-         * @param user_ID: user_ID of teh palyer
-         * @param equip_slot: which slot where to equip the item
-         * @param item_ID: item_ID of the item that gets equipped
-         */
-
-        public void equipToItemSlot ( int user_ID, int equip_slot, int item_ID) throws SQLException
-        {
-            sql = "UPDATE equipped_items SET slot_ID_?=? WHERE user_ID=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, equip_slot);
-            stmt.setInt(2, item_ID);
-            stmt.setInt(3, user_ID);
-            stmt.executeUpdate();
-        }
+        sql = "UPDATE inventory SET slot_?=? WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, item_ID);
+        stmt.setInt(2, itemCount + anzahl);
+        stmt.setInt(3, user_ID);
+        stmt.executeUpdate();
     }
+
+
+    /**
+     * Tells what item ist equipped in which slot
+     * @param user_ID: user_ID of teh player
+     */
+    public String[] getEquipped(int user_ID) throws SQLException
+    {
+        sql = "SELECT * FROM equipped_items WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        rs = stmt.executeQuery();
+        String[] equipped = new String[6];
+        while (rs.next())
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                equipped[i] = rs.getString(i+1);
+            }
+        }
+        return equipped;
+    }
+
+    /**
+     * Equip an item to a item slot
+     * @param user_ID: user_ID of teh palyer
+     * @param equip_slot: which slot where to equip the item
+     * @param item_ID: item_ID of the item that gets equipped
+     */
+    public void equipToItemSlot(int user_ID, int equip_slot, int item_ID) throws SQLException
+    {
+        sql = "UPDATE equipped_items SET slot_ID_?=? WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, equip_slot);
+        stmt.setInt(2, item_ID);
+        stmt.setInt(3, user_ID);
+        stmt.executeUpdate();
+    }
+
+}
