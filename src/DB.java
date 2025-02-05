@@ -86,15 +86,20 @@ public class DB {
         }
 
         // Create new gamefiles line.
-        sql = "INSERT INTO gamefiles (user_ID, Location, important_decision_A) VALUES (?, ?, ?)";
+        sql = "INSERT INTO gamefiles (user_ID, Location) VALUES (?, ?)";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, user_ID);
         stmt.setString(2, "anfangsSzene");
-        stmt.setInt(3, 0);
         stmt.executeUpdate();
 
-        // Create new inventory space
-        sql = "INSERT INTO inventory (user_ID, slot_1, slot_2, slot_3, slot_4, slot_5, slot_6, slot_7, slot_8, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17, slot_18, slot_19) VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+        // Create new inventory line
+        sql = "INSERT INTO inventory (user_ID) VALUES (?)";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        stmt.executeUpdate();
+
+        // Create new equipped_items line
+        sql = "INSERT INTO equipped_items (user_ID) VALUES (?)";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, user_ID);
         stmt.executeUpdate();
