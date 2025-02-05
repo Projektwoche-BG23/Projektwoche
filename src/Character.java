@@ -1,4 +1,7 @@
+import java.sql.SQLException;
+
 public class Character {
+    private DB db;
     // Base Stats
     private final int baseHealth = 5;
     private final int baseAttack = 5;
@@ -12,16 +15,51 @@ public class Character {
     private final int baseManaReg = 5;
 
     // Current Stats
-    private int health = baseHealth;
-    private int attack = baseAttack;
-    private int magicAttack = baseMagicAttack;
-    private int defense = baseDefense;
-    private int magicDefense = baseMagicDefense;
-    private int agility = baseAgility;
-    private int luck = baseLuck;
-    private int strength = baseStrength;
-    private int mana = baseMana;
-    private int manaReg = baseManaReg;
+    private int health;
+    private int attack;
+    private int magicAttack;
+    private int defense;
+    private int magicDefense;
+    private int agility;
+    private int luck;
+    private int strength;
+    private int mana;
+    private int manaReg;
+
+    public void Update(int UserID) throws SQLException
+    {
+        health = baseHealth;
+        attack = baseAttack;
+        magicAttack = baseMagicAttack;
+        defense = baseDefense;
+        magicDefense = baseMagicDefense;
+        agility = baseAgility;
+        luck = baseLuck;
+        strength = baseStrength;
+        mana = baseMana;
+        manaReg = baseManaReg;
+
+        String[] equippedItems = db.getEquipped(UserID);
+
+        for (String itemIDString : equippedItems) {
+            if (itemIDString != null && !itemIDString.isEmpty()) {
+                int itemID = Integer.parseInt(itemIDString);  // Item-ID aus dem Slot
+                String[] itemStats = db.itemInfo(itemID);  // Hole die Item-Informationen aus der DB
+
+
+                health += Integer.parseInt(itemStats[7]);
+                attack += Integer.parseInt(itemStats[13]);
+                magicAttack += Integer.parseInt(itemStats[11]);
+                defense += Integer.parseInt(itemStats[4]);
+                magicDefense += Integer.parseInt(itemStats[5]);
+                agility += Integer.parseInt(itemStats[6]);
+                luck += Integer.parseInt(itemStats[12]);
+                strength += Integer.parseInt(itemStats[14]);
+                mana += Integer.parseInt(itemStats[9]);
+                manaReg += Integer.parseInt(itemStats[10]);
+            }
+        }
+    }
 
     // Getter Methods
     public int getAttack() { return attack; }

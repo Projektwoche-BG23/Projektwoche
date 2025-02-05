@@ -28,7 +28,7 @@ public class Enemy {
                 luck = 10;
 
                 break;
-				
+
             case "GOBLIN":
                 health = 150;
                 defense = 20;
@@ -37,7 +37,7 @@ public class Enemy {
                 magicAttack = 0;
                 agility = 20;
                 luck = 15;
-            
+
                 break;
             case "GHOST":
                 health = 175;
@@ -48,7 +48,7 @@ public class Enemy {
                 agility = 25;
                 luck = 20;
                 break;
-            
+
             case "KING":
                 health = 400;
                 defense = 25;
@@ -58,7 +58,7 @@ public class Enemy {
                 agility = 15;
                 luck = 10;
                 break;
-            
+
             case "DRUNKEN_KNIGHT":
                 health = 50;
                 defense = 0;
