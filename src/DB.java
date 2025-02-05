@@ -103,7 +103,7 @@ public class DB {
     }
 
 
-    /*
+    /**
      * Method to get the stats of items
      * @param itemID the id of the target item
      * returns a String array of information
@@ -144,7 +144,7 @@ public class DB {
         return item;
     }
 
-    /*
+    /**
      * Retrieves information about the player's position and decisions
      * @param userID: userID of the player
      */
@@ -163,6 +163,29 @@ public class DB {
             }
         }
         return player;
+    }
 
+
+    /**
+     * Method to update the location of the player
+     * @param location: the new location to save.
+     */
+    public void updateLocation(int user_ID, String location) throws SQLException {
+        sql = "UPDATE gamefiles SET location = ? WHERE user_ID = ? ";
+        stmt = con.prepareStatement(sql);
+        stmt.setString(1, location);
+        stmt.setInt(2, user_ID);
+        stmt.executeUpdate();
+    }
+
+    /**
+     * Method to make an important decision, that has consequences in the future.
+     */
+    public void makeDecision(int user_ID, String whichDecision, int howItWasDecided) throws SQLException {
+        sql = "UPDATE gamefiles SET important_decision_" + whichDecision + " = ? WHERE user_ID = ? ";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, howItWasDecided);
+        stmt.setInt(2, user_ID);
+        stmt.executeUpdate();
     }
 }
