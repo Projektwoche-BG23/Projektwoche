@@ -29,7 +29,7 @@ public class Game {
     String waffe = "Fists";
 
     /**
-     * Dies ist die Position des Spielers
+     * Dies ist die Position des Spielers.
      */
 
     String position;
@@ -202,7 +202,7 @@ public class Game {
         healtbartext.setVisible(true);
 
         ImagePanel = new JPanel();
-        ImagePanel.setBounds(500, 300, 1000, 550);
+        ImagePanel.setBounds(500, 300, 978, 550);
         frame.add(ImagePanel);
 
         ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
