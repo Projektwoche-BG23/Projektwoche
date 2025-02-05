@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Inventory {
     }
 
     public void addItem(String itemName) {
+        System.out.println("added item: " + itemName);
         inventory.add(itemName);
     }
 
@@ -30,7 +32,7 @@ public class Inventory {
     public void equipItem(String itemName) {
 
     }
-
+/**
     public String[] addRandom(String chestName)
     {
         String[] drops = rng.randomDrop(chestName);
@@ -40,5 +42,6 @@ public class Inventory {
         }
         return drops;
     }
+*/
 
 }
