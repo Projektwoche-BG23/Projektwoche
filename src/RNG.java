@@ -1,12 +1,15 @@
+import java.sql.SQLException;
+import  java.util.Random;
+import java.util.Stack;
 import java.util.Random;
 
 public class RNG {
 
-    static ItemsDictionary dictionary = new ItemsDictionary();
     static Random rand = new Random();
+    static  DB db = new DB();
 
-    public static String[] randomDrop(String chest) {
-        switch (chest) {
+    public static Object[] randomDrop(String chest) throws SQLException {
+        switch (chest){
             default:
                 return null;
             case "chest1":
@@ -40,17 +43,19 @@ public class RNG {
     /**
      * Gibt an, welche Items der Spieler aus chest1 bekommen soll
      */
-    private static String[] chest1() {
-        // Chest Inhalt
-        Object[][] chances = {
-            {"healthPotion", 34}, // Name, Chance
-            {"manaPotion", 67},
-            {"luckPotion", 100}
-        };
+    private static Object[] chest1() throws SQLException {
+
+        //Chest Inhalt
+        Object[] chances = new Object[3];
+        chances[0] = new Object[]{1, 34}; // ItemID, chance
+        chances[1] = new Object[]{2, 67};
+        chances[2] = new Object[]{3, 100};
 
         // Item Anzahl bestimmen
+    /**
+        // Item Anzahl bestimmen
         int itemRate = itemDropCount();
-        String[] droppedItems = new String[itemRate];
+        Object[] droppedItems = new Object[itemRate];
 
         for (int i = 0; i < itemRate; i++) {
             int chance = rand.nextInt(100);
@@ -65,7 +70,7 @@ public class RNG {
                 }
             }
         }
-
-        return droppedItems;
+*/
+        return chances;
     }
 }
