@@ -1,3 +1,5 @@
+
+
 public class Character {
     // Base Stats
     private final int baseHealth = 5;
