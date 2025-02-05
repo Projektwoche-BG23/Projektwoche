@@ -21,6 +21,7 @@ public class RechnerKampf {
      * @param main Player Character
      * @param typ enemy that is attacked
      */
+
     public void playerMagicAttack(Character main, Enemy typ) {
         int tempdmg = Math.round(main.getMagicAttack() * (typ.getMagicDefense() / 100.0f));
         int truedmg = main.getMagicAttack() - tempdmg;
@@ -33,6 +34,7 @@ public class RechnerKampf {
      * @param main Player Character
      * @param typ enemy that is attacking
      */
+
     public void enemyAttack(Character main, Enemy typ) {
         int tempdmg = Math.round(typ.getAttack() * (main.getDefense() / 100.0f));
         int truedmg = typ.getAttack() - tempdmg;
@@ -45,9 +47,11 @@ public class RechnerKampf {
      * @param main Player Character
      * @param typ enemy that is attacking
      */
+
     public void enemyMagicAttack(Character main, Enemy typ) {
         int tempdmg = Math.round(typ.getMagicAttack() * (main.getMagicDefense() / 100.0f));
         int truedmg = typ.getMagicAttack() - tempdmg;
         main.setHealth(main.getHealth() - truedmg);
     }
 }
+
