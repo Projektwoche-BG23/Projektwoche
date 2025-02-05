@@ -182,4 +182,57 @@ public class DB {
         return player;
 
     }
+
+    /*
+     * Indicates how much the player has of a certain item
+     * @param userID: userID of the player
+     *
+     * Usage example:
+     * Sting[] item = db.getInventory(1);
+     * int schwert = Integer.parseInt(item[6]);
+     */
+    public String[] getInventory(int userID) throws SQLException
+    {
+        sql = "SELECT * FROM inventory WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, userID);
+        rs = stmt.executeQuery();
+        String[] inv = new String[20];
+        while (rs.next())
+        {
+            for (int i = 0; i < 14; i++)
+            {
+                inv[i] = rs.getString(i+1);
+            }
+        }
+        return inv;
+    }
+
+    /*
+     * Adds a specific item to the inventory.
+     * Can also be used to subtract items by using negative number.
+     * @param user_ID: user_ID of the player
+     * @param item_ID: item_ID of the item
+     * @param anzahl: Number of the added/subtracted items
+     */
+    public void addItem(int user_ID, int item_ID, int anzahl) throws SQLException
+    {
+        int itemCount = 0;
+        sql = "SELECT * FROM inventory WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        rs = stmt.executeQuery();
+        while (rs.next())
+        {
+            itemCount = rs.getInt(item_ID+1);
+        }
+
+        sql = "UPDATE inventory SET slot_?=? WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, item_ID);
+        stmt.setInt(2, itemCount + anzahl);
+        stmt.setInt(3, user_ID);
+        stmt.executeUpdate();
+    }
+
 }
