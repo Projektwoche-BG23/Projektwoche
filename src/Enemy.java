@@ -11,7 +11,8 @@ public class Enemy {
     private int magicAttack;    // Flat Magic damage
     private int agility;        // Speed in turns and dodge chance at higher values
     private int luck;           // Critical hit chance
-
+    private int attackTyp;      // Type of attack the Unit can do, 1 for Normal, 2 for Magic and 0 for both
+    private int cooldown;       // Cooldown for Special attack
     /**
      * Creates a new Enemy unit based on the given type.
      * @param enemyName Determines the enemy type. Available: SKELETON, GOBLIN, GHOST, KING
@@ -26,7 +27,7 @@ public class Enemy {
                 magicAttack = 0;
                 agility = 10;
                 luck = 10;
-
+                attackTyp = 1;
                 break;
 				
             case "GOBLIN":
@@ -37,7 +38,7 @@ public class Enemy {
                 magicAttack = 0;
                 agility = 20;
                 luck = 15;
-            
+                attackTyp = 1;
                 break;
             case "GHOST":
                 health = 175;
@@ -47,6 +48,7 @@ public class Enemy {
                 magicAttack = 30;
                 agility = 25;
                 luck = 20;
+                attackTyp = 2;
                 break;
             
             case "KING":
@@ -57,6 +59,8 @@ public class Enemy {
                 magicAttack = 30;
                 agility = 15;
                 luck = 10;
+                attackTyp = 0;
+                cooldown = 3;
                 break;
             
             case "DRUNKEN_KNIGHT":
@@ -67,6 +71,7 @@ public class Enemy {
                 magicAttack = 0;
                 agility = 5;
                 luck = 1;
+                attackTyp = 1;
                 break;
 
             default:
@@ -82,6 +87,8 @@ public class Enemy {
     public int getMagicAttack() { return magicAttack; }
     public int getAgility() { return agility; }
     public int getLuck() { return luck; }
+    public int getAttackTyp() { return attackTyp; }
+    public int getCooldown() { return cooldown; }
 
     // Setter methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }

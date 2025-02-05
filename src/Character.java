@@ -10,6 +10,7 @@ public class Character
     private final int baseStrength= 0;
     private final int baseMana= 50;
     private final int baseMana_reg = 5;
+    private final int manaCost = 10;
 
     private int health = 5;
     private int attack = 5;
@@ -63,6 +64,10 @@ public class Character
     public int getMana_reg()
     {
         return mana_reg;
+    }
+
+    public int getManaCost() {
+        return manaCost;
     }
 
     //Setter Methoden
