@@ -1,37 +1,57 @@
-
 /**
  * Class to calculate the damage dealt or taken during combat.
  */
 public class RechnerKampf {
 
-    private Character character;
-
-    public RechnerKampf(Character character) {
-        this.character = character;
+    /**
+     * Calculates the damage the Player does to an Enemy with a Normal attack
+     * and decreases the health of the enemy accordingly
+     * @param main Player Character
+     * @param typ enemy that is attacked
+     */
+    public void playerAttack(Character main, Enemy typ) {
+        int tempdmg = Math.round(main.getAttack() * (typ.getDefense() / 100.0f));
+        int truedmg = main.getAttack() - tempdmg;
+        typ.setHealth(typ.getHealth() - truedmg);
     }
 
     /**
-     * Calculates the damage dealt by a normal attack.
+     * Calculates the damage the Player does to an Enemy with a Magic attack
+     * and decreases the health of the enemy accordingly
+     * @param main Player Character
+     * @param typ enemy that is attacked
      */
-    private void attack(Character attacker, Character defender) {
-        int dmg = attacker.getAttack() - (defender.getDefense() * 100 / attacker.getAttack());
-    //    defender.setHealth(defender.getHealth() - dmg);
+
+    public void playerMagicAttack(Character main, Enemy typ) {
+        int tempdmg = Math.round(main.getMagicAttack() * (typ.getMagicDefense() / 100.0f));
+        int truedmg = main.getMagicAttack() - tempdmg;
+        typ.setHealth(typ.getHealth() - truedmg);
     }
 
     /**
-     * Calculates the damage dealt by a special attack.
+     * Calculates the damage the Enemy does to the Player with a Normal attack
+     * and decreases the health of the Player accordingly
+     * @param main Player Character
+     * @param typ enemy that is attacking
      */
-    private void specialAttack(Character attacker, Character defender) {
-        int dmg = (attacker.getAttack() * 2) - (defender.getDefense() * 100 / attacker.getAttack());
-     //   defender.setHealth(defender.getHealth() - dmg);
+
+    public void enemyAttack(Character main, Enemy typ) {
+        int tempdmg = Math.round(typ.getAttack() * (main.getDefense() / 100.0f));
+        int truedmg = typ.getAttack() - tempdmg;
+        main.setHealth(main.getHealth() - truedmg);
     }
 
     /**
-     * Calculates the damage dealt by a magic attack.
+     * Calculates the damage the Enemy does to the Player with a Magic attack
+     * and decreases the health of the Player accordingly
+     * @param main Player Character
+     * @param typ enemy that is attacking
      */
-    private void magicAttack(Character attacker, Character defender) {
-        int dmg = attacker.getAttack() - (defender.getSpecDefense() * 100 / attacker.getAttack());
-      //  defender.setHealth(defender.getHealth() - dmg);
+
+    public void enemyMagicAttack(Character main, Enemy typ) {
+        int tempdmg = Math.round(typ.getMagicAttack() * (main.getMagicDefense() / 100.0f));
+        int truedmg = typ.getMagicAttack() - tempdmg;
+        main.setHealth(main.getHealth() - truedmg);
     }
 }
 
