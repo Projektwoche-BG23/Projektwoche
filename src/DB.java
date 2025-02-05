@@ -76,7 +76,34 @@ public class DB {
         stmt.setString(1, username);
         stmt.setString(2, password);
         stmt.executeUpdate();
+
+        // get user_ID of the acc we just created
+        sql = "SELECT * FROM login WHERE name = ?";
+        stmt = con.prepareStatement(sql);
+        stmt.setString(1, username);
+        rs = stmt.executeQuery();
+        int user_ID = 0;
+        if (rs.next()) {
+            user_ID = Integer.parseInt(rs.getString(3));
+        }
+
+        // Create new gamefiles line.
+        sql = "INSERT INTO gamefiles (user_ID, Location, important_decision_A) VALUES (?, ?, ?)";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        stmt.setString(2, "anfangsSzene");
+        stmt.setInt(3, 0);
+        stmt.executeUpdate();
+
+        // Create new inventory space
+        sql = "INSERT INTO inventory (user_ID, slot_1, slot_2, slot_3, slot_4, slot_5, slot_6, slot_7, slot_8, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17, slot_18, slot_19) VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        stmt.executeUpdate();
+
+        return true;
     }
+
 
 
         // get user_ID of the acc we just created
