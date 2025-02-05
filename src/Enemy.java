@@ -48,7 +48,6 @@ public class Enemy {
                 agility = 25;
                 luck = 20;
                 break;
-
             case "KING":
                 health = 400;
                 defense = 25;
@@ -68,7 +67,6 @@ public class Enemy {
                 agility = 5;
                 luck = 1;
                 break;
-
             default:
                 throw new IllegalArgumentException("Invalid enemy type: " + enemyName);
         }
