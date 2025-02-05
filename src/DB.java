@@ -201,4 +201,40 @@ public class DB {
         return player;
 
     }
+     * Tells what item ist equipped in which slot
+     * @param user_ID: user_ID of teh player
+     */
+       
+    public String[] getEquipped(int user_ID) throws SQLException
+    {
+        sql = "SELECT * FROM equipped_items WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        rs = stmt.executeQuery();
+        String[] equipped = new String[6];
+        while (rs.next())
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                equipped[i] = rs.getString(i+1);
+            }
+        }
+        return equipped;
+    }
+
+    /*
+     * Equip an item to a item slot
+     * @param user_ID: user_ID of teh palyer
+     * @param equip_slot: which slot where to equip the item
+     * @param item_ID: item_ID of the item that gets equipped
+     */
+    public void equipToItemSlot(int user_ID, int equip_slot, int item_ID) throws SQLException
+    {
+        sql = "UPDATE equipped_items SET slot_ID_?=? WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, equip_slot);
+        stmt.setInt(2, item_ID);
+        stmt.setInt(3, user_ID);
+        stmt.executeUpdate();
+    }
 }
