@@ -7,7 +7,7 @@ public class RNG {
     static Random rand = new Random();
     static  DB db = new DB();
 
-    public static Object[] randomDrop(String chest) throws SQLException {
+    public static String[] randomDrop(String chest) throws SQLException {
         switch (chest){
             default:
                 return null;
@@ -45,7 +45,7 @@ public class RNG {
     /**
      * gibt an welche item der spieler aus chest1 bekommen soll
      */
-    private static Object[] chest1() throws SQLException {
+    private static String[] chest1() throws SQLException {
 
         //Chest Inhalt
         Object[] chances = new Object[3];
@@ -55,7 +55,7 @@ public class RNG {
 
         //Item anzahl bestimmen
         int itemRate = itemDropCount();
-        Object[] droppedItems = new Object[itemRate];
+        String[] droppedItems = new String[itemRate];
 
         for (int i = 0; i < itemRate; i++)
         {
@@ -70,7 +70,7 @@ public class RNG {
                 if (chance < dropChance) {
                     int itemID = (int) chanceEntry[0];
                     Object[] droppedItem = db.itemInfo(itemID);
-                    droppedItems[i] = droppedItem;
+                    droppedItems[i] = (String) droppedItem[0];
                     break;  // Exit the loop once an item is dropped
                 }
             }
