@@ -26,7 +26,7 @@ public class main {
         System.out.println(db.getUser_ID("test", "123"));
 
         Game game = new Game();
-
+        //UPDATE
         // Beispielcode für das Öffnen einer Kiste und das Erhalten von Items
         Object[] drops = rng.randomDrop("chest1");
         for (Object drop : drops) {
