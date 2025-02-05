@@ -1,6 +1,7 @@
 
 import java.util.Random;
 
+
 /**
  * Class to calculate the damage dealt or taken during combat.
  *
@@ -17,46 +18,46 @@ public class RechnerKampf {
      * @param enemy  Enemy Object
      */
     public void fight(Character player,String attack, Enemy enemy){
-            if(attack .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
-                manaControll = 1;
-                System.err.println("Spieler hat nicht genuzg mana");
-            }
-            else {
-                manaControll = 0;
-            }
+        if(attack .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
+            manaControll = 1;
+            System.err.println("Spieler hat nicht genuzg mana");
+        }
+        else {
+            manaControll = 0;
+        }
 
-            if(manaControll == 0) {
-                if (attackCooldown != 0) {
-                    attackCooldown--;
+        if(manaControll == 0) {
+            if (attackCooldown != 0) {
+                attackCooldown--;
+            }
+            if (player.getAgility() > enemy.getAgility()) {
+                playerAttackType(player, attack, enemy);
+                if (enemy.getHealth() > 0) {
+                    enemyAttackType(player, enemy);
                 }
-                if (player.getAgility() > enemy.getAgility()) {
+            }
+            if (player.getAgility() < enemy.getAgility()) {
+                enemyAttackType(player, enemy);
+                if (player.getHealth() > 0) {
+                    playerAttackType(player, attack, enemy);
+                }
+            }
+            if(player.getAgility() == enemy.getAgility()){
+                int rngInt = attackRNG.nextInt(1,3);
+                if(rngInt == 1){
                     playerAttackType(player, attack, enemy);
                     if (enemy.getHealth() > 0) {
                         enemyAttackType(player, enemy);
                     }
                 }
-                if (player.getAgility() < enemy.getAgility()) {
+                else{
                     enemyAttackType(player, enemy);
                     if (player.getHealth() > 0) {
                         playerAttackType(player, attack, enemy);
                     }
                 }
-                if(player.getAgility() == enemy.getAgility()){
-                    int rngInt = attackRNG.nextInt(1,3);
-                    if(rngInt == 1){
-                        playerAttackType(player, attack, enemy);
-                        if (enemy.getHealth() > 0) {
-                            enemyAttackType(player, enemy);
-                        }
-                    }
-                    else{
-                        enemyAttackType(player, enemy);
-                        if (player.getHealth() > 0) {
-                            playerAttackType(player, attack, enemy);
-                        }
-                    }
-                }
             }
+        }
     }
 
     /**
