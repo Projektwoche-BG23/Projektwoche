@@ -7,7 +7,13 @@ public class RechnerKampf {
 
     private int attackCooldown = 0;     // Counts the rounds after a special attack of an enemy is used
     private int manaControll = 0;       // If the player does not have enough mana and wanst to use magic, the Round will not start
-
+    Random attackRNG = new Random();
+    /**
+     * Calculates a complete round of Fighting
+     * @param player Player Object
+     * @param attack Type of attack (Normal oder Magic)
+     * @param enemy  Enemy Object
+     */
     public void fight(Character player,String attack, Enemy enemy){
             if(attack .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
                 manaControll = 1;
@@ -33,9 +39,30 @@ public class RechnerKampf {
                         playerAttackType(player, attack, enemy);
                     }
                 }
+                if(player.getAgility() == enemy.getAgility()){
+                    int rngInt = attackRNG.nextInt(1,3);
+                    if(rngInt == 1){
+                        playerAttackType(player, attack, enemy);
+                        if (enemy.getHealth() > 0) {
+                            enemyAttackType(player, enemy);
+                        }
+                    }
+                    else{
+                        enemyAttackType(player, enemy);
+                        if (player.getHealth() > 0) {
+                            playerAttackType(player, attack, enemy);
+                        }
+                    }
+                }
             }
     }
 
+    /**
+     * Determines what type of attack the Payer wants to use
+     * @param player Player Object
+     * @param attack Type of attack input from fight
+     * @param enemy  Enemy Object
+     */
     private void playerAttackType(Character player, String attack, Enemy enemy){
         if(attack .equalsIgnoreCase("normal")){
             playerAttack(player,enemy);
@@ -45,6 +72,11 @@ public class RechnerKampf {
         }
     }
 
+    /**
+     * Determines what type of attack the enemy uses
+     * @param player Player Object
+     * @param enemy  Enemy Object
+     */
     private void enemyAttackType(Character player, Enemy enemy){
         if(enemy.getAttackTyp() == 1){
             enemyAttack(player,enemy);
@@ -57,9 +89,14 @@ public class RechnerKampf {
         }
     }
 
+    /**
+     * Determines what attack the King will do. If the Special attack is on cooldown only normal attacks will work
+     * @param player Player Object
+     * @param enemy Enemy Object
+     */
     private void kingAttacktype(Character player, Enemy enemy){
         if(attackCooldown==0){
-            Random attackRNG = new Random();
+
             int rngNumber = attackRNG.nextInt(1,3);
             if(rngNumber == 1){
                 enemyAttack(player,enemy);
@@ -71,6 +108,13 @@ public class RechnerKampf {
         }
     }
 
+    /**
+     * When the fight is still ongoing this will say true
+     * When one of the Opponents has 0 HP, The fight is over and this will say false
+     * @param player Player Object
+     * @param enemy Enemy Object
+     * @return
+     */
     private boolean fightStatus(Character player, Enemy enemy){
         if(player.getHealth()>0 && enemy.getHealth()>0){
             return true;

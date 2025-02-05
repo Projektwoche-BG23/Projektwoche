@@ -27,16 +27,7 @@ public class Character
     private int mana = maxMana;
 
     // Getter Methods
-    public int getAttack() { return attack; }
-    public int getHealth() { return health; }
-    public int getMagicAttack() { return magicAttack; }
-    public int getDefense() { return defense; }
-    public int getMagicDefense() { return magicDefense; }
-    public int getAgility() { return agility; }
-    public int getLuck() { return luck; }
-    public int getStrength() { return strength; }
-    public int getMana() { return mana; }
-    public int getManaReg() { return manaReg; }
+
 
     //getter methoden
     public int getAttack()
@@ -79,7 +70,6 @@ public class Character
     {
         return mana_reg;
     }
-
     public int getManaCost() {
         return manaCost;
     }
