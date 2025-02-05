@@ -166,6 +166,7 @@ public class DB {
         return item;
     }
 
+
     /*     * Indicates how much the player has of a certain item
      * @param userID: userID of the player
      */
@@ -180,7 +181,8 @@ public class DB {
                 inv[i] = rs.getString(i + 1);
             }
         }
-        return inv;
+        return player;
+
     }
         /**
  * Retrieves information about the player's position and decisions
