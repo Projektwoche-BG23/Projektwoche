@@ -76,6 +76,8 @@ public class DB {
         stmt.setString(1, username);
         stmt.setString(2, password);
         stmt.executeUpdate();
+    }
+
 
         // get user_ID of the acc we just created
         sql = "SELECT * FROM login WHERE name = ?";
@@ -103,7 +105,6 @@ public class DB {
 
         return true;
     }
-
     /*
      * Method to get the stats of items
      * @param itemID the id of the target item
