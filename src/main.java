@@ -19,7 +19,8 @@ public class main {
     public static void main(String[] args) throws SQLException {
         System.out.println("Hello");
         System.out.println("hello my name is ");
-
+        LoginGUI loginGUI = new LoginGUI();
+        loginGUI.openLoginWindow();
         DB db = new DB();
         System.out.println(db.getUser_ID("test", "123"));
 
