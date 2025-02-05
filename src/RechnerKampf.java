@@ -1,4 +1,6 @@
 
+import java.util.Random;
+
 /**
  * Class to calculate the damage dealt or taken during combat.
  *

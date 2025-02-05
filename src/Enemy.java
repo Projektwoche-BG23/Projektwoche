@@ -89,5 +89,9 @@ public class Enemy {
     public void setMagicAttack(int newSpecAttack) { magicAttack = Math.max(newSpecAttack, 0); }
     public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
     public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
+
+    public int getAttackTyp() {
+        return 3;
+    }
 }
 
