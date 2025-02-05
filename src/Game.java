@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 public class Game {
     JFrame frame;
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
+    JPanel ImagePanel;
     JLabel titleNameLabel, healtbartext, waffentext;
     JButton startButton, ladenButton, einstellungenButton, verlassenButton;
     JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
@@ -28,7 +29,7 @@ public class Game {
     String waffe = "Fists";
 
     /**
-     * Dies ist die Position des Spielers
+     * Dies ist die Position des Spielers.
      */
 
     String position;
@@ -45,17 +46,17 @@ public class Game {
     /**
      * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
      */
-   // String position;
+    // String position;
 
     /**
      * Dies ist die Waffen Variable.
      */
-   // String waffe = "Fists";
+    // String waffe = "Fists";
 
     /**
      * Dies ist die Healt/Leben Variable.
      */
-   // int healt = 0;
+    // int healt = 0;
 
 
     /**
@@ -200,6 +201,14 @@ public class Game {
         waffentext.setVisible(true);
         healtbartext.setVisible(true);
 
+        ImagePanel = new JPanel();
+        ImagePanel.setBounds(500, 300, 978, 550);
+        frame.add(ImagePanel);
+
+        ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
+        JLabel label = new JLabel(imageIcon);
+        ImagePanel.add(label);
+
         /**
          * Dies Panel beinhaltet das Dialog Feld
          */
@@ -213,7 +222,7 @@ public class Game {
          */
 
         mainTextArea = new JTextArea();
-        mainTextArea.setBounds(0, 0, 1400, 200);
+        mainTextArea.setBounds(0, 0, 1400, 150);
         mainTextArea.setBackground(new Color(23, 32, 56));
         mainTextArea.setForeground(new Color(222, 158,65));
         mainTextArea.setFont(normalFont);
@@ -228,9 +237,9 @@ public class Game {
          */
 
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(90, 630, 1400, 200);
+        choiceButtonPanel.setBounds(100, 300, 300, 550);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
-        choiceButtonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        choiceButtonPanel.setLayout(new GridLayout(4, 1, 10, 10));
         frame.add(choiceButtonPanel);
 
         choiceButton1 = new JButton();
@@ -352,7 +361,7 @@ public class Game {
 
 
 
-//LEtssas
+    //LEtssas
     private class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String yourChoice = event.getActionCommand();
@@ -411,6 +420,8 @@ public class Game {
     }
     private class deathScreenHandler {
     }
+
+
 
 }
 
