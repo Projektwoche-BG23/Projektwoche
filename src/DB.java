@@ -170,6 +170,7 @@ public class DB {
     /*     * Indicates how much the player has of a certain item
      * @param userID: userID of the player
      */
+  /**
     public String[] getInventory(int userID) throws SQLException {
         sql = "SELECT * FROM inventory WHERE user_ID=?";
         stmt = con.prepareStatement(sql);
@@ -184,6 +185,10 @@ public class DB {
         return player;
 
     }
+
+   /**
+
+
         /**
  * Retrieves information about the player's position and decisions
  * @param userID: userID of the player
