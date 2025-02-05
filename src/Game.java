@@ -8,30 +8,14 @@ import java.awt.event.MouseAdapter;
 //version 1.0
 
 public class Game {
-    JFrame frame;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
-    JLabel titleNameLabel, healtbartext, waffentext;
-    JButton startButton, ladenButton, einstellungenButton, verlassenButton;
-    JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
-    JTextArea mainTextArea;
-    TitleScreenHandler tsHandler = new TitleScreenHandler();
-    ChoiceHandler choiceHandler = new ChoiceHandler();
-
-    /**
-     * Dies sind die Leben.
-     */
-    int healt;
-
-    /**
-     * Dies ist die aktuelle Waffe die von dem Spieler verwendet wird.
-     */
-    String waffe = "Fists";
-
-    /**
-     * Dies ist die Position des Spielers
-     */
-
-    String position;
+    public JFrame frame;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel, playerPositionPanel;
+    JLabel titleNameLabel, healtbartext, waffentext, playerPositiontext;
+    public JButton startButton, ladenButton, einstellungenButton, verlassenButton;
+    public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+    public JTextArea mainTextArea;
+    public TitleScreenHandler tsHandler = new TitleScreenHandler();
+    public ChoiceHandler choiceHandler = new ChoiceHandler();
 
 
     /**
@@ -56,6 +40,23 @@ public class Game {
      * Dies ist die Healt/Leben Variable.
      */
    // int healt = 0;
+
+
+    /**
+     * Dies ist die PlayerPositions Varbiable.
+     */
+    String playerPosition = "Intro";
+
+
+    /**
+     * Dies ist die Waffen Variable.
+     */
+    String waffe = "Fists";
+
+    /**
+     * Dies ist die Healt/Leben Variable.
+     */
+    int healt = 0;
 
 
     /**
@@ -182,6 +183,57 @@ public class Game {
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(verlassenButton);
 
+        /**
+         * Dies ist die Healtbar anzeige
+         */
+
+        healtbartextpanel = new JPanel();
+        healtbartextpanel.setBackground(new Color(23, 32, 56));
+        healtbartextpanel.setBounds(0, 10, 533, 100);
+        frame.add(healtbartextpanel);
+
+        healtbartext = new JLabel("Player Health: "+healt, SwingConstants.CENTER);
+        healtbartext.setForeground(new Color(222, 158,65));
+        healtbartext.setFont(normalFont);
+        healtbartext.setBackground(new Color(23, 32, 56));
+        healtbartext.setBounds(0, 10, 100, 100);
+        healtbartextpanel.add(healtbartext);
+        healtbartext.setVisible(false);
+
+        /**
+         * Dies ist die Waffen anzeige
+         */
+
+        waffentextpanel = new JPanel();
+        waffentextpanel.setBackground(new Color(23, 32, 56));
+        waffentextpanel.setBounds(533, 10, 533, 100);
+        frame.add(waffentextpanel);
+
+        waffentext = new JLabel("Current Weapon: "+waffe, SwingConstants.CENTER);
+        waffentext.setForeground(new Color(222, 158,65));
+        waffentext.setFont(normalFont);
+        waffentext.setBackground(new Color(23, 32, 56));
+        waffentext.setBounds(0, 10, 100, 100);
+        waffentextpanel.add(waffentext);
+        waffentext.setVisible(false);
+
+        /**
+         * Dies ist die Position des Spielers anzeige
+         */
+
+        playerPositionPanel = new JPanel();
+        playerPositionPanel.setBackground(new Color(23, 32, 56));
+        playerPositionPanel.setBounds(1033, 10, 533, 100);
+        frame.add(playerPositionPanel);
+
+        playerPositiontext = new JLabel("Current Player Position: "+playerPosition, SwingConstants.CENTER);
+        playerPositiontext.setForeground(new Color(222, 158,65));
+        playerPositiontext.setFont(normalFont);
+        playerPositiontext.setBackground(new Color(23, 32, 56));
+        playerPositiontext.setBounds(0, 10, 100, 100);
+        playerPositionPanel.add(playerPositiontext);
+        playerPositiontext.setVisible(false);
+
 
         frame.add(titleNamePanel);
         frame.add(startButtonPanel);
@@ -199,6 +251,8 @@ public class Game {
         startButtonPanel.setVisible(false);
         waffentext.setVisible(true);
         healtbartext.setVisible(true);
+        playerPositiontext.setVisible(true);
+
 
         /**
          * Dies Panel beinhaltet das Dialog Feld
