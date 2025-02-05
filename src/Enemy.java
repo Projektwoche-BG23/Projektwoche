@@ -29,7 +29,6 @@ public class Enemy {
                 luck = 10;
                 attackTyp = 1;
                 break;
-				
             case "GOBLIN":
                 health = 150;
                 defense = 20;
@@ -50,7 +49,6 @@ public class Enemy {
                 luck = 20;
                 attackTyp = 2;
                 break;
-            
             case "KING":
                 health = 400;
                 defense = 25;
@@ -62,7 +60,6 @@ public class Enemy {
                 attackTyp = 0;
                 cooldown = 3;
                 break;
-            
             case "DRUNKEN_KNIGHT":
                 health = 50;
                 defense = 0;
@@ -73,7 +70,6 @@ public class Enemy {
                 luck = 1;
                 attackTyp = 1;
                 break;
-
             default:
                 throw new IllegalArgumentException("Invalid enemy type: " + enemyName);
         }

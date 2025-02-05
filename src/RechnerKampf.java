@@ -115,7 +115,7 @@ public class RechnerKampf {
      * @param enemy Enemy Object
      * @return
      */
-    private boolean fightStatus(Character player, Enemy enemy){
+    public boolean fightStatus(Character player, Enemy enemy){
         if(player.getHealth()>0 && enemy.getHealth()>0){
             return true;
         }
@@ -133,11 +133,18 @@ public class RechnerKampf {
 
     private void playerAttack(Character main,Enemy typ)
     {
+        int luckInt = attackRNG.nextInt(1,101);
+
         int tempdmg;
         int truedmg;
         tempdmg = Math.round(main.getAttack()*(typ.getDefense()/100.0f));
         truedmg = main.getAttack()-tempdmg;
-        typ.setHealth(typ.getHealth()-truedmg);
+        if(luckInt <= main.getLuck()){
+            typ.setHealth(typ.getHealth() - 2*truedmg);
+        }
+        else {
+            typ.setHealth(typ.getHealth() - truedmg);
+        }
     }
 
     /**
@@ -148,11 +155,18 @@ public class RechnerKampf {
      */
     private void playerMagicAttack(Character main, Enemy typ)
     {
+        int luckInt = attackRNG.nextInt(1,101);
+
         int tempdmg;
         int truedmg;
         tempdmg = Math.round(main.getMagicAttack()*(typ.getMagicDefense()/100.0f));
         truedmg = main.getMagicAttack()-tempdmg;
-        typ.setHealth(typ.getHealth()-truedmg);
+        if(luckInt <= main.getLuck()){
+            typ.setHealth(typ.getHealth() - 2*truedmg);
+        }
+        else {
+            typ.setHealth(typ.getHealth() - truedmg);
+        }
     }
     /**
      * Calculates the damage the Enemy does to the Player with a Normal attack
@@ -162,11 +176,18 @@ public class RechnerKampf {
      */
     private void enemyAttack(Character main,Enemy typ)
     {
+        int luckInt = attackRNG.nextInt(1,101);
+
         int tempdmg;
         int truedmg;
         tempdmg = Math.round(typ.getAttack()*(main.getDefense()/100.0f));
         truedmg = typ.getAttack()-tempdmg;
-        main.setHealth(main.getHealth()-truedmg);
+        if(luckInt <= typ.getLuck()){
+            main.setHealth(main.getHealth() - 2*truedmg);
+        }
+        else {
+            main.setHealth(main.getHealth() - truedmg);
+        }
     }
     /**
      * Calculates the damage the Enemy does to the Player with a Magic attack
@@ -176,11 +197,18 @@ public class RechnerKampf {
      */
     private void enemyMagicAttack(Character main, Enemy typ)
     {
+        int luckInt = attackRNG.nextInt(1,101);
+
         int tempdmg;
         int truedmg;
         tempdmg = Math.round(typ.getMagicAttack()*(main.getMagicDefense()/100.0f));
         truedmg = typ.getMagicAttack()-tempdmg;
-        main.setHealth(main.getHealth()-truedmg);
+        if(luckInt <= typ.getLuck()){
+            main.setHealth(main.getHealth() - 2*truedmg);
+        }
+        else {
+            main.setHealth(main.getHealth() - truedmg);
+        }
     }
 }
 
