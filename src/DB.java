@@ -86,15 +86,20 @@ public class DB {
         }
 
         // Create new gamefiles line.
-        sql = "INSERT INTO gamefiles (user_ID, Location, important_decision_A) VALUES (?, ?, ?)";
+        sql = "INSERT INTO gamefiles (user_ID, Location) VALUES (?, ?)";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, user_ID);
         stmt.setString(2, "anfangsSzene");
-        stmt.setInt(3, 0);
         stmt.executeUpdate();
 
-        // Create new inventory space
-        sql = "INSERT INTO inventory (user_ID, slot_1, slot_2, slot_3, slot_4, slot_5, slot_6, slot_7, slot_8, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17, slot_18, slot_19) VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+        // Create new inventory line
+        sql = "INSERT INTO inventory (user_ID) VALUES (?)";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        stmt.executeUpdate();
+
+        // Create new equipped_items line
+        sql = "INSERT INTO equipped_items (user_ID) VALUES (?)";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, user_ID);
         stmt.executeUpdate();
@@ -102,8 +107,7 @@ public class DB {
         return true;
     }
 
-
-    /**
+/**
      * Method to get the stats of items
      * @param itemID the id of the target item
      * returns a String array of information
@@ -127,6 +131,7 @@ public class DB {
      * Sting[] item = db.itemInfo(1);
      * int defence = Integer.parseInt(item[4]);
      */
+  
     public String[] itemInfo(int itemID) throws SQLException
     {
         sql = "SELECT * FROM items WHERE item_ID=?";
@@ -188,4 +193,57 @@ public class DB {
         stmt.setInt(2, user_ID);
         stmt.executeUpdate();
     }
+
+    /*
+     * Indicates how much the player has of a certain item
+     * @param userID: userID of the player
+     *
+     * Usage example:
+     * Sting[] item = db.getInventory(1);
+     * int schwert = Integer.parseInt(item[6]);
+     */
+    public String[] getInventory(int userID) throws SQLException
+    {
+        sql = "SELECT * FROM inventory WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, userID);
+        rs = stmt.executeQuery();
+        String[] inv = new String[20];
+        while (rs.next())
+        {
+            for (int i = 0; i < 14; i++)
+            {
+                inv[i] = rs.getString(i+1);
+            }
+        }
+        return inv;
+    }
+
+    /*
+     * Adds a specific item to the inventory.
+     * Can also be used to subtract items by using negative number.
+     * @param user_ID: user_ID of the player
+     * @param item_ID: item_ID of the item
+     * @param anzahl: Number of the added/subtracted items
+     */
+    public void addItem(int user_ID, int item_ID, int anzahl) throws SQLException
+    {
+        int itemCount = 0;
+        sql = "SELECT * FROM inventory WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        rs = stmt.executeQuery();
+        while (rs.next())
+        {
+            itemCount = rs.getInt(item_ID+1);
+        }
+
+        sql = "UPDATE inventory SET slot_?=? WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, item_ID);
+        stmt.setInt(2, itemCount + anzahl);
+        stmt.setInt(3, user_ID);
+        stmt.executeUpdate();
+    }
+
 }

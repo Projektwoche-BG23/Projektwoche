@@ -32,17 +32,16 @@ public class Inventory {
     public void equipItem(String itemName) {
 
     }
-
-    public Object[] addRandom(String chestName) throws SQLException {
-        Object[] drops = rng.randomDrop(chestName);
+/**
+    public String[] addRandom(String chestName)
+    {
+        String[] drops = rng.randomDrop(chestName);
         for (int i = 0; i < drops.length; i++)
         {
-            for (Object drop : drops) {
-                Object[] dropEntry = (Object[]) drop;
-                addItem((String) dropEntry[1]);
-            }
+            inventory.add(drops[i]);
         }
         return drops;
     }
+*/
 
 }
