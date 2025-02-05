@@ -5,19 +5,19 @@ import java.awt.event.ActionListener;
 
 public class Game {
     JFrame frame;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-    JLabel titleNameLabel;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
+    JLabel titleNameLabel, healtbartext, waffentext;
     JButton startButton, ladenButton, einstellungenButton, verlassenButton;
     JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JTextArea mainTextArea;
-    TitleScreenHandler tsHandler = new TitleScreenHandler();
-    ChoiceHandler choiceHandler = new ChoiceHandler();
 
-    Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
-    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
-
+    int healt;
+    String waffe = "Fists";
     String position;
+
+    public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
+    public Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+    public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
     public Game() {
         try {
@@ -37,6 +37,8 @@ public class Game {
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(0, 100, 1600, 300);
         titleNamePanel.setBackground(new Color(23, 32, 56));
+        frame.add(titleNamePanel);
+
         titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
         titleNameLabel.setForeground(new Color(222, 158, 65));
         titleNameLabel.setFont(titleFont);
@@ -48,28 +50,19 @@ public class Game {
         startButtonPanel.setLayout(new GridLayout(4, 1));
 
         startButton = new JButton("Start");
-        startButton.setBackground(new Color(23, 32, 56));
-        startButton.setForeground(new Color(222, 158, 65));
         startButton.setFont(startButtonFont);
-        startButton.addActionListener(tsHandler);
-        startButton.setFocusPainted(false);
+        startButton.addActionListener(this::handleTitleScreenAction);
         startButtonPanel.add(startButton);
 
         ladenButton = new JButton("Laden");
-        ladenButton.setBackground(new Color(23, 32, 56));
-        ladenButton.setForeground(new Color(222, 158, 65));
         ladenButton.setFont(startButtonFont);
         startButtonPanel.add(ladenButton);
 
         einstellungenButton = new JButton("Einstellungen");
-        einstellungenButton.setBackground(new Color(23, 32, 56));
-        einstellungenButton.setForeground(new Color(222, 158, 65));
         einstellungenButton.setFont(startButtonFont);
         startButtonPanel.add(einstellungenButton);
 
         verlassenButton = new JButton("Verlassen");
-        verlassenButton.setBackground(new Color(23, 32, 56));
-        verlassenButton.setForeground(new Color(222, 158, 65));
         verlassenButton.setFont(startButtonFont);
         startButtonPanel.add(verlassenButton);
 
@@ -78,117 +71,100 @@ public class Game {
         frame.setVisible(true);
     }
 
+    public void handleTitleScreenAction(ActionEvent event) {
+        createGameScreen();
+    }
+
     public void createGameScreen() {
         titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
 
         mainTextPanel = new JPanel();
         mainTextPanel.setBounds(100, 100, 1400, 200);
-        mainTextPanel.setBackground(new Color(23, 32, 56));
         frame.add(mainTextPanel);
 
         mainTextArea = new JTextArea();
-        mainTextArea.setBounds(0, 0, 1400, 200);
-        mainTextArea.setBackground(new Color(23, 32, 56));
-        mainTextArea.setForeground(new Color(222, 158, 65));
         mainTextArea.setFont(normalFont);
-        mainTextArea.setLineWrap(false);
-        mainTextArea.setWrapStyleWord(true);
         mainTextArea.setEditable(false);
-        mainTextArea.setOpaque(false);
         mainTextPanel.add(mainTextArea);
 
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(90, 630, 1400, 200);
-        choiceButtonPanel.setBackground(new Color(23, 32, 56));
         choiceButtonPanel.setLayout(new GridLayout(2, 2, 10, 10));
         frame.add(choiceButtonPanel);
 
         choiceButton1 = new JButton();
-        choiceButton1.setBackground(new Color(23, 32, 56));
-        choiceButton1.setForeground(new Color(222, 158, 65));
         choiceButton1.setFont(normalFont);
-        choiceButton1.setFocusPainted(false);
         choiceButton1.setActionCommand("c1");
-        choiceButton1.addActionListener(choiceHandler);
+        choiceButton1.addActionListener(this::handleChoiceAction);
         choiceButtonPanel.add(choiceButton1);
 
         choiceButton2 = new JButton();
-        choiceButton2.setBackground(new Color(23, 32, 56));
-        choiceButton2.setForeground(new Color(222, 158, 65));
         choiceButton2.setFont(normalFont);
-        choiceButton2.setFocusPainted(false);
         choiceButton2.setActionCommand("c2");
-        choiceButton2.addActionListener(choiceHandler);
+        choiceButton2.addActionListener(this::handleChoiceAction);
         choiceButtonPanel.add(choiceButton2);
 
         choiceButton3 = new JButton();
-        choiceButton3.setBackground(new Color(23, 32, 56));
-        choiceButton3.setForeground(new Color(222, 158, 65));
         choiceButton3.setFont(normalFont);
-        choiceButton3.setFocusPainted(false);
         choiceButton3.setActionCommand("c3");
-        choiceButton3.addActionListener(choiceHandler);
+        choiceButton3.addActionListener(this::handleChoiceAction);
         choiceButtonPanel.add(choiceButton3);
 
         choiceButton4 = new JButton();
-        choiceButton4.setBackground(new Color(23, 32, 56));
-        choiceButton4.setForeground(new Color(222, 158, 65));
         choiceButton4.setFont(normalFont);
-        choiceButton4.setFocusPainted(false);
         choiceButton4.setActionCommand("c4");
-        choiceButton4.addActionListener(choiceHandler);
+        choiceButton4.addActionListener(this::handleChoiceAction);
         choiceButtonPanel.add(choiceButton4);
 
-        playerPanel = new JPanel();
-        playerPanel.setBounds(100, 15, 600, 50);
-        playerPanel.setBackground(new Color(23, 32, 56));
-        playerPanel.setLayout(new GridLayout(1, 4));
-        frame.add(playerPanel);
-        startGame();
+        anfangsSzene1();
     }
 
-    public void startGame() {
-        position = "AnfangsSzene";
-        mainTextArea.setText("The year 384 of the (.) cycle in the kingdom of (placeholder)...");
-        choiceButton1.setText("Weiter");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
-    }
+    public void handleChoiceAction(ActionEvent event) {
+        String yourChoice = event.getActionCommand();
 
-    public void introScene() {
-        position = "BeispielOrt1";
-        mainTextArea.setText("and the country .... can save is the one true blood heir...");
-        choiceButton1.setText("Weiter");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
-    }
-
-    public class TitleScreenHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            createGameScreen();
+        switch (position) {
+            case "anfangsSzene":
+                if ("c1".equals(yourChoice)) anfangsSzene2();
+                break;
+            case "anfangsSzene2":
+                if ("c1".equals(yourChoice)) tavernSzene();
+                break;
+            case "tavern":
+                if ("c1".equals(yourChoice)) tavernSzene2();
+                break;
+            case "tavern2":
+                if ("c1".equals(yourChoice)) fightScene();
+                break;
         }
     }
 
-    public class ChoiceHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            String yourChoice = event.getActionCommand();
-
-            switch (position) {
-                case "AnfangsSzene":
-                    if ("c1".equals(yourChoice)) {
-                        introScene();
-                    }
-                    break;
-                case "BeispielOrt1":
-                    break;
-            }
-        }
+    public void anfangsSzene1() {
+        position = "anfangsSzene";
+        mainTextArea.setText("The year 384... The great royal family Seidler...");
+        choiceButton1.setText("Weiter");
     }
 
-    public static void main(String[] args) {
-        new Game();
+    public void anfangsSzene2() {
+        position = "anfangsSzene2";
+        mainTextArea.setText("and the country .... can save is the one true blood heir to the throne...");
+        choiceButton1.setText("Weiter");
+    }
+
+    public void tavernSzene() {
+        position = "tavern";
+        mainTextArea.setText("A drunken knight steps forward...");
+        choiceButton1.setText("...");
+    }
+
+    public void tavernSzene2() {
+        position = "tavern2";
+        mainTextArea.setText("Drunken knight: Wrong answer");
+        choiceButton1.setText("FIGHT");
+    }
+
+    public void fightScene() {
+        position = "fight";
+        mainTextArea.setText("The battle begins!");
     }
 }
