@@ -30,16 +30,31 @@ public class Inventory {
 
         String[] itemsList = db.getInventory(userID);
 
+        for (int i = 0; i < itemsList.length; i++) {
 
-        return itemsList[Integer.parseInt(itemID)] != null;
+            if (itemsList[i].equals(itemID)) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
     }
 
     public boolean consum(String itemID) throws SQLException {
 
         Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //Gets item attributes
-        db.addItem(userID, Integer.parseInt(itemID), -1);
 
-        return true;
+        if (hasItem(itemID))
+        {
+            db.addItem(userID, Integer.parseInt(itemID), -1);
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
