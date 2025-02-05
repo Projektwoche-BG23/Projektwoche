@@ -1,4 +1,3 @@
-import java.util.Random;
 
 /**
  * Class to calculate the damage dealt or taken during combat.
@@ -125,6 +124,7 @@ public class RechnerKampf {
             return false;
         }
     }
+
     /**
      * Calculates the damage the Player does to an Enemy with a Normal attack
      * and decreases the health of the enemy accordingly
@@ -146,6 +146,7 @@ public class RechnerKampf {
         else {
             typ.setHealth(typ.getHealth() - truedmg);
         }
+
     }
 
     /**
@@ -168,7 +169,9 @@ public class RechnerKampf {
         else {
             typ.setHealth(typ.getHealth() - truedmg);
         }
+
     }
+
     /**
      * Calculates the damage the Enemy does to the Player with a Normal attack
      * and decreases the health of the Player accordingly
@@ -189,7 +192,9 @@ public class RechnerKampf {
         else {
             main.setHealth(main.getHealth() - truedmg);
         }
+
     }
+
     /**
      * Calculates the damage the Enemy does to the Player with a Magic attack
      * and decreases the health of the Player accordingly
@@ -210,6 +215,6 @@ public class RechnerKampf {
         else {
             main.setHealth(main.getHealth() - truedmg);
         }
+
     }
 }
-

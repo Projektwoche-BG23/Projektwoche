@@ -4,43 +4,50 @@ import java.util.List;
 
 public class Inventory {
 
+    DB db = new DB();
     RNG rng = new RNG();
-    private List<String> inventory;
     private String[] itemSlots = new String[6];
 
-    public Inventory(){
-        inventory = new ArrayList<>();
-    }
+    int userID;
 
-    public List<String> getInventory() {
-        return inventory;
-    }
+    public void equipItem(String itemID) throws SQLException {
 
-    public void addItem(String itemName) {
-        System.out.println("added item: " + itemName);
-        inventory.add(itemName);
-    }
-
-    public void removeItem(String itemName) {
-        inventory.remove(itemName);
-    }
-
-    public boolean containsItem(String itemName) {
-        return inventory.contains(itemName);
-    }
-
-    public void equipItem(String itemName) {
+        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //item Id
+        int slotID = Integer.parseInt((String) itemAttributes[3]); //equip slot
+        itemSlots[slotID - 1] = itemID;
 
     }
 
-    public Object[] addRandom(String chestName) throws SQLException {
-        Object[] drops = rng.randomDrop(chestName);
+    public void unequipItem(String itemID) throws SQLException {
+
+        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //item Id
+        int slotID = Integer.parseInt((String) itemAttributes[3]); //equip slot
+        itemSlots[slotID - 1] = "0";
+
+    }
+
+    public boolean hasItem(String itemID) throws SQLException {
+
+        String[] itemsList = db.getInventory(userID);
+
+
+        return itemsList[Integer.parseInt(itemID)] != null;
+    }
+
+    public boolean consum(String itemID) throws SQLException {
+
+        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //Gets item attributes
+        db.addItem(userID, Integer.parseInt(itemID), -1);
+
+        return true;
+
+    }
+
+    public String[] addRandom(String chestName) throws SQLException {
+        String[] drops = rng.randomDrop(chestName);
         for (int i = 0; i < drops.length; i++)
         {
-            for (Object drop : drops) {
-                Object[] dropEntry = (Object[]) drop;
-                addItem((String) dropEntry[1]);
-            }
+            db.addItem(userID, Integer.parseInt(drops[i]), 1);
         }
         return drops;
     }
