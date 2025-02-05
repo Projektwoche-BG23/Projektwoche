@@ -6,12 +6,12 @@ public class Enemy {
 
     private int health;         // Health points
     private int defense;        // Defense in %
+
     private int magicDefense;   // Magic Defense in %
     private int attack;         // Flat attack
     private int magicAttack;    // Flat Magic damage
     private int agility;        // Speed in turns and dodge chance at higher values
     private int luck;           // Critical hit chance
-
     /**
      * Creates a new Enemy unit based on the given type.
      * @param enemyName Determines the enemy type. Available: SKELETON, GOBLIN, GHOST, KING
@@ -28,8 +28,8 @@ public class Enemy {
                 luck = 10;
 
                 break;
-
-            case "GOBLIN":
+          
+          case "GOBLIN":
                 health = 150;
                 defense = 20;
                 magicDefense = 10;
@@ -38,6 +38,7 @@ public class Enemy {
                 agility = 20;
                 luck = 15;
 
+            
                 break;
             case "GHOST":
                 health = 175;
@@ -65,6 +66,7 @@ public class Enemy {
                 magicDefense = 0;
                 attack = 5;
                 magicAttack = 0;
+
                 agility = 5;
                 luck = 1;
                 break;
@@ -90,6 +92,7 @@ public class Enemy {
     public void setAttack(int newAttack) { attack = Math.max(newAttack, 0); }
     public void setMagicAttack(int newSpecAttack) { magicAttack = Math.max(newSpecAttack, 0); }
     public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
+
     public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
 }
 
