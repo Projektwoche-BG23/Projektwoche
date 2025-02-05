@@ -17,6 +17,7 @@ public class DB {
     private String sql;
     private ResultSet rs;
 
+
     // Constructor that connects to the database
     public DB() {
         try {
@@ -26,6 +27,7 @@ public class DB {
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * Checks if the login information is correct and returns the user_ID
@@ -49,18 +51,55 @@ public class DB {
         return user_ID;
     }
 
+
     /**
      * Creates a new account in the database
      * @param username Desired username
      * @param password Desired password
      * @throws SQLException if the query fails
      */
-    public void createAcc(String username, String password) throws SQLException {
+    public boolean createAcc(String username, String password) throws SQLException {
+        // Check if username is already taken.
+        sql = "SELECT * FROM login WHERE name = ?";
+        stmt = con.prepareStatement(sql);
+        stmt.setString(1, username);
+        rs = stmt.executeQuery();
+        if (rs.next()) {
+            return false;
+        }
+
+        // create new login-line / account
         sql = "INSERT INTO Login (name, password) VALUES (?, ?)";
         stmt = con.prepareStatement(sql);
         stmt.setString(1, username);
         stmt.setString(2, password);
         stmt.executeUpdate();
+
+        // get user_ID of the acc we just created
+        sql = "SELECT * FROM login WHERE name = ?";
+        stmt = con.prepareStatement(sql);
+        stmt.setString(1, username);
+        rs = stmt.executeQuery();
+        int user_ID = 0;
+        if (rs.next()) {
+            user_ID = Integer.parseInt(rs.getString(3));
+        }
+
+        // Create new gamefiles line.
+        sql = "INSERT INTO gamefiles (user_ID, Location, important_decision_A) VALUES (?, ?, ?)";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        stmt.setString(2, "anfangsSzene");
+        stmt.setInt(3, 0);
+        stmt.executeUpdate();
+
+        // Create new inventory space
+        sql = "INSERT INTO inventory (user_ID, slot_1, slot_2, slot_3, slot_4, slot_5, slot_6, slot_7, slot_8, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17, slot_18, slot_19) VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        stmt.executeUpdate();
+
+        return true;
     }
 
     /*
@@ -122,8 +161,7 @@ public class DB {
         return item;
     }
 
-    /*
-     * Indicates how much the player has of a certain item
+    /*     * Indicates how much the player has of a certain item
      * @param userID: userID of the player
      */
     public String[] getInventory(int userID) throws SQLException
@@ -141,5 +179,26 @@ public class DB {
             }
         }
         return inv;
+
+     * Retrieves information about the player's position and decisions
+     * @param userID: userID of the player
+     */
+       
+    public String[] playerInfo(int userID) throws SQLException
+    {
+        sql = "SELECT * FROM gamefiles WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, userID);
+        rs = stmt.executeQuery();
+        String[] player = new String[3];
+        while (rs.next())
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                player[i] = rs.getString(i+1);
+            }
+        }
+        return player;
+
     }
 }
