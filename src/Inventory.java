@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Inventory {
     }
 
     public void addItem(String itemName) {
+        System.out.println("added item: " + itemName);
         inventory.add(itemName);
     }
 

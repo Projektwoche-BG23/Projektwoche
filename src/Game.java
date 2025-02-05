@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
 
+//version 1.0
+
 public class Game {
     JFrame frame;
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
@@ -36,14 +38,31 @@ public class Game {
      * Dies sind die Schriftarten. Nach belieben ändern
      */
 
-    Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
-    Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
+    public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
+    public Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+    public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
     /**
      * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler
      */
+   // String position;
+
+    /**
+     * Dies ist die Waffen Variable.
+     */
+   // String waffe = "Fists";
+
+    /**
+     * Dies ist die Healt/Leben Variable.
+     */
+   // int healt = 0;
+
+
+    /**
+     * Dies ist die PlayerPositions Varbiable.
+     */
     String playerPosition = "Intro";
+
 
     /**
      * @Game Titelbildschirm des Spieles
@@ -299,14 +318,42 @@ public class Game {
         choiceButton4.setText("");
     }
 
+    public void tavernSzene(){
+        position = "tavern";
+        mainTextArea.setText("A drunken knight steps forward \n" +
+                "Drunken knight:What are you doing here, you haven't been a knight for a long time\n" +
+                "Drunken knight:Didn't I tell you never to show your face here again\n" +
+                "Drunken knight:You left me behind\n" +
+                "Drunken knight:GET OUT OF THIS TOWN NOW");
+        choiceButton1.setText("...");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
 
-    public class TitleScreenHandler implements ActionListener {
+    public void tavernSzene2(){
+        position = "tavern2";
+        mainTextArea.setText("Drunken knight: Wrong answer");
+        choiceButton1.setText("FIGHT");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
+
+
+    private class TitleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             createGameScreen();
         }
     }
 
-    public class ChoiceHandler implements ActionListener {
+
+
+
+
+
+//LEtssas
+    private class ChoiceHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             String yourChoice = event.getActionCommand();
 
@@ -349,6 +396,7 @@ public class Game {
                 case "CityCenter":
                     switch (yourChoice) {
                         case "c1":
+                            tavernSzene2();
                             break;
                         case "c2":
                             break;
@@ -361,8 +409,8 @@ public class Game {
             }
         }
     }
-
-    public static void main(String[] args) {
-        new Game();
+    private class deathScreenHandler {
     }
+
 }
+
