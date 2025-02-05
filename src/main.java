@@ -18,14 +18,6 @@ public class Main {
         for (Object drop : drops) {
             System.out.println(drop); // Item-Namen ausgeben
         }
-
-        // Chest drops (previous functionality)
-        rng.randomDrop("chest1");
-        rng.randomDrop("chest1");
-        rng.randomDrop("chest1");
-        rng.randomDrop("chest1");
-
-        System.out.println(inv.getInventory());
     }
 
     public void mathew() {

@@ -1,79 +1,87 @@
-public class Character
-{
-    private int health = 5;
-    private int attack = 5;
-    private int specialAttack = 5;
-    private int defense = 5;
-    private int specialDefense = 5;
-    private int agility = 5;
-    private int luck = 5;
+import java.sql.SQLException;
+
+public class Character {
+    private DB db;
+    // Base Stats
+    private final int baseHealth = 5;
+    private final int baseAttack = 5;
+    private final int baseMagicAttack = 5;
+    private final int baseDefense = 5;
+    private final int baseMagicDefense = 5;
+    private final int baseAgility = 5;
+    private final int baseLuck = 5;
+    private final int baseStrength = 0;
+    private final int baseMana = 50;
+    private final int baseManaReg = 5;
+
+    // Current Stats
+    private int health;
+    private int attack;
+    private int magicAttack;
+    private int defense;
+    private int magicDefense;
+    private int agility;
+    private int luck;
     private int strength;
     private int mana;
-    private int mana_reg;
+    private int manaReg;
 
-    private int baseHealth = 5;
-    private int baseAttack = 5;
-    private int baseSpecialAttack = 5;
-    private int baseDefense = 5;
-    private int baseSpecialDefense = 5;
-    private int baseAgility = 5;
-    private int baseLuck = 5;
-    private int baseStrength;
-    private int baseMana;
-    private int baseMana_reg;
+    public void Update(int UserID) throws SQLException
+    {
+        health = baseHealth;
+        attack = baseAttack;
+        magicAttack = baseMagicAttack;
+        defense = baseDefense;
+        magicDefense = baseMagicDefense;
+        agility = baseAgility;
+        luck = baseLuck;
+        strength = baseStrength;
+        mana = baseMana;
+        manaReg = baseManaReg;
 
-    //getter methoden
-    public int getAttack()
-    {
-        return attack;
-    }
-    public int getHealth()
-    {
-        return health;
-    }
-    public int getSpecialAttack()
-    {
-        return specialAttack;
-    }
-    public int getDefense()
-    {
-        return defense;
-    }
-    public int getSpecialDefense()
-    {
-        return specialDefense;
-    }
-    public int getAgility()
-    {
-        return agility;
-    }
-    public int getLuck()
-    {
-        return luck;
-    }
-    public int getStrength()
-    {
-        return strength;
-    }
-    public int getMana()
-    {
-        return mana;
-    }
-    public int getMana_reg()
-    {
-        return mana_reg;
+        String[] equippedItems = db.getEquipped(UserID);
+
+        for (String itemIDString : equippedItems) {
+            if (itemIDString != null && !itemIDString.isEmpty()) {
+                int itemID = Integer.parseInt(itemIDString);  // Item-ID aus dem Slot
+                String[] itemStats = db.itemInfo(itemID);  // Hole die Item-Informationen aus der DB
+
+
+                health += Integer.parseInt(itemStats[7]);
+                attack += Integer.parseInt(itemStats[13]);
+                magicAttack += Integer.parseInt(itemStats[11]);
+                defense += Integer.parseInt(itemStats[4]);
+                magicDefense += Integer.parseInt(itemStats[5]);
+                agility += Integer.parseInt(itemStats[6]);
+                luck += Integer.parseInt(itemStats[12]);
+                strength += Integer.parseInt(itemStats[14]);
+                mana += Integer.parseInt(itemStats[9]);
+                manaReg += Integer.parseInt(itemStats[10]);
+            }
+        }
     }
 
-    //Setter Methoden
+    // Getter Methods
+    public int getAttack() { return attack; }
+    public int getHealth() { return health; }
+    public int getMagicAttack() { return magicAttack; }
+    public int getDefense() { return defense; }
+    public int getMagicDefense() { return magicDefense; }
+    public int getAgility() { return agility; }
+    public int getLuck() { return luck; }
+    public int getStrength() { return strength; }
+    public int getMana() { return mana; }
+    public int getManaReg() { return manaReg; }
+
+    // Setter Methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
-    public void setDefense(int newDefense) { defense = Math.max(newDefense, 0); }
-    public void setSpecDefense(int newSpecDefense) { specialDefense = Math.max(newSpecDefense, 0); }
     public void setAttack(int newAttack) { attack = Math.max(newAttack, 0); }
-    public void setSpecAttack(int newSpecAttack) { specialAttack = Math.max(newSpecAttack, 0); }
+    public void setMagicAttack(int newMagicAttack) { magicAttack = Math.max(newMagicAttack, 0); }
+    public void setDefense(int newDefense) { defense = Math.max(newDefense, 0); }
+    public void setMagicDefense(int newMagicDefense) { magicDefense = Math.max(newMagicDefense, 0); }
     public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
     public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
-    public void setStrength(int newStrength) { luck = Math.max(newStrength, 0); }
-    public void setMana(int newMana) { luck = Math.max(newMana, 0); }
-    public void setMana_reg(int newMana_reg) { luck = Math.max(newMana_reg, 0); }
+    public void setStrength(int newStrength) { strength = Math.max(newStrength, 0); }
+    public void setMana(int newMana) { mana = Math.max(newMana, 0); }
+    public void setManaReg(int newManaReg) { manaReg = Math.max(newManaReg, 0); }
 }
-
