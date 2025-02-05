@@ -1,3 +1,4 @@
+
 import java.sql.SQLException;
 
 public class main {
@@ -27,7 +28,7 @@ public class main {
         Game game = new Game();
 
         // Beispielcode für das Öffnen einer Kiste und das Erhalten von Items
-        Object[] drops = rng.randomDrop("chest1"); 
+        Object[] drops = rng.randomDrop("chest1");
         for (Object drop : drops) {
             System.out.println(drop); // Item-Namen ausgeben
         }
