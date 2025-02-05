@@ -1,5 +1,6 @@
 public class Character
 {
+    //Base Values of the Hero ( Can not be changed Ingame)
     private final int baseHealth = 5;
     private final int baseAttack = 5;
     private final int baseMagicAttack = 5;
@@ -11,7 +12,9 @@ public class Character
     private final int baseMana= 50;
     private final int baseMana_reg = 5;
     private final int manaCost = 10;
+    private final int basemaxMana = 50;
 
+    //Current Player Stats
     private int health = 5;
     private int attack = 5;
     private int magicAttack = 5;
@@ -19,9 +22,10 @@ public class Character
     private int magicDefense = 5;
     private int agility = 5;
     private int luck = 5;
-    private int strength;
-    private int mana;
-    private int mana_reg;
+    private int strength = 0;
+    private int mana_reg = 5;
+    private int maxMana = basemaxMana;
+    private int mana = maxMana;
 
 
     //getter methoden
@@ -69,6 +73,9 @@ public class Character
     public int getManaCost() {
         return manaCost;
     }
+    public int getMaxMana(){
+        return maxMana;
+    }
 
     //Setter Methoden
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
@@ -81,5 +88,6 @@ public class Character
     public void setStrength(int newStrength) { luck = Math.max(newStrength, 0); }
     public void setMana(int newMana) { luck = Math.max(newMana, 0); }
     public void setMana_reg(int newMana_reg) { luck = Math.max(newMana_reg, 0); }
+    public void setMaxMana(int newMaxMana) {maxMana = Math.max(newMaxMana,0);}
 }
 
