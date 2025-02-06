@@ -13,7 +13,7 @@ public class LoginGUI {
     private JButton loginJButton;
     private JButton registerJButton;
     private boolean registerWindowOpen = false;
-DB db1 = new DB();
+    DB db1 = new DB();
 
 
     public LoginGUI() {

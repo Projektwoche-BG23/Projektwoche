@@ -1,3 +1,4 @@
+import java.security.PrivateKey;
 import java.sql.SQLException;
 
 public class Character {
@@ -16,6 +17,7 @@ public class Character {
     private final int manaCost = 5;
     private final int baseMaxHealth = 5;
     private final int baseMaxMana = 5;
+
     // Current Stats
     private int health;
     private int attack;
@@ -79,6 +81,7 @@ public class Character {
     public int getMana() { return mana; }
     public int getManaReg() { return manaReg; }
     public int getManaCost() { return  manaCost; }
+
 
     // Setter Methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }

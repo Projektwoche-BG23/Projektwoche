@@ -10,11 +10,16 @@ public class Inventory {
 
     int userID;
 
+    public void setUserID(int id) {
+        userID = id;
+    }
+
     public void equipItem(String itemID) throws SQLException {
 
         Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //item Id
         int slotID = Integer.parseInt((String) itemAttributes[3]); //equip slot
-        itemSlots[slotID - 1] = itemID;
+        db.equipToItemSlot(userID, slotID, Integer.parseInt(itemID));
+        itemSlots[slotID] = itemID;
 
     }
 
@@ -22,7 +27,8 @@ public class Inventory {
 
         Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //item Id
         int slotID = Integer.parseInt((String) itemAttributes[3]); //equip slot
-        itemSlots[slotID - 1] = "0";
+        db.equipToItemSlot(userID, slotID, 0);
+        itemSlots[slotID] = itemID;
 
     }
 
@@ -30,17 +36,15 @@ public class Inventory {
 
         String[] itemsList = db.getInventory(userID);
 
-        for (int i = 0; i < itemsList.length; i++) {
+        int count = Integer.parseInt(itemsList[Integer.parseInt(itemID)]) ;
 
-            if (itemsList[i].equals(itemID)) {
-
-                return true;
-
-            }
-
+        if (count > 0)
+        {
+            return true;
+        }else
+        {
+            return false;
         }
-
-        return false;
 
     }
 
@@ -52,6 +56,8 @@ public class Inventory {
         {
             db.addItem(userID, Integer.parseInt(itemID), -1);
             player.usePotion(itemID);
+            System.out.println("consumed successfully");
+
             return true;
         }else{
             return false;
