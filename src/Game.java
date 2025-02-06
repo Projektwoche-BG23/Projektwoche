@@ -27,9 +27,6 @@ public class Game {
     private FloatControl volumeControl;
     private boolean isMuted = false;
 
-
-
-
     /**
      * Dies sind die Schriftarten. Nach belieben ändern.
      */
@@ -74,10 +71,6 @@ public class Game {
             e.printStackTrace();
         }
 
-        /**
-         * Dies ist der Hauptframe, auf dem alle anderen Frames hinzugefügt werden.
-         */
-
         frame = new JFrame();
         frame.setSize(1600, 900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,33 +79,18 @@ public class Game {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
 
-        /**
-         * Dieses Panel ist für das anzeigen des Titels
-         */
-
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(0, 100, 1600, 300);
         titleNamePanel.setBackground(new Color(23, 32, 56));
-        frame.add(titleNamePanel);
-
-        /**
-         * Dieses Label ist der Titel
-         */
-
         titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
         titleNameLabel.setForeground(new Color(222, 158, 65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
 
-        /**
-         * Dies Panel bietet Platz für die Buttons des Titelscreens
-         */
-
         startButtonPanel = new JPanel();
         startButtonPanel.setBounds(300, 450, 1000, 350);
         startButtonPanel.setBackground(new Color(23, 32, 56));
         startButtonPanel.setLayout(new GridLayout(4, 1));
-
         /**
          * Dies ist für das Anzeigen des Start-Buttons us
          */
@@ -129,13 +107,13 @@ public class Game {
         ladenButton.setBackground(new Color(23, 32, 56));
         ladenButton.setForeground(new Color(222, 158, 65));
         ladenButton.setFont(startButtonFont);
-        //Action Listener hinzufügen für Funktion
         startButtonPanel.add(ladenButton);
 
         einstellungenButton = new JButton("Einstellungen");
         einstellungenButton.setBackground(new Color(23, 32, 56));
         einstellungenButton.setForeground(new Color(222, 158, 65));
         einstellungenButton.setFont(startButtonFont);
+
         einstellungenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -354,7 +332,7 @@ public class Game {
         /**
          * Löscht den Vorherigen Inhalt von der GUI also es macht es unsichbar
          */
-        titleNamePanel.setVisible(false);
+      titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
         waffentext.setVisible(true);
         healtbartext.setVisible(true);
@@ -381,10 +359,6 @@ public class Game {
         mainTextPanel.setBackground(new Color(23, 32, 56));
         frame.add(mainTextPanel);
 
-        /**
-         * Hier wird der Dialog angezeigt
-         */
-
         mainTextArea = new JTextArea();
         mainTextArea.setBounds(0, 0, 1600, 200);
         mainTextArea.setBackground(new Color(23, 32, 56));
@@ -396,10 +370,6 @@ public class Game {
         mainTextArea.setOpaque(false);
         mainTextPanel.add(mainTextArea);
 
-        /**
-         * Dies Feld beinhaltet die Buttons
-         */
-
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(50, 300, 200, 550);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
@@ -410,6 +380,7 @@ public class Game {
         choiceButton1.setBackground(new Color(23, 32, 56));
         choiceButton1.setForeground(new Color(222, 158, 65));
         choiceButton1.setFont(normalFont);
+
         choiceButton1.setActionCommand("c1");
         choiceButton1.addActionListener(choiceHandler);
         choiceButton1.setFocusPainted(false);
@@ -419,6 +390,7 @@ public class Game {
         choiceButton2.setBackground(new Color(23, 32, 56));
         choiceButton2.setForeground(new Color(222, 158, 65));
         choiceButton2.setFont(normalFont);
+
         choiceButton2.setActionCommand("c2");
         choiceButton2.addActionListener(choiceHandler);
         choiceButton2.setFocusPainted(false);
@@ -428,6 +400,7 @@ public class Game {
         choiceButton3.setBackground(new Color(23, 32, 56));
         choiceButton3.setForeground(new Color(222, 158, 65));
         choiceButton3.setFont(normalFont);
+
         choiceButton3.setActionCommand("c3");
         choiceButton3.addActionListener(choiceHandler);
         choiceButton3.setFocusPainted(false);
@@ -437,11 +410,43 @@ public class Game {
         choiceButton4.setBackground(new Color(23, 32, 56));
         choiceButton4.setForeground(new Color(222, 158, 65));
         choiceButton4.setFont(normalFont);
+
         choiceButton4.setActionCommand("c4");
         choiceButton4.addActionListener(choiceHandler);
         choiceButton4.setFocusPainted(false);
         choiceButtonPanel.add(choiceButton4);
 
+        playerPanel = new JPanel();
+        playerPanel.setBounds(100, 15, 600, 50);
+        playerPanel.setBackground(new Color(23, 32, 56));
+        playerPanel.setLayout(new GridLayout(1, 4));
+        frame.add(playerPanel);
+        startGame();
+    }
+
+    public void startGame() {
+        position = "AnfangsSzene";
+        mainTextArea.setText("The year 384 of the (.) cycle in the kingdom of (placeholder)...");
+        choiceButton1.setText("Weiter");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
+
+    public void introScene() {
+        position = "BeispielOrt1";
+        mainTextArea.setText("and the country .... can save is the one true blood heir...");
+        choiceButton1.setText("Weiter");
+        choiceButton2.setText("");
+        choiceButton3.setText("");
+        choiceButton4.setText("");
+    }
+
+    public class TitleScreenHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            createGameScreen();
+        }
+    }
         startGame();
     }
 
@@ -459,8 +464,6 @@ public class Game {
         fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
         fightScreenButtonPanel.setLayout(new GridLayout(3, 1));
         frame.add(fightScreenButtonPanel);
-
-
 
         attackButton = new JButton();
         attackButton.addActionListener(new ActionListener() {
@@ -594,7 +597,6 @@ public class Game {
 
                     }
                 }
-
             }
         });
         magicButton.setBackground(new Color(23, 32, 56));
