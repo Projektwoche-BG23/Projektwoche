@@ -79,7 +79,9 @@ public class LoginGUI {
             loginFrame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) { //when login window gets closed register window also get closed
                     System.out.println("Login window closed.");
-                    registerFrame.dispose();
+                    if(registerWindowOpen) {
+                        registerFrame.dispose();
+                    }
                 }
             });
         });
@@ -118,4 +120,5 @@ public class LoginGUI {
         System.out.print("LoginGUI enabled\n");
     }
 }
+
 
