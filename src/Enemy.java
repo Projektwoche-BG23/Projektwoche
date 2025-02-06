@@ -13,7 +13,8 @@ public class Enemy {
     private int luck;           // Critical hit chance
     private int cooldown;       // Determines the cooldown fo a Magic attack
     private int attackTyp;      // Determines what attack type the Unit can use.
-                                // 1 for Normal, 2 for Magic and 0 for both
+    // 1 for Normal, 2 for Magic and 0 for both
+
     /**
      * Creates a new Enemy unit based on the given type.
      * @param enemyName Determines the enemy type. Available: SKELETON, GOBLIN, GHOST, KING
@@ -92,5 +93,9 @@ public class Enemy {
     public void setMagicAttack(int newSpecAttack) { magicAttack = Math.max(newSpecAttack, 0); }
     public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
     public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
+
+    //public int getAttackTyp() {
+    //    return 3;
+    //}
 }
 

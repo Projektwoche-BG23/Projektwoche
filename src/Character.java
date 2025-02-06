@@ -87,4 +87,8 @@ public class Character {
     public void setStrength(int newStrength) { strength = Math.max(newStrength, 0); }
     public void setMana(int newMana) { mana = Math.max(newMana, 0); }
     public void setManaReg(int newManaReg) { manaReg = Math.max(newManaReg, 0); }
+
+    public int getManaCost() {
+        return  mana;
+    }
 }
