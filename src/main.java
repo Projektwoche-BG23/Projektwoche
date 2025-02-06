@@ -7,9 +7,7 @@ import com.sun.security.jgss.GSSUtil;
 import java.sql.SQLException;
 
 public class main {
-    static RNG rng = new RNG();
 
-    static Inventory inv = new Inventory();
 
 
         /* --Ein Beispiel Code für chest öffnen und item drop!!!
@@ -26,8 +24,13 @@ public class main {
 
         DB db = new DB();
         //System.out.println(db.getUser_ID("test", "123"));
-
         Game game = new Game();
+
+        RNG rng = new RNG();
+        Inventory inv = new Inventory();
+        LoginGUI loginGUI = new LoginGUI();
+        loginGUI.openLoginWindow();
+
 
 
         inv.setUserID(10);

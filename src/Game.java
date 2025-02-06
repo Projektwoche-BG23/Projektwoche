@@ -13,9 +13,9 @@ public class Game {
     public JFrame frame;
     JPanel enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton, itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
-    JPanel ImagePanel,fightScreenButtonPanel;
+    JPanel ImagePanel, fightScreenButtonPanel;
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
@@ -45,408 +45,409 @@ public class Game {
      * Die Variable waffe ist für die ausgewählte Waffe verantwortlich.
      */
 
-    String waffe = "Fists";
+        String waffe = "Fists";
 
-    /**
-     * Die Variable health ist für die Leben die der Spieler hat verantwortlich,.
-     */
+        /**
+         * Die Variable health ist für die Leben die der Spieler hat verantwortlich,.
+         */
 
-    int health = c.getHealth();
+        int health = c.getHealth();
 
-    /**
-     * Die Variable playerPosition ist für den Standort verantwortlich wo der Spiler sich gerade im Spiel befindet.
-     */
-    String playerPosition = "Intro";
+        /**
+         * Die Variable playerPosition ist für den Standort verantwortlich wo der Spiler sich gerade im Spiel befindet.
+         */
+        String playerPosition = "Intro";
 
-    /**
-     * @Game Titelbildschirm des Spieles
-     */
+        /**
+         * @Game Titelbildschirm des Spieles
+         */
 
-    public Game() {
+             public Game() {
         // Musik initialisieren
       //  initializeMusic();
-        try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            frame = new JFrame();
+            frame.setSize(1600, 900);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().setBackground(new Color(23, 32, 56));
+            frame.setLayout(null);
+            frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
+
+            titleNamePanel = new JPanel();
+            titleNamePanel.setBounds(0, 100, 1600, 300);
+            titleNamePanel.setBackground(new Color(23, 32, 56));
+            titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
+            titleNameLabel.setForeground(new Color(222, 158, 65));
+            titleNameLabel.setFont(titleFont);
+            titleNamePanel.add(titleNameLabel);
+
+            startButtonPanel = new JPanel();
+            startButtonPanel.setBounds(300, 450, 1000, 350);
+            startButtonPanel.setBackground(new Color(23, 32, 56));
+            startButtonPanel.setLayout(new GridLayout(4, 1));
+            /**
+             * Dies ist für das Anzeigen des Start-Buttons us
+             */
+
+            startButton = new JButton("Start");
+            startButton.setBackground(new Color(23, 32, 56));
+            startButton.setForeground(new Color(222, 158, 65));
+            startButton.setFont(startButtonFont);
+            startButton.addActionListener(tsHandler);
+            startButton.setFocusPainted(false);
+            startButtonPanel.add(startButton);
+
+            ladenButton = new JButton("Laden");
+            ladenButton.setBackground(new Color(23, 32, 56));
+            ladenButton.setForeground(new Color(222, 158, 65));
+            ladenButton.setFont(startButtonFont);
+            startButtonPanel.add(ladenButton);
+
+            einstellungenButton = new JButton("Einstellungen");
+            einstellungenButton.setBackground(new Color(23, 32, 56));
+            einstellungenButton.setForeground(new Color(222, 158, 65));
+            einstellungenButton.setFont(startButtonFont);
+
+            einstellungenButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showSettings();
+                }
+            });
+            startButtonPanel.add(einstellungenButton);
+
+            verlassenButton = new JButton("Verlassen");
+            verlassenButton.setBackground(new Color(23, 32, 56));
+            verlassenButton.setForeground(new Color(222, 158, 65));
+            verlassenButton.setFont(startButtonFont);
+            verlassenButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+            startButtonPanel.add(verlassenButton);
+
+
+            /**
+             * Dies ist die Healtbar
+             */
+
+            healtbartextpanel = new JPanel();
+            healtbartextpanel.setBackground(new Color(23, 32, 56));
+            healtbartextpanel.setBounds(0, 10, 250, 100);
+            frame.add(healtbartextpanel);
+
+            healtbartext = new JLabel("Player Health: " + health, SwingConstants.CENTER);
+            healtbartext.setForeground(new Color(222, 158, 65));
+            healtbartext.setFont(normalFont);
+            healtbartextpanel.add(healtbartext);
+            healtbartext.setVisible(false);
+
+            enemyHealtbartextpanel = new JPanel();
+            enemyHealtbartextpanel.setBackground(new Color(23, 32, 56));
+            enemyHealtbartextpanel.setBounds(0, 20, 250, 100);
+            frame.add(enemyHealtbartextpanel);
+
+            enemyHealtbartext = new JLabel("Enemy Health: " + health, SwingConstants.CENTER);
+            enemyHealtbartext.setForeground(new Color(222, 158, 65));
+            enemyHealtbartext.setFont(normalFont);
+            enemyHealtbartextpanel.add(enemyHealtbartext);
+            enemyHealtbartext.setVisible(false);
+
+            /**
+             * Dies ist die Waffenanzeige
+             */
+
+            waffentextpanel = new JPanel();
+            waffentextpanel.setBackground(new Color(23, 32, 56));
+            waffentextpanel.setBounds(433, 10, 300, 100);
+            frame.add(waffentextpanel);
+
+            waffentext = new JLabel("Current Weapon: ", SwingConstants.CENTER);
+            waffentext.setForeground(new Color(222, 158, 65));
+            waffentext.setFont(normalFont);
+            waffentextpanel.add(waffentext);
+            waffentext.setVisible(false);
+
+            waffentextpanel2 = new JPanel();
+            waffentextpanel2.setBackground(new Color(23, 32, 56));
+            waffentextpanel2.setBounds(633, 10, 300, 80);
+            frame.add(waffentextpanel2);
+
+            waffentext2 = new JLabel(waffe, SwingConstants.CENTER);
+            waffentext2.setForeground(new Color(222, 158, 65));
+            waffentext2.setFont(normalFont);
+            waffentextpanel2.add(waffentext2);
+            waffentext2.setVisible(false);
+
+            /**
+             * Dies ist die Position des Spielers
+             */
+
+            playerPositionPanel = new JPanel();
+            playerPositionPanel.setBackground(new Color(23, 32, 56));
+            playerPositionPanel.setBounds(933, 10, 360, 100);
+            frame.add(playerPositionPanel);
+
+            playerPositiontext = new JLabel("Current Player Position: ", SwingConstants.CENTER);
+            playerPositiontext.setForeground(new Color(222, 158, 65));
+            playerPositiontext.setFont(normalFont);
+            playerPositionPanel.add(playerPositiontext);
+            playerPositiontext.setVisible(false);
+
+            playerPositionPanel2 = new JPanel();
+            playerPositionPanel2.setBackground(new Color(23, 32, 56));
+            playerPositionPanel2.setBounds(1259, 10, 316, 100);
+            frame.add(playerPositionPanel2);
+
+            playerPositiontext2 = new JLabel(playerPosition, SwingConstants.CENTER);
+            playerPositiontext2.setForeground(new Color(222, 158, 65));
+            playerPositiontext2.setFont(normalFont);
+            playerPositionPanel2.add(playerPositiontext2);
+            playerPositiontext2.setVisible(false);
+
+            frame.add(titleNamePanel);
+            frame.add(startButtonPanel);
+            frame.setVisible(true);
+        }
+        // Musik initialisieren
+        private void InitialisierenMusic () {
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("to-adventure-193760.mp3"));
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                volumeControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        frame = new JFrame();
-        frame.setSize(1600, 900);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(new Color(23, 32, 56));
-        frame.setLayout(null);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+        // Musik abspielen
+        // public void playMusic() {
+        //  if (!clip.isRunning()) {
+        //     clip.loop(Clip.LOOP_CONTINUOUSLY);    // <---- Braucht man Eigentlich aber ich bekomms nicht geschissen gerade
+        // }
+        //  }
 
-        titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(0, 100, 1600, 300);
-        titleNamePanel.setBackground(new Color(23, 32, 56));
-        titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
-        titleNameLabel.setForeground(new Color(222, 158, 65));
-        titleNameLabel.setFont(titleFont);
-        titleNamePanel.add(titleNameLabel);
-
-        startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(300, 450, 1000, 350);
-        startButtonPanel.setBackground(new Color(23, 32, 56));
-        startButtonPanel.setLayout(new GridLayout(4, 1));
-        /**
-         * Dies ist für das Anzeigen des Start-Buttons us
-         */
-
-        startButton = new JButton("Start");
-        startButton.setBackground(new Color(23, 32, 56));
-        startButton.setForeground(new Color(222, 158, 65));
-        startButton.setFont(startButtonFont);
-        startButton.addActionListener(tsHandler);
-        startButton.setFocusPainted(false);
-        startButtonPanel.add(startButton);
-
-        ladenButton = new JButton("Laden");
-        ladenButton.setBackground(new Color(23, 32, 56));
-        ladenButton.setForeground(new Color(222, 158, 65));
-        ladenButton.setFont(startButtonFont);
-        startButtonPanel.add(ladenButton);
-
-        einstellungenButton = new JButton("Einstellungen");
-        einstellungenButton.setBackground(new Color(23, 32, 56));
-        einstellungenButton.setForeground(new Color(222, 158, 65));
-        einstellungenButton.setFont(startButtonFont);
-
-        einstellungenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showSettings();
-            }
-        });
-        startButtonPanel.add(einstellungenButton);
-
-        verlassenButton = new JButton("Verlassen");
-        verlassenButton.setBackground(new Color(23, 32, 56));
-        verlassenButton.setForeground(new Color(222, 158, 65));
-        verlassenButton.setFont(startButtonFont);
-        verlassenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        startButtonPanel.add(verlassenButton);
-
-
-        /**
-         * Dies ist die Healtbar
-         */
-
-        healtbartextpanel = new JPanel();
-        healtbartextpanel.setBackground(new Color(23, 32, 56));
-        healtbartextpanel.setBounds(0, 10, 250, 100);
-        frame.add(healtbartextpanel);
-
-        healtbartext = new JLabel("Player Health: " + health, SwingConstants.CENTER);
-        healtbartext.setForeground(new Color(222, 158, 65));
-        healtbartext.setFont(normalFont);
-        healtbartextpanel.add(healtbartext);
-        healtbartext.setVisible(false);
-
-        enemyHealtbartextpanel = new JPanel();
-        enemyHealtbartextpanel.setBackground(new Color(23, 32, 56));
-        enemyHealtbartextpanel.setBounds(0, 20, 250, 100);
-        frame.add(enemyHealtbartextpanel);
-
-        enemyHealtbartext = new JLabel("Enemy Health: " + health, SwingConstants.CENTER);
-        enemyHealtbartext.setForeground(new Color(222, 158, 65));
-        enemyHealtbartext.setFont(normalFont);
-        enemyHealtbartextpanel.add(enemyHealtbartext);
-        enemyHealtbartext.setVisible(false);
-
-        /**
-         * Dies ist die Waffenanzeige
-         */
-
-        waffentextpanel = new JPanel();
-        waffentextpanel.setBackground(new Color(23, 32, 56));
-        waffentextpanel.setBounds(433, 10, 300, 100);
-        frame.add(waffentextpanel);
-
-        waffentext = new JLabel("Current Weapon: ", SwingConstants.CENTER);
-        waffentext.setForeground(new Color(222, 158, 65));
-        waffentext.setFont(normalFont);
-        waffentextpanel.add(waffentext);
-        waffentext.setVisible(false);
-
-        waffentextpanel2 = new JPanel();
-        waffentextpanel2.setBackground(new Color(23, 32, 56));
-        waffentextpanel2.setBounds(633, 10, 300, 80);
-        frame.add(waffentextpanel2);
-
-        waffentext2 = new JLabel(waffe, SwingConstants.CENTER);
-        waffentext2.setForeground(new Color(222, 158, 65));
-        waffentext2.setFont(normalFont);
-        waffentextpanel2.add(waffentext2);
-        waffentext2.setVisible(false);
-
-        /**
-         * Dies ist die Position des Spielers
-         */
-
-        playerPositionPanel = new JPanel();
-        playerPositionPanel.setBackground(new Color(23, 32, 56));
-        playerPositionPanel.setBounds(933, 10, 360, 100);
-        frame.add(playerPositionPanel);
-
-        playerPositiontext = new JLabel("Current Player Position: ", SwingConstants.CENTER);
-        playerPositiontext.setForeground(new Color(222, 158, 65));
-        playerPositiontext.setFont(normalFont);
-        playerPositionPanel.add(playerPositiontext);
-        playerPositiontext.setVisible(false);
-
-        playerPositionPanel2 = new JPanel();
-        playerPositionPanel2.setBackground(new Color(23, 32, 56));
-        playerPositionPanel2.setBounds(1259, 10, 316, 100);
-        frame.add(playerPositionPanel2);
-
-        playerPositiontext2 = new JLabel(playerPosition, SwingConstants.CENTER);
-        playerPositiontext2.setForeground(new Color(222, 158, 65));
-        playerPositiontext2.setFont(normalFont);
-        playerPositionPanel2.add(playerPositiontext2);
-        playerPositiontext2.setVisible(false);
-
-        frame.add(titleNamePanel);
-        frame.add(startButtonPanel);
-        frame.setVisible(true);
-    }
-    // Musik initialisieren
-    private void InitialisierenMusic() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("to-adventure-193760.mp3"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Lautstärke anpassen
+        public void setVolume ( float volume){
+            volumeControl.setValue(volume);
         }
-    }
 
-    // Musik abspielen
-   // public void playMusic() {
-      //  if (!clip.isRunning()) {
-       //     clip.loop(Clip.LOOP_CONTINUOUSLY);    // <---- Braucht man Eigentlich aber ich bekomms nicht geschissen gerade
-       // }
-  //  }
-
-    // Lautstärke anpassen
-    public void setVolume(float volume) {
-        volumeControl.setValue(volume);
-    }
-
-    // Stummschalten umschalten
-    public void toggleMute() {
-        if (isMuted) {
-            volumeControl.setValue(0.5f); // Standardlautstärke
-            isMuted = false;
-        } else {
-            volumeControl.setValue(-80.0f); // Stumm
-            isMuted = true;
+        // Stummschalten umschalten
+        public void toggleMute () {
+            if (isMuted) {
+                volumeControl.setValue(0.5f); // Standardlautstärke
+                isMuted = false;
+            } else {
+                volumeControl.setValue(-80.0f); // Stumm
+                isMuted = true;
+            }
         }
-    }
 
-    private void showSettings() {
-        // Titelname ausblenden wenn auf Einstellungen geklickt wird
-        titleNamePanel.setVisible(false); // Setzt das Titel-Panel unsichtbar
+        private void showSettings () {
+            // Titelname ausblenden wenn auf Einstellungen geklickt wird
+            titleNamePanel.setVisible(false); // Setzt das Titel-Panel unsichtbar
 
-        // Panel für Einstellungen erstellen
-        JPanel settingsPanel = new JPanel();
-        settingsPanel.setLayout(new GridBagLayout());
-        settingsPanel.setBackground(new Color(23, 32, 56));
+            // Panel für Einstellungen erstellen
+            JPanel settingsPanel = new JPanel();
+            settingsPanel.setLayout(new GridBagLayout());
+            settingsPanel.setBackground(new Color(23, 32, 56));
 
-        // GridBagConstraints <--- Zentriete Positionen fpr die einzelnen buttons
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 10, 0);  // Abstand nach oben und unten
+            // GridBagConstraints <--- Zentriete Positionen fpr die einzelnen buttons
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.insets = new Insets(10, 0, 10, 0);  // Abstand nach oben und unten
 
-        // Lautstärkeregler
-        JSlider volumeSlider = new JSlider(0, 100, 50);
-        volumeSlider.setMajorTickSpacing(25);
-        volumeSlider.setPaintTicks(true);
-        volumeSlider.setPaintLabels(true);
-        volumeSlider.addChangeListener(e -> setVolume(volumeSlider.getValue() / 100.0f));
-        volumeSlider.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie Buttons
+            // Lautstärkeregler
+            JSlider volumeSlider = new JSlider(0, 100, 50);
+            volumeSlider.setMajorTickSpacing(25);
+            volumeSlider.setPaintTicks(true);
+            volumeSlider.setPaintLabels(true);
+            volumeSlider.addChangeListener(e -> setVolume(volumeSlider.getValue() / 100.0f));
+            volumeSlider.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie Buttons
 
-        // Lautstärkeregler oben hinzufügen
-        settingsPanel.add(volumeSlider, gbc);
+            // Lautstärkeregler oben hinzufügen
+            settingsPanel.add(volumeSlider, gbc);
 
-        // Stummschalt-Button
-        JButton muteButton = new JButton("Ton Ein/Aus");
-        muteButton.setFont(startButtonFont);
-        muteButton.setBackground(new Color(23, 32, 56));
-        muteButton.setForeground(new Color(222, 158, 65));
-        muteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toggleMute(); // Schaltet den Ton ein oder aus
-            }
-        });
-        muteButton.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie der Zurück-Button
+            // Stummschalt-Button
+            JButton muteButton = new JButton("Ton Ein/Aus");
+            muteButton.setFont(startButtonFont);
+            muteButton.setBackground(new Color(23, 32, 56));
+            muteButton.setForeground(new Color(222, 158, 65));
+            muteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    toggleMute(); // Schaltet den Ton ein oder aus
+                }
+            });
+            muteButton.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie der Zurück-Button
 
-        // Button unter dem Lautstärkeregler
-        gbc.gridy++;
-        settingsPanel.add(muteButton, gbc);
+            // Button unter dem Lautstärkeregler
+            gbc.gridy++;
+            settingsPanel.add(muteButton, gbc);
 
-        // Zurück-Button zum Startbildschirm
-        JButton backButton = new JButton("Zurück zum Startbildschirm");
-        backButton.setFont(startButtonFont);
-        backButton.setBackground(new Color(23, 32, 56));
-        backButton.setForeground(new Color(222, 158, 65));
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Startbildschirm wieder anzeigen
-                startButtonPanel.setVisible(true);
-                settingsPanel.setVisible(false); // Einstellungen ausblenden
-                titleNamePanel.setVisible(true); // Titel wieder sichtbar machen
-            }
-        });
-        backButton.setSize(new Dimension(600, 50));
+            // Zurück-Button zum Startbildschirm
+            JButton backButton = new JButton("Zurück zum Startbildschirm");
+            backButton.setFont(startButtonFont);
+            backButton.setBackground(new Color(23, 32, 56));
+            backButton.setForeground(new Color(222, 158, 65));
+            backButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Startbildschirm wieder anzeigen
+                    startButtonPanel.setVisible(true);
+                    settingsPanel.setVisible(false); // Einstellungen ausblenden
+                    titleNamePanel.setVisible(true); // Titel wieder sichtbar machen
+                }
+            });
+            backButton.setSize(new Dimension(600, 50));
 
-        // Zurück-Button unter dem "Ton Ein/Aus"-Button
-        gbc.gridy++;
-        settingsPanel.add(backButton, gbc);
+            // Zurück-Button unter dem "Ton Ein/Aus"-Button
+            gbc.gridy++;
+            settingsPanel.add(backButton, gbc);
 
-        // Panel im gleichen Fenster einfügen
-        startButtonPanel.setVisible(false);  // Versteckt den Startbildschirm
-        frame.add(settingsPanel);  // Fügt das Einstellungs-Panel hinzu
-        settingsPanel.setBounds(0, 100, 1600, 800);  // Positionieren des Panels
-        settingsPanel.setVisible(true);
-    }
-
+            // Panel im gleichen Fenster einfügen
+            startButtonPanel.setVisible(false);  // Versteckt den Startbildschirm
+            frame.add(settingsPanel);  // Fügt das Einstellungs-Panel hinzu
+            settingsPanel.setBounds(0, 100, 1600, 800);  // Positionieren des Panels
+            settingsPanel.setVisible(true);
+        }
 
 
-    /**
-     * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
-     */
 
-    public void createGameScreen() {
         /**
-         * Löscht den Vorherigen Inhalt von der GUI also es macht es unsichbar
+         * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
          */
-      titleNamePanel.setVisible(false);
-        startButtonPanel.setVisible(false);
-        waffentext.setVisible(true);
-        healtbartext.setVisible(true);
-        playerPositiontext.setVisible(true);
-        playerPositiontext2.setVisible(true);
-        waffentext2.setVisible(true);
+
+        public void createGameScreen () {
+            /**
+             * Löscht den Vorherigen Inhalt von der GUI also es macht es unsichbar
+             */
+            titleNamePanel.setVisible(false);
+            startButtonPanel.setVisible(false);
+            waffentext.setVisible(true);
+            healtbartext.setVisible(true);
+            playerPositiontext.setVisible(true);
+            playerPositiontext2.setVisible(true);
+            waffentext2.setVisible(true);
 
 
-        ImagePanel = new JPanel();
+            ImagePanel = new JPanel();
         ImagePanel.setBounds(300, 300, 1200, 550);
-        frame.add(ImagePanel);
+            frame.add(ImagePanel);
 
-        ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
-        JLabel label = new JLabel(imageIcon);
-        ImagePanel.add(label);
+            ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
+            JLabel label = new JLabel(imageIcon);
+            ImagePanel.add(label);
 
 
-        /**
-         * Dies Panel beinhaltet das Dialog Feld
-         */
+            /**
+             * Dies Panel beinhaltet das Dialog Feld
+             */
 
-        mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(0, 100, 1600, 200);
-        mainTextPanel.setBackground(new Color(23, 32, 56));
-        frame.add(mainTextPanel);
+            mainTextPanel = new JPanel();
+            mainTextPanel.setBounds(0, 100, 1600, 200);
+            mainTextPanel.setBackground(new Color(23, 32, 56));
+            frame.add(mainTextPanel);
 
-        mainTextArea = new JTextArea();
-        mainTextArea.setBounds(0, 0, 1600, 200);
-        mainTextArea.setBackground(new Color(23, 32, 56));
-        mainTextArea.setForeground(new Color(222, 158, 65));
-        mainTextArea.setFont(normalFont);
-        mainTextArea.setLineWrap(false);
-        mainTextArea.setWrapStyleWord(true);
-        mainTextArea.setEditable(false);
-        mainTextArea.setOpaque(false);
-        mainTextPanel.add(mainTextArea);
+            mainTextArea = new JTextArea();
+            mainTextArea.setBounds(0, 0, 1600, 200);
+            mainTextArea.setBackground(new Color(23, 32, 56));
+            mainTextArea.setForeground(new Color(222, 158, 65));
+            mainTextArea.setFont(normalFont);
+            mainTextArea.setLineWrap(false);
+            mainTextArea.setWrapStyleWord(true);
+            mainTextArea.setEditable(false);
+            mainTextArea.setOpaque(false);
+            mainTextPanel.add(mainTextArea);
 
-        choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(50, 300, 200, 550);
-        choiceButtonPanel.setBackground(new Color(23, 32, 56));
-        choiceButtonPanel.setLayout(new GridLayout(4, 1, 10, 10));
-        frame.add(choiceButtonPanel);
+            choiceButtonPanel = new JPanel();
+            choiceButtonPanel.setBounds(50, 300, 200, 550);
+            choiceButtonPanel.setBackground(new Color(23, 32, 56));
+            choiceButtonPanel.setLayout(new GridLayout(4, 1, 10, 10));
+            frame.add(choiceButtonPanel);
 
-        choiceButton1 = new JButton();
-        choiceButton1.setBackground(new Color(23, 32, 56));
-        choiceButton1.setForeground(new Color(222, 158, 65));
-        choiceButton1.setFont(normalFont);
+            choiceButton1 = new JButton();
+            choiceButton1.setBackground(new Color(23, 32, 56));
+            choiceButton1.setForeground(new Color(222, 158, 65));
+            choiceButton1.setFont(normalFont);
 
-        choiceButton1.setActionCommand("c1");
-        choiceButton1.addActionListener(choiceHandler);
-        choiceButton1.setFocusPainted(false);
-        choiceButtonPanel.add(choiceButton1);
+            choiceButton1.setActionCommand("c1");
+            choiceButton1.addActionListener(choiceHandler);
+            choiceButton1.setFocusPainted(false);
+            choiceButtonPanel.add(choiceButton1);
 
-        choiceButton2 = new JButton();
-        choiceButton2.setBackground(new Color(23, 32, 56));
-        choiceButton2.setForeground(new Color(222, 158, 65));
-        choiceButton2.setFont(normalFont);
+            choiceButton2 = new JButton();
+            choiceButton2.setBackground(new Color(23, 32, 56));
+            choiceButton2.setForeground(new Color(222, 158, 65));
+            choiceButton2.setFont(normalFont);
 
-        choiceButton2.setActionCommand("c2");
-        choiceButton2.addActionListener(choiceHandler);
-        choiceButton2.setFocusPainted(false);
-        choiceButtonPanel.add(choiceButton2);
+            choiceButton2.setActionCommand("c2");
+            choiceButton2.addActionListener(choiceHandler);
+            choiceButton2.setFocusPainted(false);
+            choiceButtonPanel.add(choiceButton2);
 
-        choiceButton3 = new JButton();
-        choiceButton3.setBackground(new Color(23, 32, 56));
-        choiceButton3.setForeground(new Color(222, 158, 65));
-        choiceButton3.setFont(normalFont);
+            choiceButton3 = new JButton();
+            choiceButton3.setBackground(new Color(23, 32, 56));
+            choiceButton3.setForeground(new Color(222, 158, 65));
+            choiceButton3.setFont(normalFont);
 
-        choiceButton3.setActionCommand("c3");
-        choiceButton3.addActionListener(choiceHandler);
-        choiceButton3.setFocusPainted(false);
-        choiceButtonPanel.add(choiceButton3);
+            choiceButton3.setActionCommand("c3");
+            choiceButton3.addActionListener(choiceHandler);
+            choiceButton3.setFocusPainted(false);
+            choiceButtonPanel.add(choiceButton3);
 
-        choiceButton4 = new JButton();
-        choiceButton4.setBackground(new Color(23, 32, 56));
-        choiceButton4.setForeground(new Color(222, 158, 65));
-        choiceButton4.setFont(normalFont);
+            choiceButton4 = new JButton();
+            choiceButton4.setBackground(new Color(23, 32, 56));
+            choiceButton4.setForeground(new Color(222, 158, 65));
+            choiceButton4.setFont(normalFont);
 
-        choiceButton4.setActionCommand("c4");
-        choiceButton4.addActionListener(choiceHandler);
-        choiceButton4.setFocusPainted(false);
-        choiceButtonPanel.add(choiceButton4);
+            choiceButton4.setActionCommand("c4");
+            choiceButton4.addActionListener(choiceHandler);
+            choiceButton4.setFocusPainted(false);
+            choiceButtonPanel.add(choiceButton4);
 
-        playerPanel = new JPanel();
-        playerPanel.setBounds(100, 15, 600, 50);
-        playerPanel.setBackground(new Color(23, 32, 56));
-        playerPanel.setLayout(new GridLayout(1, 4));
-        frame.add(playerPanel);
-        startGame();
-    }
-
-    public void startGame() {
-        position = "AnfangsSzene";
-        mainTextArea.setText("The year 384 of the (.) cycle in the kingdom of (placeholder)...");
-        choiceButton1.setText("Weiter");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
-    }
-
-    public void introScene() {
-        position = "BeispielOrt1";
-        mainTextArea.setText("and the country .... can save is the one true blood heir...");
-        choiceButton1.setText("Weiter");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
-    }
-
-    public class TitleScreenHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            createGameScreen();
+            playerPanel = new JPanel();
+            playerPanel.setBounds(100, 15, 600, 50);
+            playerPanel.setBackground(new Color(23, 32, 56));
+            playerPanel.setLayout(new GridLayout(1, 4));
+            frame.add(playerPanel);
+            startGame();
         }
-    }
+
+        public void startGame() {
+            position = "AnfangsSzene";
+            mainTextArea.setText("The year 384 of the (.) cycle in the kingdom of (placeholder)...");
+            choiceButton1.setText("Weiter");
+            choiceButton2.setText("");
+            choiceButton3.setText("");
+            choiceButton4.setText("");
+        }
+
+        public void introScene () {
+            position = "BeispielOrt1";
+            mainTextArea.setText("and the country .... can save is the one true blood heir...");
+            choiceButton1.setText("Weiter");
+            choiceButton2.setText("");
+            choiceButton3.setText("");
+            choiceButton4.setText("");
+        }
+
+        public class TitleScreenHandler implements ActionListener {
+            public void actionPerformed(ActionEvent event) {
+                createGameScreen();
+            }
+        }
         startGame();
     }
 
@@ -454,13 +455,13 @@ public class Game {
         healtbartext.setText("Player Health: " + health);
     }
 
-    public void createFightScreen(Enemy enemy){
+    public void createFightScreen(Enemy enemy) {
         mainTextPanel.setVisible(false);
         choiceButtonPanel.setVisible(false);
-        ImagePanel.setBounds(500,300,900,500);
+        ImagePanel.setBounds(500, 300, 900, 500);
 
         fightScreenButtonPanel = new JPanel();
-        fightScreenButtonPanel.setBounds(100,300,380,550);
+        fightScreenButtonPanel.setBounds(100, 300, 380, 550);
         fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
         fightScreenButtonPanel.setLayout(new GridLayout(3, 1));
         frame.add(fightScreenButtonPanel);
@@ -469,9 +470,9 @@ public class Game {
         attackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rk.fight(c,"normal",enemy);
+                rk.fight(c, "normal", enemy);
                 System.out.println("Leben: " + enemy.getHealth());
-                System.out.println("Leben1: " +c.getHealth());
+                System.out.println("Leben1: " + c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
                     fightScreenButtonPanel.setVisible(false);
@@ -532,7 +533,7 @@ public class Game {
             }
         });
         attackButton.setBackground(new Color(23, 32, 56));
-        attackButton.setForeground(new Color(222, 158,65));
+        attackButton.setForeground(new Color(222, 158, 65));
         attackButton.setText("Attack");
         fightScreenButtonPanel.add(attackButton);
 
@@ -540,7 +541,7 @@ public class Game {
         magicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rk.fight(c,"magic",enemy);
+                rk.fight(c, "magic", enemy);
                 if(enemy.getHealth() == 0)
                 {
                     fightScreenButtonPanel.setVisible(false);
@@ -600,13 +601,13 @@ public class Game {
             }
         });
         magicButton.setBackground(new Color(23, 32, 56));
-        magicButton.setForeground(new Color(222, 158,65));
+        magicButton.setForeground(new Color(222, 158, 65));
         magicButton.setText("Magic");
         fightScreenButtonPanel.add(magicButton);
 
         itemButton = new JButton();
         itemButton.setBackground(new Color(23, 32, 56));
-        itemButton.setForeground(new Color(222, 158,65));
+        itemButton.setForeground(new Color(222, 158, 65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
 
@@ -652,7 +653,7 @@ public class Game {
 
     }
 
-    public void tavernSzene(){
+    public void tavernSzene() {
         position = "tavernCenter";
         playerPosition = "Tavern Center";
         playerPositiontext2.setText(playerPosition);
@@ -668,7 +669,7 @@ public class Game {
 
     }
 
-    public void tavernSzene2(){
+    public void tavernSzene2() {
         position = "tavernCenter2";
         playerPosition = "Tavern Center";
         playerPositiontext2.setText(playerPosition);
@@ -838,6 +839,7 @@ public class Game {
         choiceButton4.setText("");
 
     }
+
     public void appleSellerABuy() {
         position = "appleSeller2";
         playerPosition = "Marketplace - Apple Seller";
@@ -888,8 +890,6 @@ public class Game {
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
-
-
 
 
     public void blacksmith() {
@@ -961,7 +961,7 @@ public class Game {
         playerPosition = "Alley";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Player: I'm looking for the princess. \n" +
-                " Where can I find her?\n"+
+                " Where can I find her?\n" +
                 "Old man: Take this and you will find her! \n");
         choiceButton1.setText("Take");
         choiceButton2.setText("");
@@ -985,7 +985,7 @@ public class Game {
 
 
     /**
-     *  Cheapter 2
+     * Cheapter 2
      */
 
     public void ch2followMap() {
@@ -1383,6 +1383,7 @@ public class Game {
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
+
     public void cp2miniboss1TowerUnknown() {
         position = "cp2miniboss1TowerUnknown";
         playerPosition = "CP2 - Tower Princess";
@@ -1560,7 +1561,7 @@ public class Game {
 
     public void cp3GoblinsFightScene() {
         position = "cp3GoblinsFightScene";
-        Enemy enemy =new Enemy("Goblins");
+        Enemy enemy = new Enemy("Goblins");
         createFightScreen(enemy);
     }
 
@@ -1757,6 +1758,7 @@ public class Game {
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
+
     public void cp4AfterBossFight2() {
         position = "cp4AfterBossFight2";
         playerPosition = "CP4 - After Boss Fight";
@@ -2495,4 +2497,4 @@ public class Game {
             createGameScreen();
         }
     }
-}
+

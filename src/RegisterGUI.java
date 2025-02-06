@@ -38,7 +38,7 @@ public class RegisterGUI {
 
             if (0!=db1.getUser_ID(registerName, registerPassword)) {
                 JOptionPane.showMessageDialog(null,"Register Successful");
-                LoginGUI.registerFrame.dispose();
+                loginGUI.registerFrame.dispose();
                 loginGUI.enableLoginUI();
                 loginGUI.registerWindowOpen = false;
             }

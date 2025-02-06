@@ -19,12 +19,12 @@ public class Character {
     private final int baseMaxMana = 5;
 
     // Current Stats
-    private int health;
-    private int attack;
+    private int health = 60;
+    private int attack = 30;
     private int magicAttack;
     private int defense;
     private int magicDefense;
-    private int agility;
+    private int agility = 60;
     private int luck;
     private int strength;
     private int mana;
