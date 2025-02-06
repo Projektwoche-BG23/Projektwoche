@@ -512,7 +512,7 @@ public class Game {
         position = "appleSeller1";
         playerPosition = "Marketplace - Apple Seller";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Buy something and I'll see what I can do.\n");
+        mainTextArea.setText("Buy something and I'll see what I can   do.\n");
         choiceButton1.setText("Buy");
         choiceButton2.setText("Refuse");
         choiceButton3.setText("");
