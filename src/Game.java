@@ -5,14 +5,16 @@ import java.awt.event.ActionListener;
 
 public class Game {
     public JFrame frame;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
-    JLabel titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton startButton, ladenButton, einstellungenButton, verlassenButton;
+    JPanel enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
+    JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
+    public JButton startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
+    Character c = new Character();
+    RechnerKampf rk = new RechnerKampf();
 
     /**
      * Dies sind die Schriftarten. Nach belieben ändern.
@@ -38,7 +40,7 @@ public class Game {
      * Die Variable health ist für die Leben die der Spieler hat verantwortlich,.
      */
 
-    int health = 0;
+    int health = c.getHealth();
 
     /**
      * Die Variable playerPosition ist für den Standort verantwortlich wo der Spiler sich gerade im Spiel befindet.
@@ -145,6 +147,17 @@ public class Game {
         healtbartextpanel.add(healtbartext);
         healtbartext.setVisible(false);
 
+        enemyHealtbartextpanel = new JPanel();
+        enemyHealtbartextpanel.setBackground(new Color(23, 32, 56));
+        enemyHealtbartextpanel.setBounds(0, 20, 250, 100);
+        frame.add(enemyHealtbartextpanel);
+
+        enemyHealtbartext = new JLabel("Enemy Health: " + health, SwingConstants.CENTER);
+        enemyHealtbartext.setForeground(new Color(222, 158, 65));
+        enemyHealtbartext.setFont(normalFont);
+        enemyHealtbartextpanel.add(enemyHealtbartext);
+        enemyHealtbartext.setVisible(false);
+
         /**
          * Dies ist die Waffenanzeige
          */
@@ -217,6 +230,7 @@ public class Game {
         playerPositiontext.setVisible(true);
         playerPositiontext2.setVisible(true);
         waffentext2.setVisible(true);
+
 
         ImagePanel = new JPanel();
         ImagePanel.setBounds(300, 300, 1200, 550);
@@ -304,6 +318,172 @@ public class Game {
         healtbartext.setText("Player Health: " + health);
     }
 
+    public void createFightScreen(Enemy enemy){
+        mainTextPanel.setVisible(false);
+        choiceButtonPanel.setVisible(false);
+        ImagePanel.setBounds(500,300,900,500);
+
+        fightScreenButtonPanel = new JPanel();
+        fightScreenButtonPanel.setBounds(100,300,380,550);
+        fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
+        fightScreenButtonPanel.setLayout(new GridLayout(3, 1));
+        frame.add(fightScreenButtonPanel);
+
+
+
+        attackButton = new JButton();
+        attackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rk.fight(c,"normal",enemy);
+                System.out.println("Leben: " + enemy.getHealth());
+                System.out.println("Leben1: " +c.getHealth());
+                if(enemy.getHealth() == 0)
+                {
+                    fightScreenButtonPanel.setVisible(false);
+                    switch (position)
+                    {
+                        case "tavernFight":
+                            createGameScreen();
+                            afterFight();
+                            break;
+                        case "ch2fwolvescp2afterwolvesScene":
+                            createGameScreen();
+                            cp2afterwolvesFight();
+                            break;
+                        case "cp2dungeonFightScene":
+                            createGameScreen();
+                            cp2dungeonAfterFight();
+                            break;
+                        case "cp2dungeonlabyrinthrightScene":
+                            createGameScreen();
+                            cp2EncounterInLabyrinth();
+                            break;
+                        case "cp2miniboss2fight":
+                            createGameScreen();
+                            cp2miniboss1Win();
+                            break;
+                        case "cp2miniboss1RescueWonScene":
+                            createGameScreen();
+                            cp2miniboss1TowerFight();
+                            break;
+                        case "cp3TheEscapeOption1":
+                            createGameScreen();
+                            cp3TheEscapeFightWon();
+                            break;
+                        case "cp3GuardAttack":
+                            createGameScreen();
+                            cp3GuardAfter();
+                            break;
+                        case "cp3GoblinsFightScene":
+                            createGameScreen();
+                            cp3Night();
+                            break;
+                        case "cp3NightQuestFight":
+                            createGameScreen();
+                            cp3NightQuestAfterFight();
+                            break;
+                        case "cp4InsideCastleSkeletonsFightScene":
+                            createGameScreen();
+                            cp4AfterFight();
+                            break;
+                        case "cp4BossFight":
+                            createGameScreen();
+                            cp4AfterBossFight();
+                            break;
+
+                    }
+
+                }
+            }
+        });
+        attackButton.setBackground(new Color(23, 32, 56));
+        attackButton.setForeground(new Color(222, 158,65));
+        attackButton.setText("Attack");
+        fightScreenButtonPanel.add(attackButton);
+
+        magicButton = new JButton();
+        magicButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rk.fight(c,"magic",enemy);
+                if(enemy.getHealth() == 0)
+                {
+                    fightScreenButtonPanel.setVisible(false);
+                    switch (position)
+                    {
+                        case "tavernFight":
+                            createGameScreen();
+                            afterFight();
+                            break;
+                        case "ch2fwolvescp2afterwolvesScene":
+                            createGameScreen();
+                            cp2afterwolvesFight();
+                            break;
+                        case "cp2dungeonFightScene":
+                            createGameScreen();
+                            cp2dungeonAfterFight();
+                            break;
+                        case "cp2dungeonlabyrinthrightScene":
+                            createGameScreen();
+                            cp2EncounterInLabyrinth();
+                            break;
+                        case "cp2miniboss2fight":
+                            createGameScreen();
+                            cp2miniboss1Win();
+                            break;
+                        case "cp2miniboss1RescueWonScene":
+                            createGameScreen();
+                            cp2miniboss1TowerFight();
+                            break;
+                        case "cp3TheEscapeOption1":
+                            createGameScreen();
+                            cp3TheEscapeFightWon();
+                            break;
+                        case "cp3GuardAttack":
+                            createGameScreen();
+                            cp3GuardAfter();
+                            break;
+                        case "cp3GoblinsFightScene":
+                            createGameScreen();
+                            cp3Night();
+                            break;
+                        case "cp3NightQuestFight":
+                            createGameScreen();
+                            cp3NightQuestAfterFight();
+                            break;
+                        case "cp4InsideCastleSkeletonsFightScene":
+                            createGameScreen();
+                            cp4AfterFight();
+                            break;
+                        case "cp4BossFight":
+                            createGameScreen();
+                            cp4AfterBossFight();
+                            break;
+
+                    }
+                }
+
+            }
+        });
+        magicButton.setBackground(new Color(23, 32, 56));
+        magicButton.setForeground(new Color(222, 158,65));
+        magicButton.setText("Magic");
+        fightScreenButtonPanel.add(magicButton);
+
+        itemButton = new JButton();
+        itemButton.setBackground(new Color(23, 32, 56));
+        itemButton.setForeground(new Color(222, 158,65));
+        itemButton.setText("Item");
+        fightScreenButtonPanel.add(itemButton);
+
+
+
+    }
+    private boolean lebtDergegner()
+    {
+        return true;
+    }
 
     /**
      * Cheapter 1
@@ -370,13 +550,9 @@ public class Game {
 
     public void tavernFight() {
         position = "tavernFight";
-        playerPosition = "Tavern Center";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player Fights the Drunken knight");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("DRUNKENKNIGHT");
+        createFightScreen(enemy);
+
 
     }
 
@@ -706,13 +882,8 @@ public class Game {
 
     public void ch2fwolvescp2afterwolvesScene() {
         position = "ch2fwolvescp2afterwolvesScene";
-        playerPosition = "CP2 - Ruined Castle";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player fights the Three hungry wolves");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("Wolves");
+        createFightScreen(enemy);
     }
 
     public void cp2afterwolvesFight() {
@@ -768,13 +939,8 @@ public class Game {
 
     public void cp2dungeonFightScene() {
         position = "cp2dungeonFightScene";
-        playerPosition = "CP2 - Dungeon Fight";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player fights againts Two armored skeletons\n");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("SKELLETGUARD");
+        createFightScreen(enemy);
     }
 
     public void cp2dungeonAfterFight() {
@@ -848,13 +1014,8 @@ public class Game {
 
     public void cp2TheRightHandPathScene() {
         position = "cp2dungeonlabyrinthrightScene";
-        playerPosition = "CP2 - Dungeon Labyrinth Right";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player fights the spirit warrior\n");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("SHADOWGUARDS");
+        createFightScreen(enemy);
     }
 
     public void cp2TheRightHandPathFight() {
@@ -1029,13 +1190,8 @@ public class Game {
 
     public void cp2miniboss1fight() {
         position = "cp2miniboss2fight";
-        playerPosition = "CP2 - Huge Chamber Fight";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Fight with boss");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("DARKTITANAZROTH");
+        createFightScreen(enemy);
     }
 
     public void cp2miniboss1Win() {
@@ -1065,13 +1221,8 @@ public class Game {
 
     public void cp2miniboss1TowerFightScene() {
         position = "cp2miniboss1RescueWonScene";
-        playerPosition = "CP2 - Tower";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player Fights the knights in black armor");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("ELITEKNIGHTS");
+        createFightScreen(enemy);
     }
 
     public void cp2miniboss1TowerFight() {
@@ -1130,13 +1281,8 @@ public class Game {
 
     public void cp3TheEscapeOption1() {
         position = "cp3TheEscapeOption1";
-        playerPosition = "CP3 - Tower Princess Fight";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*The player takes on the monster and a fierce battle begins.*");
-        choiceButton1.setText("...");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("THREEHEADDOG");
+        createFightScreen(enemy);
     }
 
     public void cp3TheEscapeOption2() {
@@ -1224,13 +1370,8 @@ public class Game {
 
     public void cp3GuardAttack() {
         position = "cp3GuardAttack";
-        playerPosition = "CP3 - Dark Corridors";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*Player Fights Against the Guard*");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("ELITEGUARDS");
+        createFightScreen(enemy);
     }
 
     public void cp3GuardAfter() {
@@ -1286,13 +1427,8 @@ public class Game {
 
     public void cp3GoblinsFightScene() {
         position = "cp3GoblinsFightScene";
-        playerPosition = "CP3 - Surface Fight";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*Player Fights against the Goblins*");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy =new Enemy("Goblins");
+        createFightScreen(enemy);
     }
 
     public void cp3Night() {
@@ -1321,13 +1457,8 @@ public class Game {
 
     public void cp3NightQuestFight() {
         position = "cp3NightQuestFight";
-        playerPosition = "CP3 - Surface Night Quest";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*The player Fight the Skeletons*");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("Bandit");
+        createFightScreen(enemy);
     }
 
     public void cp3NightQuestAfterFight() {
@@ -1357,15 +1488,8 @@ public class Game {
 
     public void cp3ArriveAtCityFight() {
         position = "cp3ArriveAtCityFight";
-        playerPosition = "CP3 - City Fight ";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*The player fights the Two elite guards *");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
-
-
+        Enemy enemy = new Enemy("EliteGuards");
+        createFightScreen(enemy);
     }
 
     public void cp3ArriveAtCityFightScene() {
@@ -1452,13 +1576,8 @@ public class Game {
 
     public void cp4InsideCastleSkeletonsFightScene() {
         position = "cp4InsideCastleSkeletonsFightScene";
-        playerPosition = "CP4 - Inside Castle Fight";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player Fighting Skeletons");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("SKELLETGUARD");
+        createFightScreen(enemy);
     }
 
     public void cp4AfterFight() {
@@ -1477,13 +1596,8 @@ public class Game {
 
     public void cp4BossFight() {
         position = "cp4BossFight";
-        playerPosition = "CP4 - Boss Fight";
-        playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*Player fights Boss*");
-        choiceButton1.setText("Continue");
-        choiceButton2.setText("");
-        choiceButton3.setText("");
-        choiceButton4.setText("");
+        Enemy enemy = new Enemy("KING");
+        createFightScreen(enemy);
     }
 
     public void cp4AfterBossFight() {
@@ -1596,7 +1710,8 @@ public class Game {
                     break;
 
                 case "tavernFight":
-                    if (yourChoice.equals("c1")) {
+                    if(lebtDergegner() == true){
+                        createGameScreen();
                         afterFight(); // Hier Muss die Kampf Mehtode rein.
                     }
                     break;
