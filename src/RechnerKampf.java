@@ -1,6 +1,6 @@
 
+import java.sql.SQLException;
 import java.util.Random;
-
 
 /**
  * Class to calculate the damage dealt or taken during combat.
@@ -11,14 +11,15 @@ public class RechnerKampf {
     private int attackCooldown = 0;     // Counts the rounds after a special attack of an enemy is used
     private int manaControll = 0;       // If the player does not have enough mana and wanst to use magic, the Round will not start
     Random attackRNG = new Random();
+    Inventory inventory = new Inventory();
     /**
      * Calculates a complete round of Fighting
      * @param player Player Object
-     * @param attack Type of attack (Normal oder Magic)
+     * @param aktion Type of attack (Normal oder Magic)
      * @param enemy  Enemy Object
      */
-    public void fight(Character player,String attack, Enemy enemy){
-        if(attack .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
+    public void fight(Character player,String aktion, Enemy enemy){
+        if(aktion .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
             manaControll = 1;
             System.err.println("Spieler hat nicht genuzg mana");
         }
@@ -27,11 +28,12 @@ public class RechnerKampf {
         }
 
         if(manaControll == 0) {
+            player.countpotion();
             if (attackCooldown != 0) {
                 attackCooldown--;
             }
             if (player.getAgility() > enemy.getAgility()) {
-                playerAttackType(player, attack, enemy);
+                playerAttackType(player, aktion, enemy);
                 if (enemy.getHealth() > 0) {
                     enemyAttackType(player, enemy);
                 }
@@ -39,13 +41,13 @@ public class RechnerKampf {
             if (player.getAgility() < enemy.getAgility()) {
                 enemyAttackType(player, enemy);
                 if (player.getHealth() > 0) {
-                    playerAttackType(player, attack, enemy);
+                    playerAttackType(player, aktion, enemy);
                 }
             }
             if(player.getAgility() == enemy.getAgility()){
                 int rngInt = attackRNG.nextInt(1,3);
                 if(rngInt == 1){
-                    playerAttackType(player, attack, enemy);
+                    playerAttackType(player, aktion, enemy);
                     if (enemy.getHealth() > 0) {
                         enemyAttackType(player, enemy);
                     }
@@ -53,13 +55,24 @@ public class RechnerKampf {
                 else{
                     enemyAttackType(player, enemy);
                     if (player.getHealth() > 0) {
-                        playerAttackType(player, attack, enemy);
+                        playerAttackType(player, aktion, enemy);
                     }
                 }
             }
         }
     }
 
+    /**
+     * Wenn der spieler ein Item nutzt muss diese methode benutzt werden. Es wird eine runde ausgeführt
+     * @param itemID item das benutzt werden soll
+     * @param player character Objekt
+     * @param enemy enemy Objekt
+     * @throws SQLException
+     */
+    public void itemConsumtion(String itemID,Character player,Enemy enemy) throws SQLException {
+        inventory.consum(itemID,player);
+        fight(player,"",enemy);
+    }
     /**
      * Determines what type of attack the Payer wants to use
      * @param player Player Object

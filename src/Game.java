@@ -15,6 +15,7 @@ public class Game {
     JLabel titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
     public JButton startButton, ladenButton, einstellungenButton, verlassenButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+    JPanel ImagePanel,fightScreenButtonPanel;
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
@@ -111,7 +112,7 @@ public class Game {
         startButtonPanel.setLayout(new GridLayout(4, 1));
 
         /**
-         * Dies ist für das Anzeigen des Start-Buttons
+         * Dies ist für das Anzeigen des Start-Buttons us
          */
 
         startButton = new JButton("Start");
@@ -348,12 +349,21 @@ public class Game {
         playerPositiontext2.setVisible(true);
         waffentext2.setVisible(true);
 
+        ImagePanel = new JPanel();
+        ImagePanel.setBounds(300, 300, 1200, 550);
+        frame.add(ImagePanel);
+
+        ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
+        JLabel label = new JLabel(imageIcon);
+        ImagePanel.add(label);
+
+
         /**
          * Dies Panel beinhaltet das Dialog Feld
          */
 
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100, 100, 1400, 200);
+        mainTextPanel.setBounds(0, 100, 1600, 200);
         mainTextPanel.setBackground(new Color(23, 32, 56));
         frame.add(mainTextPanel);
 
@@ -362,7 +372,7 @@ public class Game {
          */
 
         mainTextArea = new JTextArea();
-        mainTextArea.setBounds(0, 0, 1400, 200);
+        mainTextArea.setBounds(0, 0, 1600, 200);
         mainTextArea.setBackground(new Color(23, 32, 56));
         mainTextArea.setForeground(new Color(222, 158, 65));
         mainTextArea.setFont(normalFont);
@@ -377,9 +387,9 @@ public class Game {
          */
 
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(90, 630, 1400, 200);
+        choiceButtonPanel.setBounds(50, 300, 200, 550);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
-        choiceButtonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        choiceButtonPanel.setLayout(new GridLayout(4, 1, 10, 10));
         frame.add(choiceButtonPanel);
 
         choiceButton1 = new JButton();
@@ -2359,6 +2369,7 @@ public class Game {
                 default:
                     System.out.println("Unknown position: " + position);
                     break;
+
             }
         }
     }
@@ -2367,7 +2378,4 @@ public class Game {
             createGameScreen();
         }
     }
-
-
-
 }
