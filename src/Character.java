@@ -1,3 +1,4 @@
+import java.security.PrivateKey;
 import java.sql.SQLException;
 
 public class Character {
@@ -13,6 +14,7 @@ public class Character {
     private final int baseStrength = 0;
     private final int baseMana = 50;
     private final int baseManaReg = 5;
+    private final int manaCost = 10;
 
     // Current Stats
     private int health;
@@ -72,6 +74,7 @@ public class Character {
     public int getStrength() { return strength; }
     public int getMana() { return mana; }
     public int getManaReg() { return manaReg; }
+    public int getManaCost() {return manaCost;}
 
     // Setter Methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
@@ -84,4 +87,8 @@ public class Character {
     public void setStrength(int newStrength) { strength = Math.max(newStrength, 0); }
     public void setMana(int newMana) { mana = Math.max(newMana, 0); }
     public void setManaReg(int newManaReg) { manaReg = Math.max(newManaReg, 0); }
+
+    public int getManaCost() {
+        return  mana;
+    }
 }

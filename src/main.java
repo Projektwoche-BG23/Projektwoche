@@ -1,4 +1,8 @@
 import com.sun.security.jgss.GSSUtil;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
 import java.sql.SQLException;
 
@@ -25,6 +29,7 @@ public class main {
         inv.consum("2");
         System.out.println(inv.hasItem("2"));
 */
+
     }
 
     public void mathew() {
