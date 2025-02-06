@@ -11,7 +11,9 @@ public class Enemy {
     private int magicAttack;    // Flat Magic damage
     private int agility;        // Speed in turns and dodge chance at higher values
     private int luck;           // Critical hit chance
-
+    private int cooldown;       // Determines the cooldown fo a Magic attack
+    private int attackTyp;      // Determines what attack type the Unit can use.
+    // 1 for Normal, 2 for Magic and 0 for both
     /**
      * Creates a new Enemy unit based on the given type.
      * @param enemyName Determines the enemy type. Available: SKELETON, GOBLIN, GHOST, KING
@@ -26,7 +28,7 @@ public class Enemy {
                 magicAttack = 0;
                 agility = 10;
                 luck = 10;
-
+                attackTyp = 1;
                 break;
 
             case "GOBLIN":
@@ -48,7 +50,6 @@ public class Enemy {
                 agility = 25;
                 luck = 20;
                 break;
-
             case "KING":
                 health = 400;
                 defense = 25;
@@ -68,7 +69,6 @@ public class Enemy {
                 agility = 5;
                 luck = 1;
                 break;
-
             default:
                 throw new IllegalArgumentException("Invalid enemy type: " + enemyName);
         }
@@ -82,7 +82,8 @@ public class Enemy {
     public int getMagicAttack() { return magicAttack; }
     public int getAgility() { return agility; }
     public int getLuck() { return luck; }
-
+    public int getAttackTyp(){ return attackTyp;}
+    public int getCooldown(){ return cooldown;}
     // Setter methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
     public void setDefense(int newDefense) { defense = Math.max(newDefense, 0); }
@@ -91,5 +92,9 @@ public class Enemy {
     public void setMagicAttack(int newSpecAttack) { magicAttack = Math.max(newSpecAttack, 0); }
     public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
     public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
+
+    public int getAttackTyp() {
+        return 3;
+    }
 }
 
