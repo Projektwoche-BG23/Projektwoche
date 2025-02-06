@@ -2228,6 +2228,7 @@ public class Game {
                 default:
                     System.out.println("Unknown position: " + position);
                     break;
+
             }
         }
     }
