@@ -4,44 +4,72 @@ import java.util.List;
 
 public class Inventory {
 
+    DB db = new DB();
     RNG rng = new RNG();
-    private List<String> inventory;
     private String[] itemSlots = new String[6];
 
-    public Inventory(){
-        inventory = new ArrayList<>();
+    int userID;
+
+    public void setUserID(int id) {
+        userID = id;
     }
 
-    public List<String> getInventory() {
-        return inventory;
-    }
+    public void equipItem(String itemID) throws SQLException {
 
-    public void addItem(String itemName) {
-        System.out.println("added item: " + itemName);
-        inventory.add(itemName);
-    }
-
-    public void removeItem(String itemName) {
-        inventory.remove(itemName);
-    }
-
-    public boolean containsItem(String itemName) {
-        return inventory.contains(itemName);
-    }
-
-    public void equipItem(String itemName) {
+        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //item Id
+        int slotID = Integer.parseInt((String) itemAttributes[3]); //equip slot
+        db.equipToItemSlot(userID, slotID, Integer.parseInt(itemID));
+        itemSlots[slotID] = itemID;
 
     }
-/**
-    public String[] addRandom(String chestName)
-    {
+
+    public void unequipItem(String itemID) throws SQLException {
+
+        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //item Id
+        int slotID = Integer.parseInt((String) itemAttributes[3]); //equip slot
+        db.equipToItemSlot(userID, slotID, 0);
+        itemSlots[slotID] = itemID;
+
+    }
+
+    public boolean hasItem(String itemID) throws SQLException {
+
+        String[] itemsList = db.getInventory(userID);
+
+        int count = Integer.parseInt(itemsList[Integer.parseInt(itemID)]) ;
+
+        if (count > 0)
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+
+    }
+
+    public boolean consum(String itemID) throws SQLException {
+
+        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //Gets item attributes
+
+        if (hasItem(itemID))
+        {
+            db.addItem(userID, Integer.parseInt(itemID), -1);
+            System.out.println("consumed successfully");
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public String[] addRandom(String chestName) throws SQLException {
         String[] drops = rng.randomDrop(chestName);
         for (int i = 0; i < drops.length; i++)
         {
-            inventory.add(drops[i]);
+            db.addItem(userID, Integer.parseInt(drops[i]), 1);
         }
         return drops;
     }
-*/
 
 }

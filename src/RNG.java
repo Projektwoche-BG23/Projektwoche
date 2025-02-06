@@ -8,7 +8,7 @@ public class RNG {
     static Random rand = new Random();
     static  DB db = new DB();
 
-    public static Object[] randomDrop(String chest) throws SQLException {
+    public static String[] randomDrop(String chest) throws SQLException {
         switch (chest){
             default:
                 return null;
@@ -18,18 +18,20 @@ public class RNG {
     }
 
     /**
-     * Gibt an, wie viele Items der Spieler bekommen soll
-     * @return Anzahl Drops
+     * gibt an wie viele item der spieler bekommen soll
+     * @return anzahl Drops
      */
-    private static int itemDropCount() {
-        int chanceFor1 = 50; // 50%
-        int chanceFor2 = 80; // 30%
-        int chanceFor3 = 90; // 10%
-        int chanceFor0 = 100; // 10%
+    static private int itemDropCount()
+    {
+        int chanceFor1 = 50; //50%
+        int chanceFor2 = 80; //30%
+        int chanceFor3 = 90; //10%
+        int chanceFor0 = 100; //10%
 
         int chance = rand.nextInt(100);
 
-        if (chance < chanceFor1) {
+        if (chance < chanceFor1)
+        {
             return 1;
         } else if (chance < chanceFor2) {
             return 2;
@@ -38,12 +40,13 @@ public class RNG {
         } else {
             return 0;
         }
+
     }
 
     /**
-     * Gibt an, welche Items der Spieler aus chest1 bekommen soll
+     * gibt an welche item der spieler aus chest1 bekommen soll
      */
-    private static Object[] chest1() throws SQLException {
+    private static String[] chest1() throws SQLException {
 
         //Chest Inhalt
         Object[] chances = new Object[3];
@@ -55,22 +58,29 @@ public class RNG {
     /**
         // Item Anzahl bestimmen
         int itemRate = itemDropCount();
-        Object[] droppedItems = new Object[itemRate];
+        String[] droppedItems = new String[itemRate];
 
-        for (int i = 0; i < itemRate; i++) {
+        for (int i = 0; i < itemRate; i++)
+        {
+
             int chance = rand.nextInt(100);
 
-            for (Object[] chanceEntry : chances) {
-                int dropChance = (int) chanceEntry[1]; // Drop Wahrscheinlichkeit
+            for (Object item : chances) {
+                Object[] chanceEntry = (Object[]) item;
+                int dropChance = (int) chanceEntry[1];  // Get the chance value (second element)
 
+                // Check if the random chance is less than the drop chance
                 if (chance < dropChance) {
                     Object[] droppedItem = dictionary.items((String) chanceEntry[0]); // Item aus dem Dictionary holen
                     droppedItems[i] = (droppedItem != null) ? (String) droppedItem[0] : "Unknown Item";
                     break; // Sobald ein Item gefunden wurde, aus der Schleife ausbrechen
+
                 }
             }
         }
-*/
-        return chances;
+
+        return droppedItems;
+
     }
+
 }
