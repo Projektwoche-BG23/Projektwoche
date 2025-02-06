@@ -15,7 +15,7 @@ public class Game {
     public ChoiceHandler choiceHandler = new ChoiceHandler();
 
     /**
-     * Dies sind die Schriftarten. Nach belieben ändern
+     * Dies sind die Schriftarten. Nach belieben ändern.
      */
 
     public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
