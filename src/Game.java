@@ -97,7 +97,7 @@ public class Game {
         startButtonPanel.setLayout(new GridLayout(4, 1));
 
         /**
-         * Dies ist für das Anzeigen des Start-Buttons
+         * Dies ist für das Anzeigen des Start-Buttons us
          */
 
         startButton = new JButton("Start");
