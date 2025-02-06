@@ -1,35 +1,49 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 
 public class LoginGUI {
-    public JPanel loginMainWindow;
-    private JTextField nameLoginTextField;
-    private JPasswordField passwordLoginTextField;
-    private JButton loginJButton;
-    private JButton registerJButton;
-    private boolean registerWindowOpen = false;
-    DB db1 = new DB();
+    DB db1 = new DB(); //gets db
+    public static JFrame loginFrame; //login window jframe
+    public static JFrame registerFrame; //register window jframe
+    private JPanel loginMainWindow; //JPanel for loginwindow
+    private JTextField nameLoginTextField; //Textfield for login
+    private JPasswordField passwordLoginTextField;  //textfield for password
+    private JButton loginJButton;   //Button login
+    private JButton registerJButton;    //Button register
+    public boolean registerWindowOpen = false; //boolean to know if register window is open
+    private int dbLoginID = 0; //default ID 0 so it doesn't work will be overwritten by login data ID
+    private String loginName = ""; //String for name to ask DB
+    private String loginPassword = ""; //String for password to ask DB
+    public int AccountID; //AccountID to use for Save and load in Game
+
 
 
     public LoginGUI() {
         /**
          * An Action listener on the login button that sends the login data to the DB and checks if the data is correct
          */
-        loginJButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            String loginName = nameLoginTextField.getText();
-            String loginPassword = passwordLoginTextField.getText();
-              /**  try {
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+        loginJButton.addActionListener(_ -> {
+        loginName = nameLoginTextField.getText(); //sets namelogin text to string
+        loginPassword = passwordLoginTextField.getText(); //sets passwordlogin text to string
+            try {
+                dbLoginID = db1.getUser_ID(loginName,loginPassword); //Asks DB if namelogin and passwordlogin is in DB
+                if (!(dbLoginID == 0)) {
+                    AccountID = dbLoginID; //sets account id to string that will be sent to game
+                    System.out.println("login successful with id: " + AccountID);
+                    loginFrame.dispose();
+                    if (registerWindowOpen) {
+                        registerFrame.dispose();
+                    }
                 }
-             */
+                else {
+                    JOptionPane.showMessageDialog(null,"Login failed. Please check your username and password and try again");
+                }
+            }
+            catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         });
 
@@ -38,19 +52,13 @@ public class LoginGUI {
         /**
          * An Action listener on the register button that opens the register window and disables the login functions
          */
-        registerJButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (registerWindowOpen == false) {
-                    openRegisterWindow();
-                    registerWindowOpen = true;
-                    nameLoginTextField.setEnabled(false);
-                    passwordLoginTextField.setEnabled(false);
-                    loginJButton.setEnabled(false);
-                }
-                else {
-                    JOptionPane.showMessageDialog(null,"Register window already open");
-                }
+        registerJButton.addActionListener(_ -> {
+            if (!registerWindowOpen) {
+                openRegisterWindow();
+                disableLoginUI();
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Register window already open");
             }
         });
         }
@@ -62,16 +70,16 @@ public class LoginGUI {
      */
     public void openLoginWindow() {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("LoginGUI");
-            frame.setContentPane(new LoginGUI().loginMainWindow);
-            frame.pack();
-            frame.setVisible(true);
-            frame.setLocationRelativeTo(null);
-            frame.setResizable(false);
-
-            frame.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
+            loginFrame = new JFrame("LoginGUI");
+            loginFrame.setContentPane(new LoginGUI().loginMainWindow);
+            loginFrame.pack();
+            loginFrame.setVisible(true);
+            loginFrame.setLocationRelativeTo(null);
+            loginFrame.setResizable(false);
+            loginFrame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) { //when login window gets closed register window also get closed
                     System.out.println("Login window closed.");
+                    registerFrame.dispose();
                 }
             });
         });
@@ -85,24 +93,29 @@ public class LoginGUI {
      */
     public void openRegisterWindow() {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame2 = new JFrame("RegisterGUI");
-            frame2.setContentPane(new RegisterGUI().registerMainWindow);
-            frame2.pack();
-            frame2.setVisible(true);
-            frame2.setLocationRelativeTo(null);
-            frame2.setResizable(false);
-            frame2.addWindowListener(new WindowAdapter() {
+            registerFrame = new JFrame("RegisterGUI");
+            registerFrame.setContentPane(new RegisterGUI().registerMainWindow);
+            registerFrame.pack();
+            registerFrame.setVisible(true);
+            registerFrame.setLocationRelativeTo(null);
+            registerFrame.setResizable(false);
+            registerFrame.addWindowListener(new WindowAdapter() {
                 @Override
-                public void windowClosing(WindowEvent e) { // Changed from 'WindowClosing' to 'windowClosing'
-                    registerWindowOpen = false;
-                    nameLoginTextField.setEnabled(true);
-                    passwordLoginTextField.setEnabled(true);
-                    loginJButton.setEnabled(true);
+                public void windowClosing(WindowEvent e) {
+                    enableLoginUI();
                     System.out.println("Register window closed \n login button nametextfield, passwordtextfield enabled");
                 }
             });
         });
     }
-
+    public void disableLoginUI(){
+        loginFrame.setVisible(false);
+        registerWindowOpen = true;
+    }
+    public void enableLoginUI(){
+        loginFrame.setVisible(true);
+        registerWindowOpen = false;
+        System.out.print("LoginGUI enabled\n");
+    }
 }
 
