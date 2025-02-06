@@ -26,7 +26,6 @@ public class main {
         //System.out.println(db.getUser_ID("test", "123"));
         Game game = new Game();
 
-        RNG rng = new RNG();
         Inventory inv = new Inventory();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
@@ -34,7 +33,7 @@ public class main {
 
 
         inv.setUserID(10);
-        inv.unequipItem("2");
+        System.out.println(inv.addRandom("chest1"));
         /**
          String[] drops = inv.addRandom("chest1");
          for (int i = 0; i < drops.length; i++) {

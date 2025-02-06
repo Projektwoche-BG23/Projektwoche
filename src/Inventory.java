@@ -65,12 +65,10 @@ public class Inventory {
 
     }
 
-    public String[] addRandom(String chestName) throws SQLException {
-        String[] drops = rng.randomDrop(chestName);
-        for (int i = 0; i < drops.length; i++)
-        {
-            db.addItem(userID, Integer.parseInt(drops[i]), 1);
-        }
+    public String addRandom(String chestName) throws SQLException {
+        String drops = rng.randomDrop(chestName);
+
+        db.addItem(userID, Integer.parseInt(drops), 1);
         return drops;
     }
 }
