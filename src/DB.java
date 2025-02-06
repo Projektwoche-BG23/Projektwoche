@@ -107,7 +107,7 @@ public class DB {
         return true;
     }
 
-/**
+    /**
      * Method to get the stats of items
      * @param itemID the id of the target item
      * returns a String array of information
@@ -131,7 +131,7 @@ public class DB {
      * Sting[] item = db.itemInfo(1);
      * int defence = Integer.parseInt(item[4]);
      */
-  
+
     public String[] itemInfo(int itemID) throws SQLException
     {
         sql = "SELECT * FROM items WHERE item_ID=?";
@@ -194,7 +194,7 @@ public class DB {
         stmt.executeUpdate();
     }
 
-    /*
+    /**
      * Indicates how much the player has of a certain item
      * @param userID: userID of the player
      *
@@ -219,7 +219,7 @@ public class DB {
         return inv;
     }
 
-    /*
+    /**
      * Adds a specific item to the inventory.
      * Can also be used to subtract items by using negative number.
      * @param user_ID: user_ID of the player
@@ -247,7 +247,7 @@ public class DB {
     }
 
 
-    /*
+    /**
      * Tells what item ist equipped in which slot
      * @param user_ID: user_ID of teh player
      */
@@ -268,7 +268,7 @@ public class DB {
         return equipped;
     }
 
-    /*
+    /**
      * Equip an item to a item slot
      * @param user_ID: user_ID of teh palyer
      * @param equip_slot: which slot where to equip the item

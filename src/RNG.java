@@ -54,7 +54,9 @@ public class RNG {
         chances[1] = new Object[]{2, 67};
         chances[2] = new Object[]{3, 100};
 
-        //Item anzahl bestimmen
+        // Item Anzahl bestimmen
+    /**
+        // Item Anzahl bestimmen
         int itemRate = itemDropCount();
         String[] droppedItems = new String[itemRate];
 
@@ -69,16 +71,17 @@ public class RNG {
 
                 // Check if the random chance is less than the drop chance
                 if (chance < dropChance) {
-                    int itemID = (int) chanceEntry[0];
-                    Object[] droppedItem = db.itemInfo(itemID);
-                    droppedItems[i] = (String) droppedItem[0];
-                    break;  // Exit the loop once an item is dropped
+                    Object[] droppedItem = dictionary.items((String) chanceEntry[0]); // Item aus dem Dictionary holen
+                    droppedItems[i] = (droppedItem != null) ? (String) droppedItem[0] : "Unknown Item";
+                    break; // Sobald ein Item gefunden wurde, aus der Schleife ausbrechen
+
                 }
             }
         }
+*/
 
-        return droppedItems;
+        return (String[]) chances;
+
 
     }
-
 }
