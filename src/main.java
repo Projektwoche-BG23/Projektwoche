@@ -36,7 +36,7 @@ public class main {
         RNG.randomDrop("chest1");
         var10000 = rng;
         RNG.randomDrop("chest1");
-        System.out.println(inv.getInventory());
+       // System.out.println(inv.getInventory());
     }
 
     public void mathew() {
