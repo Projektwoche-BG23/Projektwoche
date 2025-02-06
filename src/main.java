@@ -27,7 +27,7 @@ public class main {
         DB db = new DB();
         //System.out.println(db.getUser_ID("test", "123"));
 
-        //Game game = new Game();
+        Game game = new Game();
 
 
         inv.setUserID(10);

@@ -78,9 +78,10 @@ public class RNG {
                 }
             }
         }
+*/
 
-        return droppedItems;
+        return (String[]) chances;
+
 
     }
-
 }

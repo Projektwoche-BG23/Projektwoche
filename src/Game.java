@@ -2247,9 +2247,4 @@ public class Game {
             createGameScreen();
         }
     }
-
-    public static void main(String[] args) {
-        Game game = new Game();
-    }
-
 }
