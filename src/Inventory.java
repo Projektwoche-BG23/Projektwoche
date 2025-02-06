@@ -48,14 +48,16 @@ public class Inventory {
 
     }
 
-    public boolean consum(String itemID) throws SQLException {
+    public boolean consum(String itemID,Character player) throws SQLException {
 
         Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //Gets item attributes
 
         if (hasItem(itemID))
         {
             db.addItem(userID, Integer.parseInt(itemID), -1);
+            player.usePotion(itemID);
             System.out.println("consumed successfully");
+
             return true;
         }else{
             return false;
@@ -71,5 +73,4 @@ public class Inventory {
         }
         return drops;
     }
-
 }

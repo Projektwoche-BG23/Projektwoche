@@ -14,7 +14,9 @@ public class Character {
     private final int baseStrength = 0;
     private final int baseMana = 50;
     private final int baseManaReg = 5;
-    private final int manaCost = 10;
+    private final int manaCost = 5;
+    private final int baseMaxHealth = 5;
+    private final int baseMaxMana = 5;
 
     // Current Stats
     private int health;
@@ -27,6 +29,10 @@ public class Character {
     private int strength;
     private int mana;
     private int manaReg;
+    private int maxHealth;
+    private int maxMana;
+    private int tempStrength;       //Bitte hier nicht in datenbank speichern wird nach Kampf resettet
+    private int potionCooldown = 0;
 
     public void Update(int UserID) throws SQLException
     {
@@ -74,7 +80,8 @@ public class Character {
     public int getStrength() { return strength; }
     public int getMana() { return mana; }
     public int getManaReg() { return manaReg; }
-    public int getManaCost() {return manaCost;}
+    public int getManaCost() { return  manaCost; }
+
 
     // Setter Methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
@@ -87,5 +94,40 @@ public class Character {
     public void setStrength(int newStrength) { strength = Math.max(newStrength, 0); }
     public void setMana(int newMana) { mana = Math.max(newMana, 0); }
     public void setManaReg(int newManaReg) { manaReg = Math.max(newManaReg, 0); }
+
+    public void countpotion(){
+        if((potionCooldown)>0){
+            potionCooldown--;
+        }
+        else{
+            attack -= tempStrength;
+        }
+    }
+    public void usePotion(String itemID) throws SQLException {
+        String[] itemInfo = db.itemInfo(Integer.parseInt(itemID));
+        int potionValue = Integer.parseInt(itemInfo[15]);
+
+        switch (Integer.parseInt(itemID)){
+            case 25,26:
+                if((health + potionValue)>maxHealth){
+                    health = maxHealth;
+                }
+                else health += potionValue;
+                break;
+            case 27:
+                if((mana + potionValue)>maxMana){
+                    mana = maxMana;
+                }
+                else mana += potionValue;
+                break;
+            case 28:
+                strength += potionValue;
+                int addAttack = Math.round(potionValue);
+                attack += addAttack;
+                tempStrength = addAttack;
+                potionCooldown = 3;
+                break;
+        }
+    }
 
 }
