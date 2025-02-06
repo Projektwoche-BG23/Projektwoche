@@ -10,7 +10,7 @@ import java.awt.event.MouseAdapter;
 public class Game {
     JFrame frame;
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, healtbartextpanel, waffentextpanel;
-    JPanel ImagePanel;
+    JPanel ImagePanel,fightScreenButtonPanel;
     JLabel titleNameLabel, healtbartext, waffentext;
     JButton startButton, ladenButton, einstellungenButton, verlassenButton;
     JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
@@ -193,6 +193,7 @@ public class Game {
      * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
      */
     public void createGameScreen() {
+        createFightScreen();
         /**
          * Löscht den Vorherigen Inhalt
          */
@@ -294,6 +295,35 @@ public class Game {
         playerPanel.setLayout(new GridLayout(1, 4));
         frame.add(playerPanel);
         anfangsSzene1();
+    }
+
+    public void createFightScreen(){
+        mainTextPanel.setVisible(false);
+        choiceButtonPanel.setVisible(false);
+
+        JButton attackButton,magicButton,itemButton;
+
+        fightScreenButtonPanel = new JPanel();
+        fightScreenButtonPanel.setBounds(100,600,1400,200);
+        fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
+        fightScreenButtonPanel.setLayout(new GridLayout(3, 1));
+        frame.add(fightScreenButtonPanel);
+
+        attackButton = new JButton();
+        //Hier ActionListener hinzufügen
+        attackButton.setBackground(new Color(23, 32, 56));
+        attackButton.setForeground(new Color(222, 158,65));
+        fightScreenButtonPanel.add(attackButton);
+
+        magicButton = new JButton();
+        magicButton.setBackground(new Color(23, 32, 56));
+        magicButton.setForeground(new Color(222, 158,65));
+        fightScreenButtonPanel.add(magicButton);
+
+        itemButton = new JButton();
+        itemButton.setBackground(new Color(23, 32, 56));
+        itemButton.setForeground(new Color(222, 158,65));
+        fightScreenButtonPanel.add(itemButton);
     }
 
     public void anfangsSzene1() {
@@ -419,6 +449,10 @@ public class Game {
         }
     }
     private class deathScreenHandler {
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
     }
 
 }

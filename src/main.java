@@ -6,6 +6,7 @@
 import java.sql.SQLException;
 
 public class main {
+
     static RNG rng = new RNG();
     static Inventory inv = new Inventory();
 
