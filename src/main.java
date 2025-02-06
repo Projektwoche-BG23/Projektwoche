@@ -1,22 +1,47 @@
+import com.sun.security.jgss.GSSUtil;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 import java.sql.SQLException;
 
-public class Main {
+public class main {
     static RNG rng = new RNG();
 
+    static Inventory inv = new Inventory();
+
+
+        /* --Ein Beispiel Code für chest öffnen und item drop!!!
+         Object[] drops = rng.randomDrop("chest1"); // öffnen von chest (man bekommt eine array von gedroppte items
+         for (int i = 0; i < drops.length; i++) //durch gehen von array
+         {
+           System.out.println(drops[i]); //ausdrucken von item names
+         }
+         */
+
+
     public static void main(String[] args) throws SQLException {
-        System.out.println("Hello");
-        System.out.println("hello my name is ");
+
 
         DB db = new DB();
-        System.out.println(db.getUser_ID("test", "123"));
+        //System.out.println(db.getUser_ID("test", "123"));
 
         Game game = new Game();
 
-        // Beispielcode für das Öffnen einer Kiste und das Erhalten von Items
-        Object[] drops = rng.randomDrop("chest1"); 
-        for (Object drop : drops) {
-            System.out.println(drop); // Item-Namen ausgeben
-        }
+
+        inv.setUserID(10);
+        inv.unequipItem("2");
+        /**
+         String[] drops = inv.addRandom("chest1");
+         for (int i = 0; i < drops.length; i++) {
+         System.out.println(drops[i]);
+         }
+        System.out.println(inv.hasItem("2"));
+        inv.consum("2");
+        System.out.println(inv.hasItem("2"));
+*/
+
     }
 
     public void mathew() {

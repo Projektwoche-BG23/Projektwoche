@@ -6,11 +6,14 @@ public class Enemy {
 
     private int health;         // Health points
     private int defense;        // Defense in %
-    private int specDefense;    // Magic Defense in %
+    private int magicDefense;   // Magic Defense in %
     private int attack;         // Flat attack
-    private int specAttack;     // Flat Magic damage
+    private int magicAttack;    // Flat Magic damage
     private int agility;        // Speed in turns and dodge chance at higher values
-    private int luck;           //Critical hit chance
+    private int luck;           // Critical hit chance
+    private int cooldown;       // Determines the cooldown fo a Magic attack
+    private int attackTyp;      // Determines what attack type the Unit can use.
+    // 1 for Normal, 2 for Magic and 0 for both
 
     /**
      * Creates a new Enemy unit based on the given type.
@@ -18,57 +21,131 @@ public class Enemy {
      */
     public Enemy(String enemyName) {
         switch (enemyName.toUpperCase()) {
-            case "SKELETON":
-                health = 100;
-                defense = 10;
-                specDefense = 20;
-                attack = 15;
-                specAttack = 0;
-                agility = 10;
-                luck = 10;
-
+            //Values need to be changed here!!!!!!!!!!
+            case "DRUNKENKNIGHT": //1
+                health =25;
+                defense =0;
+                magicDefense =0;
+                attack =5;
+                magicAttack =0;
+                agility =2;
+                luck =1;
+                attackTyp =1;
                 break;
-				
-            case "GOBLIN":
-                health = 150;
-                defense = 20;
-                specDefense = 10;
-                attack = 25;
-                specAttack = 0;
-                agility = 20;
-                luck = 15;
-            
+            case "WOLVES": //3
+                health =45;
+                defense =15;
+                magicDefense =15;
+                attack =10;
+                magicAttack =0;
+                agility =25;
+                luck =5;
+                attackTyp =1;
                 break;
-            case "GHOST":
-                health = 175;
-                defense = 50;
-                specDefense = 0;
-                attack = 0;
-                specAttack = 30;
-                agility = 25;
-                luck = 20;
+            case "SHADOWGUARDS": //
+                health =60;
+                defense =10;
+                magicDefense =10;
+                attack =15;
+                magicAttack =20;
+                agility =15;
+                luck =10;
+                attackTyp =0;
+                cooldown = 2;
                 break;
-            
-            case "KING":
-                health = 400;
-                defense = 25;
-                specDefense = 25;
-                attack = 30;
-                specAttack = 30;
-                agility = 15;
-                luck = 10;
+            case "ADVENTURER": //1
+                health =70;
+                defense =15;
+                magicDefense =15;
+                attack =15;
+                magicAttack =20;
+                agility =20;
+                luck =10;
+                attackTyp =0;
+                cooldown = 2;
                 break;
-            
-            case "DRUNKEN_KNIGHT":
-                health = 50;
-                defense = 0;
-                specDefense = 0;
-                attack = 5;
-                specAttack = 0;
-                agility = 5;
-                luck = 1;
+            case "AZROTH": //1
+                health =150;
+                defense =50;
+                magicDefense =50;
+                attack =35;
+                magicAttack =0;
+                agility =5;
+                luck =0;
+                attackTyp =1;
                 break;
-
+            case "ELITEKNIGHTS": //2
+                health =65;
+                defense =15;
+                magicDefense =15;
+                attack =25;
+                magicAttack =30;
+                agility =1;
+                luck =1;
+                attackTyp =1;
+                break;
+            case "CERBERUS": //1
+                health =110;
+                defense =30;
+                magicDefense =25;
+                attack =35;
+                magicAttack =45;
+                agility =1;
+                luck =1;
+                attackTyp =0;
+                cooldown = 4;
+                break;
+            case "PRINCESSGUARD": //1
+                health =70;
+                defense =15;
+                magicDefense =10;
+                attack =30;
+                magicAttack =0;
+                agility =30;
+                luck =10;
+                attackTyp =1;
+                break;
+            case "GOBLIN": //3
+                health =70;
+                defense =10;
+                magicDefense =10;
+                attack =25;
+                magicAttack =0;
+                agility =30;
+                luck =15;
+                attackTyp =1;
+                break;
+            case "SKELETON": // 4
+                health =80;
+                defense =5;
+                magicDefense =15;
+                attack =25;
+                magicAttack =0;
+                agility =15;
+                luck =5;
+                attackTyp =1;
+                break;
+            case "SKELLETGUARD": //2
+                health =100;
+                defense =15;
+                magicDefense =25;
+                attack =25;
+                magicAttack =0;
+                agility =15;
+                luck =10;
+                attackTyp =1;
+                break;
+            case "KING": //1
+                health =300;
+                defense =20;
+                magicDefense =20;
+                attack =40;
+                magicAttack =55;
+                agility =5;
+                luck =0;
+                attackTyp =0;
+                cooldown =4;
+                break;
             default:
                 throw new IllegalArgumentException("Invalid enemy type: " + enemyName);
         }
@@ -77,20 +154,21 @@ public class Enemy {
     // Getter methods
     public int getHealth() { return health; }
     public int getDefense() { return defense; }
-    public int getSpecDefense() { return specDefense; }
+    public int getMagicDefense() { return magicDefense; }
     public int getAttack() { return attack; }
-    public int getSpecAttack() { return specAttack; }
+    public int getMagicAttack() { return magicAttack; }
     public int getAgility() { return agility; }
     public int getLuck() { return luck; }
-
+    public int getAttackTyp(){ return attackTyp;}
+    public int getCooldown(){ return cooldown;}
     // Setter methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
     public void setDefense(int newDefense) { defense = Math.max(newDefense, 0); }
-    public void setSpecDefense(int newSpecDefense) { specDefense = Math.max(newSpecDefense, 0); }
+    public void setMagicDefense(int newSpecDefense) { magicDefense = Math.max(newSpecDefense, 0); }
     public void setAttack(int newAttack) { attack = Math.max(newAttack, 0); }
-    public void setSpecAttack(int newSpecAttack) { specAttack = Math.max(newSpecAttack, 0); }
+    public void setMagicAttack(int newSpecAttack) { magicAttack = Math.max(newSpecAttack, 0); }
     public void setAgility(int newAgility) { agility = Math.max(newAgility, 0); }
-  
     public void setLuck(int newLuck) { luck = Math.max(newLuck, 0); }
+
 }
 
