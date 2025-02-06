@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class RegisterGUI {
@@ -8,36 +6,50 @@ public class RegisterGUI {
     private JTextField nameRegisterTextField;
     private JTextField passwordRegisterTextField;
     private JButton finalreigsterJButton;
-    String registerName= "";
-    String registerPassword = "";
-    DB db1 = new DB();
-
+    private String registerName= "";
+    private String registerPassword = "";
+    private final DB db1 = new DB();
+    private final LoginGUI loginGUI = new LoginGUI();
     /**
-     * Sends the Register data to the DB
+     * Sets the registerName and the registerPassword from textfield to String
      */
     public RegisterGUI() {
-        finalreigsterJButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        finalreigsterJButton.addActionListener(_ -> {
+            if (!nameRegisterTextField.getText().isEmpty() && !passwordRegisterTextField.getText().isEmpty()) {
                 registerName = nameRegisterTextField.getText();
                 registerPassword = passwordRegisterTextField.getText();
                 registerDB();
-
             }
+            else {
+                JOptionPane.showMessageDialog(null,"Please fill in all the fields");
+            }
+
         });
     }
 
+    /**
+     * Sends data to DB and creates an UserID if successful closes register UI, if fail err msg
+     */
     public void registerDB() {
         try {
             db1.createAcc(registerName, registerPassword);
-            if (db1.createAcc(registerName, registerPassword)) {
-                db1.getUser_ID(registerName, registerPassword);
-                System.out.println("register Successful");
+            db1.getUser_ID(registerName, registerPassword);
+            System.out.println(db1.getUser_ID(registerName, registerPassword));
+
+            if (0!=db1.getUser_ID(registerName, registerPassword)) {
+                JOptionPane.showMessageDialog(null,"Register Successful");
+                LoginGUI.registerFrame.dispose();
+                loginGUI.enableLoginUI();
+                loginGUI.registerWindowOpen = false;
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Register failed, Username might exsist already or ask Oke");
             }
 
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+
     }
 }
 
