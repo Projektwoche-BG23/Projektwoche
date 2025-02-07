@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 
 public class Game {
     public JFrame frame;
-    JPanel potionScreenButtonPanel,enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
+    JPanel potionScreenButtonPanel,enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2, imagePanelFightScreenGegner,imagePanelFightScreenPlayer;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
     public JButton strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
-    public JLabel imageLabel;
+    public JLabel imageLabel, imageLabelGegner, imageLabelPlayer;
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
@@ -217,11 +217,25 @@ public class Game {
         ImagePanel = new JPanel();
         ImagePanel.setBounds(300, 300, 988, 550);
 
+        imagePanelFightScreenGegner = new JPanel();
+        imagePanelFightScreenGegner.setBounds(1260,155,340,590);
+
+        imagePanelFightScreenPlayer = new JPanel();
+        imagePanelFightScreenPlayer.setBounds(480,155,340,590);
+
 
 
         ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
         imageLabel = new JLabel(imageIcon);
         ImagePanel.add(imageLabel);
+
+        ImageIcon imageIconGegner = new ImageIcon("");
+        imageLabelGegner = new JLabel(imageIconGegner);
+        imagePanelFightScreenGegner.add(imageLabelGegner);
+
+        ImageIcon imageIconPlayer = new ImageIcon("");
+        imageLabelPlayer = new JLabel(imageIconPlayer);
+        imagePanelFightScreenPlayer.add(imageLabelPlayer);
 
         frame.add(ImagePanel);
         frame.add(titleNamePanel);
@@ -337,6 +351,8 @@ public class Game {
     }
 
     public void createFightScreen(Enemy enemy){
+        ImagePanel.setVisible(false);
+        imageLabel.setVisible(false);
         mainTextPanel.setVisible(false);
         choiceButtonPanel.setVisible(false);
         ImagePanel.setBounds(500,300,900,500);
@@ -449,6 +465,21 @@ public class Game {
         ImagePanel.revalidate(); // Refresh layout
         ImagePanel.repaint();    // Force UI redraw
     }
+    public void changeImageGegner(String imagePath) {
+        ImageIcon newIcon = new ImageIcon(imagePath);
+        imageLabel.setIcon(newIcon);
+        ImagePanel.revalidate(); // Refresh layout
+        ImagePanel.repaint();    // Force UI redraw
+    }
+    public void changeImagePlayer(String imagePath) {
+        ImageIcon newIcon = new ImageIcon(imagePath);
+        imageLabel.setIcon(newIcon);
+        ImagePanel.revalidate(); // Refresh layout
+        ImagePanel.repaint();    // Force UI redraw
+    }
+
+
+
 
     /**
      * Cheapter 1
@@ -636,7 +667,7 @@ public class Game {
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("\n*Two guards stand in front of the door.*\n" +
                 "Guard: Get out, you are not welcome here!");
-        choiceButton1.setText("... Go to Marketplce");
+        choiceButton1.setText("... Go to \nMarketplce");
         choiceButton2.setText("I'm looking for the princess.");
         choiceButton3.setText("");
         choiceButton4.setText("");
