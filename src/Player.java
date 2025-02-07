@@ -3,19 +3,17 @@ import java.sql.SQLException;
 public class Player {
     private DB db;
     // Base Stats
-    private final int baseHealth = 5;
-    private final int baseAttack = 5;
-    private final int baseMagicAttack = 5;
-    private final int baseDefense = 5;
-    private final int baseMagicDefense = 5;
-    private final int baseAgility = 5;
-    private final int baseLuck = 5;
+    private final int baseAttack = 30;
+    private final int baseMagicAttack = 40;
+    private final int baseDefense = 10;
+    private final int baseMagicDefense = 10;
+    private final int baseAgility = 20;
+    private final int baseLuck = 15;
     private final int baseStrength = 0;
-    private final int baseMana = 50;
     private final int baseManaReg = 5;
-    private final int manaCost = 5;
-    private final int baseMaxHealth = 5;
-    private final int baseMaxMana = 5;
+    private final int manaCost = 20;
+    private final int baseMaxHealth = 80;
+    private final int baseMaxMana = 50;
 
     // Current Stats
     private int health = 60;
@@ -33,7 +31,12 @@ public class Player {
     private int tempStrength;       //Bitte hier nicht in datenbank speichern wird nach Kampf resettet
     private int potionCooldown = 0;
 
-    public void Update(int UserID) throws SQLException
+    public void joinUpdate(int userID) throws SQLException {
+        update(userID);
+        health = maxHealth;
+        mana = maxMana;
+    }
+    public void update(int userID) throws SQLException
     {
         maxHealth = baseMaxHealth;
         attack = baseAttack;
@@ -46,7 +49,7 @@ public class Player {
         maxMana = baseMaxMana;
         manaReg = baseManaReg;
 
-        String[] equippedItems = db.getEquipped(UserID);
+        String[] equippedItems = db.getEquipped(userID);
 
         for (String itemIDString : equippedItems) {
             if (itemIDString != null && !itemIDString.isEmpty()) {
