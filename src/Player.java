@@ -1,7 +1,6 @@
-import java.security.PrivateKey;
 import java.sql.SQLException;
 
-public class Character {
+public class Player {
     private DB db;
     // Base Stats
     private final int baseHealth = 5;

@@ -1,6 +1,4 @@
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Inventory {
 
@@ -48,7 +46,7 @@ public class Inventory {
 
     }
 
-    public boolean consum(String itemID,Character player) throws SQLException {
+    public boolean consum(String itemID, Player player) throws SQLException {
 
         Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //Gets item attributes
 
