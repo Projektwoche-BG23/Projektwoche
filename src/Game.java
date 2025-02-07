@@ -1162,7 +1162,7 @@ public class Game {
                 "I can help you! \n" +
                 "*Player found a captured adventurer in a cell*\n");
         choiceButton1.setText("Free him");
-        choiceButton2.setText("Leave him behinde");
+        choiceButton2.setText("Leave him behind");
         choiceButton3.setText("");
         choiceButton4.setText("");
     }
