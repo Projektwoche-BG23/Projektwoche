@@ -18,7 +18,7 @@ public class RechnerKampf {
      * @param aktion Type of attack (Normal oder Magic)
      * @param enemy  Enemy Object
      */
-    public void fight(Character player,String aktion, Enemy enemy){
+    public void fight(Player player, String aktion, Enemy enemy){
         if(aktion .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
             manaControll = 1;
             System.err.println("Spieler hat nicht genuzg mana");
@@ -69,7 +69,7 @@ public class RechnerKampf {
      * @param enemy enemy Objekt
      * @throws SQLException
      */
-    public void itemConsumtion(String itemID,Character player,Enemy enemy) throws SQLException {
+    public void itemConsumtion(String itemID, Player player, Enemy enemy) throws SQLException {
         inventory.consum(itemID,player);
         fight(player,"",enemy);
     }
@@ -79,7 +79,7 @@ public class RechnerKampf {
      * @param attack Type of attack input from fight
      * @param enemy  Enemy Object
      */
-    private void playerAttackType(Character player, String attack, Enemy enemy){
+    private void playerAttackType(Player player, String attack, Enemy enemy){
         if(attack .equalsIgnoreCase("normal")){
             playerAttack(player,enemy);
         }
@@ -93,7 +93,7 @@ public class RechnerKampf {
      * @param player Player Object
      * @param enemy  Enemy Object
      */
-    private void enemyAttackType(Character player, Enemy enemy){
+    private void enemyAttackType(Player player, Enemy enemy){
         if(enemy.getAttackTyp() == 1){
             enemyAttack(player,enemy);
         }
@@ -110,7 +110,7 @@ public class RechnerKampf {
      * @param player Player Object
      * @param enemy Enemy Object
      */
-    private void kingAttacktype(Character player, Enemy enemy){
+    private void kingAttacktype(Player player, Enemy enemy){
         if(attackCooldown==0){
 
             int rngNumber = attackRNG.nextInt(1,3);
@@ -131,7 +131,7 @@ public class RechnerKampf {
      * @param enemy Enemy Object
      * @return
      */
-    public boolean fightStatus(Character player, Enemy enemy){
+    public boolean fightStatus(Player player, Enemy enemy){
         if(player.getHealth()>0 && enemy.getHealth()>0){
             return true;
         }
@@ -144,11 +144,11 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Player does to an Enemy with a Normal attack
      * and decreases the health of the enemy accordingly
-     * @param main Player Character
+     * @param main Player Player
      * @param typ enemy that is attacked
      */
 
-    private void playerAttack(Character main,Enemy typ)
+    private void playerAttack(Player main, Enemy typ)
     {
         int luckInt = attackRNG.nextInt(1,101);
 
@@ -168,10 +168,10 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Player does to an Enemy with a Magic attack
      * and decreases the health of the enemy accordingly
-     * @param main Player Character
+     * @param main Player Player
      * @param typ enemy that is attacked
      */
-    private void playerMagicAttack(Character main, Enemy typ)
+    private void playerMagicAttack(Player main, Enemy typ)
     {
         int luckInt = attackRNG.nextInt(1,101);
 
@@ -191,10 +191,10 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Enemy does to the Player with a Normal attack
      * and decreases the health of the Player accordingly
-     * @param main Player Character
+     * @param main Player Player
      * @param typ enemy that is attacking
      */
-    private void enemyAttack(Character main,Enemy typ)
+    private void enemyAttack(Player main, Enemy typ)
     {
         int luckInt = attackRNG.nextInt(1,101);
 
@@ -214,10 +214,10 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Enemy does to the Player with a Magic attack
      * and decreases the health of the Player accordingly
-     * @param main Player Character
+     * @param main Player Player
      * @param typ enemy that is attacking
      */
-    private void enemyMagicAttack(Character main, Enemy typ)
+    private void enemyMagicAttack(Player main, Enemy typ)
     {
         int luckInt = attackRNG.nextInt(1,101);
 
