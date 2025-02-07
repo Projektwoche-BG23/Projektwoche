@@ -18,7 +18,7 @@ public class Game {
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
-    Character c = new Character();
+    Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
 
 
