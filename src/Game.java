@@ -18,6 +18,11 @@ public class Game {
     int playerIDD;
     String playerPositionDB;
 
+    boolean ch1 = false;
+    boolean ch2 = false;
+    boolean ch3 = false;
+
+
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
 
@@ -338,335 +343,25 @@ public class Game {
 
         System.out.println(currentPosition[1]);
 
+
         /**
+         * Ruft die Orte aus der DB auf und setzt den Spieler auf diesen Standort zurück wenn er das Spiel verlässt und in das Spiler wieder reingeht.
+         */
 
-         switch (playerPositionDB) {
-         case "anfangsSzene1":
-         startGame();
-         break;
-         case "anfangsSzene2":
-         anfangsSzene();
-         break;
-         case "tavernCenter":
-         tavernSzene();
-         break;
-         case "tavernCenter2":
-         tavernSzene2();
-         break;
-         case "tavernFight":
-         tavernFight();
-         break;
-         case "afterFight":
-         afterFight();
-         break;
-         case "prison":
-         prisonScene();
-         break;
-         case "queenOffer":
-         queenOffer();
-         break;
-         case "queenYes":
-         queenYes();
-         break;
-         case "queenNo":
-         queenNo();
-         break;
-         case "weaponsSelect":
-         weaponChamber();
-         break;
-         case "tavernRevisited":
-         tavernRevisited();
-         break;
-         case "tavernRevisited1":
-         goToMarketplace();
-         break;
-         case "marketplace":
-         marketplace();
-         break;
-         case "appleSeller":
-         appleSeller();
-         break;
-         case "appleSeller1":
-         appleSellerAwnser();
-         break;
-         case "appleSeller2":
-         appleSellerABuy();
-         break;
-         case "appleSeller3":
-         appleSellerABuy1();
-         break;
-         case "appleSellerReject":
-         appleSellerAReject();
-         break;
-         case "appleSellerReject1":
-         appleSellerAReject1();
-         break;
-         case "blacksmith":
-         blacksmith();
-         break;
-         case "blacksmith1":
-         blacksmith1();
-         break;
-         case "blacksmith2":
-         blacksmith2();
-         break;
-         case "blacksmith3":
-         blacksmith3();
-         break;
-         case "oldManAlley":
-         oldManAlley();
-         break;
-         case "oldManAlley1":
-         oldManAlley1();
-         break;
-         case "oldManAlley2":
-         oldManAlley2();
-         break;
-         case "ch2followMap":
-         ch2followMap();
-         break;
-         case "ch2wolves1":
-         ch2fwolves();
-         break;
-         case "ch2fwolvescp2afterwolvesScene":
-         ch2fwolvescp2afterwolvesScene();
-         break;
-         case "ch2afterwolvesFight":
-         cp2afterwolvesFight();
-         break;
-         case "ch2afterwolvesFlee":
-         cp2afterwolvesFlee();
-         break;
-         case "cp2dungeon1":
-         cp2dungeon1();
-         break;
-         case "cp2dungeonFight":
-         cp2dungeonFight();
-         break;
-         case "cp2dungeonFightScene":
-         cp2dungeonFightScene();
-         break;
-         case "cp2dungeonAfterFight":
-         cp2dungeonAfterFight();
-         break;
-         case "cp2dungeonlabyrinth":
-         cp2dungeonlabyrinth();
-         break;
-         case "cp2dungeonlabyrinthChoose":
-         cp2dungeonlabyrinthChoose();
-         break;
-         case "cp2dungeonlabyrinthleft":
-         cp2LeftPath();
-         break;
-         case "cp2dungeonlabyrinthmiddle":
-         cp2TheMiddlePath();
-         break;
-         case "cp2dungeonlabyrinthright":
-         cp2TheRightHandPath();
-         break;
-         case "cp2dungeonlabyrinthrightScene":
-         cp2TheRightHandPathScene();
-         break;
-         case "cp2dungeonlabyrinthrighFightt":
-         cp2TheRightHandPathFight();
-         break;
-         case "cp2EncounterInLabyrinth":
-         cp2EncounterInLabyrinth();
-         break;
-         case "cp2EncounterOldMen":
-         cp2EncounterOldMen();
-         break;
-         case "cp2EncounterOldMenYes":
-         cp2EncounterOldMenYes();
-         break;
-         case "cp2EncounterOldMenNo":
-         cp2EncounterOldMenNo();
-         break;
-         case "cp2EncounterAdventurer":
-         cp2EncounterAdventurer();
-         break;
-         case "cp2EncounterAdventurerFree":
-         cp2EncounterAdventurerFree();
-         break;
-         case "cp2EncounterAdventurerFree1":
-         cp2EncounterAdventurerMoveOn();
-         break;
-         case "cp2Encountershadowysilhouette":
-         cp2Encountershadowysilhouette();
-         break;
-         case "cp2Encountershadowysilhouettetrue":
-         cp2Encountershadowysilhouetteture();
-         break;
-         case "cp2Encountershadowysilhouettefalse":
-         cp2Encountershadowysilhouetteturefalse();
-         break;
-         case "cp2EncountershadowysilhouetteMoveOn":
-         cp2EncountershadowysilhouetteMoveOn();
-         break;
-         case "cp2miniboss1":
-         cp2miniboss();
-         break;
-         case "cp2miniboss2":
-         cp2miniboss1();
-         break;
-         case "cp2miniboss2fight":
-         cp2miniboss1fight();
-         break;
-         case "cp2miniboss2fightWin":
-         cp2miniboss1Win();
-         break;
-         case "cp2miniboss1Rescue":
-         cp2miniboss1Rescue();
-         break;
-         case "cp2miniboss1RescueWonScene":
-         cp2miniboss1TowerFightScene();
-         break;
-         case "cp2miniboss1RescueWon":
-         cp2miniboss1TowerFight();
-         break;
-         case "cp2miniboss1RescueWon1":
-         cp2miniboss1TowerFightWon();
-         break;
-         case "cp2miniboss1TowerUnknown":
-         cp2miniboss1TowerUnknown();
-         break;
-         case "cp3TheEscape":
-         cp3TheEscape();
-         break;
-         case "cp3TheEscapeOption1":
-         cp3TheEscapeOption1();
-         break;
-         case "cp3TheEscapeOption2":
-         cp3TheEscapeOption2();
-         break;
-         case "cp3TheEscapeFightWon":
-         cp3TheEscapeFightWon();
-         break;
-         case "cp3TheEscapeFightDistraction":
-         cp3TheEscapeFightDistraction();
-         break;
-         case "cp3TheEscapeAfterFight":
-         cp3TheEscapeAfterFight();
-         break;
-         case "cp3TheEscapeAfterDistraction":
-         cp3TheEscapeAfterDistraction();
-         break;
-         case "cp3Guard":
-         cp3Guard();
-         break;
-         case "cp3GuardIgnore":
-         cp3GuardIgnore();
-         break;
-         case "cp3GuardAttack":
-         cp3GuardAttack();
-         break;
-         case "cp3GuardAfter":
-         cp3GuardAfter();
-         break;
-         case "cp3surface":
-         cp3surface();
-         break;
-         case "cp3Goblins":
-         cp3Goblins();
-         break;
-         case "cp3GoblinsFight":
-         cp3GoblinsFight();
-         break;
-         case "cp3GoblinsFightScene":
-         cp3GoblinsFightScene();
-         break;
-         case "cp3Night":
-         cp3Night();
-         break;
-         case "cp3NightQuest":
-         cp3NightQuest();
-         break;
-         case "cp3NightQuestFight":
-         cp3NightQuestFight();
-         break;
-         case "cp3NightQuestAfterFight":
-         cp3NightQuestAfterFight();
-         break;
-         case "cp3ArriveAtCity":
-         cp3ArriveAtCity();
-         break;
-         case "cp3ArriveAtCityFight":
-         cp3ArriveAtCityFight();
-         break;
-         case "cp3ArriveAtCityFightScene":
-         cp3ArriveAtCityFightScene();
-         break;
-         case "cp3ArriveAtCityOtherRoute":
-         cp3ArriveAtCityOtherRoute();
-         break;
-         case "cp4towardsCastle":
-         cp4towardsCastle();
-         break;
-         case "cp4InsideCastle":
-         cp4InsideCastle();
-         break;
-         case "cp4InsideCastleSkeletons":
-         cp4InsideCastleSkeletons();
-         break;
-         case "cp4InsideCastleSkeletonsFight":
-         cp4InsideCastleSkeletonsFight();
-         break;
-         case "cp4InsideCastleSkeletonsFightScene":
-         cp4InsideCastleSkeletonsFightScene();
-         break;
-         case "cp4AfterFight":
-         cp4AfterFight();
-         break;
-         case "cp4BossFight":
-         cp4BossFight();
-         break;
-         case "cp4AfterBossFight":
-         cp4AfterBossFight();
-         break;
-         case "cp4AfterBossFight1":
-         cp4AfterBossFight1();
-         break;
-         case "cp4AfterBossFight2":
-         cp4AfterBossFight2();
-         break;
-         case "cp4AfterBossFightOption1":
-         cp4AfterBossFightOption1();
-         break;
-         case "cp4AfterBossFightOption2":
-         cp4AfterBossFightOption2();
-         break;
-         case "SecretEnding":
-         SecretEnding();
-         break;
+        switch (playerPositionDB) {
+             case "cp1Finish":
+                 ch2followMap();
+                 break;
+             case "cp2Finish":
+                 cp3TheEscape();
+                 break;
+             case "cp3Finish":
+                 cp4towardsCastle();
+                 break;
          default:
-         System.out.println("Ungültige Position: " + currentPosition[1]);
+             startGame();
          break;
          }
-
-
-
-         switch (playerPositionDB) {
-         case "anfangsSzene1":
-         anfangsSzene();
-         break;
-         case "anfangsSzene2":
-         tavernSzene();
-         break;
-         case "tavernCenter":
-         tavernSzene2();
-         break;
-         case "tavernCenter2":
-         tavernFight();
-         break;
-         case "tavernFight":
-         createGameScreen();
-         break;
-         default:
-
-         }
-
-         **/
-        startGame();
 
     }
 
@@ -867,7 +562,6 @@ public class Game {
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
-        db.updateLocation(playerIDD, position);
 
     }
 
@@ -886,7 +580,6 @@ public class Game {
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
-        db.updateLocation(playerIDD, position);
     }
 
     public void tavernSzene() throws SQLException {
@@ -905,7 +598,7 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void tavernSzene2() throws SQLException {
@@ -920,7 +613,7 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
 
@@ -928,7 +621,7 @@ public class Game {
         position = "tavernFight";
         Enemy enemy = new Enemy("DRUNKENKNIGHT");
         createFightScreen(enemy);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void afterFight() throws SQLException {
@@ -945,7 +638,7 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void prisonScene() throws SQLException {
@@ -964,7 +657,7 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void queenOffer() throws SQLException {
@@ -984,7 +677,7 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void queenYes() throws SQLException {
@@ -1002,7 +695,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaffenkammerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void queenNo() throws SQLException {
@@ -1019,7 +712,7 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void weaponChamber() throws SQLException {
@@ -1035,7 +728,7 @@ public class Game {
         changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void tavernRevisited() throws SQLException {
@@ -1051,7 +744,7 @@ public class Game {
         changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void goToMarketplace() throws SQLException {
@@ -1068,7 +761,7 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void marketplace() throws SQLException {
@@ -1085,7 +778,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void appleSeller()throws SQLException {
@@ -1100,7 +793,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
 
     }
 
@@ -1116,7 +809,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
     public void appleSellerABuy()throws SQLException {
         position = "appleSeller2";
@@ -1131,7 +824,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void appleSellerABuy1()throws SQLException {
@@ -1149,7 +842,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void appleSellerAReject()throws SQLException {
@@ -1165,7 +858,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void appleSellerAReject1()throws SQLException {
@@ -1180,7 +873,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
 
@@ -1198,7 +891,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void blacksmith1()throws SQLException {
@@ -1213,7 +906,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void blacksmith2()throws SQLException {
@@ -1230,7 +923,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void blacksmith3()throws SQLException {
@@ -1246,7 +939,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void oldManAlley()throws SQLException {
@@ -1264,7 +957,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void oldManAlley1()throws SQLException {
@@ -1281,7 +974,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void oldManAlley2()throws SQLException {
@@ -1297,7 +990,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
 
@@ -1319,7 +1012,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void ch2fwolves()throws SQLException {
@@ -1335,14 +1028,14 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void ch2fwolvescp2afterwolvesScene()  throws SQLException  {
         position = "ch2fwolvescp2afterwolvesScene";
         Enemy enemy = new Enemy("Wolves");
         createFightScreen(enemy);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2afterwolvesFight()throws SQLException {
@@ -1359,7 +1052,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldRuinenHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2afterwolvesFlee()throws SQLException {
@@ -1376,7 +1069,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2dungeon1()throws SQLException {
@@ -1394,7 +1087,7 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2dungeonFight()throws SQLException {
@@ -1409,7 +1102,7 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2dungeonFightScene()throws SQLException {
@@ -1432,7 +1125,7 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2dungeonlabyrinth()throws SQLException {
@@ -1447,7 +1140,7 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2dungeonlabyrinthChoose()throws SQLException {
@@ -1462,7 +1155,7 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2LeftPath()throws SQLException {
@@ -1477,7 +1170,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonLinkerPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2TheMiddlePath()throws SQLException {
@@ -1493,7 +1186,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonWaffenkammerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2TheRightHandPath()throws SQLException {
@@ -1508,14 +1201,14 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2TheRightHandPathScene()throws SQLException {
         position = "cp2dungeonlabyrinthrightScene";
         Enemy enemy = new Enemy("SHADOWGUARDS");
         createFightScreen(enemy);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2TheRightHandPathFight()throws SQLException {
@@ -1530,7 +1223,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncounterInLabyrinth()throws SQLException {
@@ -1547,7 +1240,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncounterOldMen()throws SQLException {
@@ -1562,7 +1255,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncounterOldMenYes()throws SQLException {
@@ -1577,7 +1270,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncounterOldMenNo()throws SQLException {
@@ -1592,7 +1285,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncounterAdventurer()throws SQLException {
@@ -1610,7 +1303,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncounterAdventurerFree()throws SQLException {
@@ -1626,7 +1319,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncounterAdventurerMoveOn()throws SQLException {
@@ -1643,7 +1336,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2Encountershadowysilhouette()throws SQLException {
@@ -1661,7 +1354,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2Encountershadowysilhouetteture()throws SQLException {
@@ -1676,7 +1369,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2Encountershadowysilhouetteturefalse()throws SQLException {
@@ -1691,7 +1384,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2EncountershadowysilhouetteMoveOn()throws SQLException {
@@ -1709,7 +1402,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRunentürHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2miniboss()throws SQLException {
@@ -1725,7 +1418,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2miniboss1()throws SQLException {
@@ -1741,7 +1434,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2miniboss1fight()throws SQLException {
@@ -1763,7 +1456,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2miniboss1Rescue()throws SQLException {
@@ -1780,14 +1473,14 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppezumTurmHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2miniboss1TowerFightScene()throws SQLException {
         position = "cp2miniboss1RescueWonScene";
         Enemy enemy = new Enemy("ELITEKNIGHTS");
         createFightScreen(enemy);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2miniboss1TowerFight()throws SQLException {
@@ -1803,7 +1496,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp2miniboss1TowerFightWon()throws SQLException {
@@ -1821,7 +1514,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
     public void cp2miniboss1TowerUnknown()throws SQLException {
         position = "cp2miniboss1TowerUnknown";
@@ -1836,7 +1529,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     /**
@@ -1857,7 +1550,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3TheEscapeOption1()throws SQLException {
@@ -1880,7 +1573,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3TheEscapeFightWon()throws SQLException {
@@ -1895,7 +1588,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3TheEscapeFightDistraction()throws SQLException {
@@ -1910,7 +1603,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3TheEscapeAfterFight()throws SQLException {
@@ -1927,7 +1620,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3TheEscapeAfterDistraction()throws SQLException {
@@ -1944,7 +1637,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3Guard()throws SQLException {
@@ -1959,7 +1652,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrundverbarikadiert.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3GuardIgnore()throws SQLException {
@@ -1974,7 +1667,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3GuardAttack()throws SQLException {
@@ -1996,7 +1689,7 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3surface()throws SQLException {
@@ -2014,7 +1707,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldRuinenNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3Goblins()throws SQLException {
@@ -2030,7 +1723,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3GoblinsFight()throws SQLException {
@@ -2047,13 +1740,13 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3GoblinsFightScene()throws SQLException {
         position = "cp3GoblinsFightScene";
         Enemy enemy =new Enemy("Goblins");
-        db.updateLocation(playerIDD, position);
+        
         createFightScreen(enemy);
     }
 
@@ -2070,7 +1763,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3NightQuest()throws SQLException {
@@ -2086,13 +1779,13 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3NightQuestFight()throws SQLException {
         position = "cp3NightQuestFight";
         Enemy enemy = new Enemy("Bandit");
-        db.updateLocation(playerIDD, position);
+        
         createFightScreen(enemy);
     }
 
@@ -2109,7 +1802,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3ArriveAtCity()throws SQLException {
@@ -2126,13 +1819,13 @@ public class Game {
         changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp3ArriveAtCityFight()throws SQLException {
         position = "cp3ArriveAtCityFight";
         Enemy enemy = new Enemy("EliteGuards");
-        db.updateLocation(playerIDD, position);
+        
         createFightScreen(enemy);
     }
 
@@ -2148,7 +1841,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
 
     }
 
@@ -2165,7 +1858,7 @@ public class Game {
         changeImage("Images/Hintergründe/GeheimgangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     /**
@@ -2187,7 +1880,7 @@ public class Game {
         changeImage("Images/Hintergründe/SchlossvonStraßeausHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4InsideCastle()throws SQLException {
@@ -2204,7 +1897,7 @@ public class Game {
         changeImage("Images/Hintergründe/SchlosstorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4InsideCastleSkeletons()throws SQLException {
@@ -2220,7 +1913,7 @@ public class Game {
         changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4InsideCastleSkeletonsFight()throws SQLException {
@@ -2237,12 +1930,12 @@ public class Game {
         changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4InsideCastleSkeletonsFightScene()throws SQLException {
         position = "cp4InsideCastleSkeletonsFightScene";
-        db.updateLocation(playerIDD, position);
+        
         Enemy enemy = new Enemy("SKELLETGUARD");
         createFightScreen(enemy);
     }
@@ -2262,13 +1955,13 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4BossFight()throws SQLException {
         position = "cp4BossFight";
         Enemy enemy = new Enemy("KING");
-        db.updateLocation(playerIDD, position);
+        
         createFightScreen(enemy);
     }
 
@@ -2287,7 +1980,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4AfterBossFight1()throws SQLException {
@@ -2302,7 +1995,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
     public void cp4AfterBossFight2() throws SQLException{
         position = "cp4AfterBossFight2";
@@ -2319,7 +2012,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4AfterBossFightOption1()throws SQLException {
@@ -2336,7 +2029,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     public void cp4AfterBossFightOption2()throws SQLException {
@@ -2353,7 +2046,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
 
@@ -2373,7 +2066,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        db.updateLocation(playerIDD, position);
+        
     }
 
     private class ChoiceHandler implements ActionListener {
@@ -2684,6 +2377,7 @@ public class Game {
                 case "oldManAlley2":
                     if (yourChoice.equals("c1")) {
                         try {
+                            db.updateLocation(playerIDD, "cp1Finish"); // Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
                             ch2followMap();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3122,6 +2816,7 @@ public class Game {
                 case "cp2miniboss1TowerUnknown":
                     if(yourChoice.equals("c1")){
                         try {
+                            db.updateLocation(playerIDD, "cp2Finish"); // Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
                             cp3TheEscape();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3382,6 +3077,7 @@ public class Game {
                 case "cp3ArriveAtCityOtherRoute":
                     if(yourChoice.equals("c1")){
                         try {
+                            db.updateLocation(playerIDD, "cp3Finish"); // Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
                             cp4towardsCastle();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
