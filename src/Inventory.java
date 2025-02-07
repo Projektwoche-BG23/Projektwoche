@@ -48,7 +48,7 @@ public class Inventory {
 
     }
 
-    public boolean consum(String itemID,Character player) throws SQLException {
+    public boolean consum(String itemID, Character player) throws SQLException {
 
         Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //Gets item attributes
 
@@ -57,7 +57,6 @@ public class Inventory {
             db.addItem(userID, Integer.parseInt(itemID), -1);
             player.usePotion(itemID);
             System.out.println("consumed successfully");
-
             return true;
         }else{
             return false;
@@ -65,10 +64,10 @@ public class Inventory {
 
     }
 
-    public String addRandom(String chestName) throws SQLException {
-        String drops = rng.randomDrop(chestName);
+    public String addRandom(String chapterName) throws SQLException {
+        String drop = rng.randomDrop(chapterName);
 
-        db.addItem(userID, Integer.parseInt(drops), 1);
-        return drops;
+        db.addItem(userID, Integer.parseInt(drop), 1);
+        return drop;
     }
 }
