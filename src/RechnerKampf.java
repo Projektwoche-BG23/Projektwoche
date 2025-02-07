@@ -59,6 +59,9 @@ public class RechnerKampf {
                     }
                 }
             }
+            if(player.getMana()<player.getMaxMana()){
+                player.setMana(player.getMana()+player.getManaReg());
+            }
         }
     }
 
