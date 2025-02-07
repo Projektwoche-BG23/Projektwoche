@@ -12,7 +12,7 @@ public class RNG {
         switch (chest){
             default:
                 return null;
-            case "chest1":
+            case "chapter1":
                 return chest1();
         }
     }
@@ -69,15 +69,13 @@ public class RNG {
             int dropChance = (int) chanceEntry[1];
 
             if (chance < dropChance) {
-                String[] droppedItem = db.itemInfo(Integer.parseInt((String) chanceEntry[0]));
-                id = droppedItem[0];
+                Object[] droppedItem = db.itemInfo((Integer) chanceEntry[0]);
+                id = (String )droppedItem[0];
                 return id;
 
             }
 
         }
-
-
 
         return id;
 
