@@ -35,7 +35,7 @@ public class Player {
 
     public void Update(int UserID) throws SQLException
     {
-        health = baseHealth;
+        maxHealth = baseMaxHealth;
         attack = baseAttack;
         magicAttack = baseMagicAttack;
         defense = baseDefense;
@@ -43,7 +43,7 @@ public class Player {
         agility = baseAgility;
         luck = baseLuck;
         strength = baseStrength;
-        mana = baseMana;
+        maxMana = baseMaxMana;
         manaReg = baseManaReg;
 
         String[] equippedItems = db.getEquipped(UserID);
@@ -54,7 +54,7 @@ public class Player {
                 String[] itemStats = db.itemInfo(itemID);  // Hole die Item-Informationen aus der DB
 
 
-                health += Integer.parseInt(itemStats[7]);
+                maxHealth += Integer.parseInt(itemStats[7]);
                 attack += Integer.parseInt(itemStats[13]);
                 magicAttack += Integer.parseInt(itemStats[11]);
                 defense += Integer.parseInt(itemStats[4]);
@@ -62,10 +62,12 @@ public class Player {
                 agility += Integer.parseInt(itemStats[6]);
                 luck += Integer.parseInt(itemStats[12]);
                 strength += Integer.parseInt(itemStats[14]);
-                mana += Integer.parseInt(itemStats[9]);
+                maxMana += Integer.parseInt(itemStats[9]);
                 manaReg += Integer.parseInt(itemStats[10]);
             }
         }
+        attack += Math.round(attack+attack*strength);
+
     }
 
     // Getter Methods
@@ -80,6 +82,8 @@ public class Player {
     public int getMana() { return mana; }
     public int getManaReg() { return manaReg; }
     public int getManaCost() { return  manaCost; }
+    public int getMaxMana() { return  maxMana; }
+    public int getMaxHealth() { return  maxHealth; }
 
 
     // Setter Methods
@@ -94,6 +98,9 @@ public class Player {
     public void setMana(int newMana) { mana = Math.max(newMana, 0); }
     public void setManaReg(int newManaReg) { manaReg = Math.max(newManaReg, 0); }
 
+    /**
+     * zählt die Runden die eine potion noch wirken soll
+     */
     public void countpotion(){
         if((potionCooldown)>0){
             potionCooldown--;
@@ -102,9 +109,16 @@ public class Player {
             attack -= tempStrength;
         }
     }
+
+    /**
+     * Verrechnet die werte wenn ein Spieler eine potion verwendet.
+     * @param itemID id der Potion
+     * @throws SQLException
+     */
     public void usePotion(String itemID) throws SQLException {
-        String[] itemInfo = db.itemInfo(Integer.parseInt(itemID));
-        int potionValue = Integer.parseInt(itemInfo[15]);
+        Object[] itemInfo = db.itemInfo(Integer.parseInt(itemID));
+        String werte = (String)itemInfo[15];
+        int potionValue = Integer.parseInt(werte);
 
         switch (Integer.parseInt(itemID)){
             case 25,26:

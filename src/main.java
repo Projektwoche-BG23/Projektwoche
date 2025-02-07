@@ -4,6 +4,7 @@ import com.sun.security.jgss.GSSUtil;
 // (powered by FernFlower decompiler)
 //
 
+import java.lang.Character;
 import java.sql.SQLException;
 
 public class main {
@@ -24,8 +25,7 @@ public class main {
 
         DB db = new DB();
         //System.out.println(db.getUser_ID("test", "123"));
-        Game game = new Game();
-
+        RNG rng = new RNG();
         Inventory inv = new Inventory();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
@@ -33,7 +33,7 @@ public class main {
 
 
         inv.setUserID(10);
-        System.out.println(inv.addRandom("chest1"));
+        inv.unequipItem("2");
         /**
          String[] drops = inv.addRandom("chest1");
          for (int i = 0; i < drops.length; i++) {
