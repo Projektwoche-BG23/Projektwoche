@@ -25,28 +25,12 @@ public class main {
 
         DB db = new DB();
         //System.out.println(db.getUser_ID("test", "123"));
-        RNG rng = new RNG();
+        Game game = new Game();
+
+        Player player = new Player();
+
         Inventory inv = new Inventory();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
-
-
-
-        inv.setUserID(10);
-        inv.unequipItem("2");
-        /**
-         String[] drops = inv.addRandom("chest1");
-         for (int i = 0; i < drops.length; i++) {
-         System.out.println(drops[i]);
-         }
-        System.out.println(inv.hasItem("2"));
-        inv.consum("2");
-        System.out.println(inv.hasItem("2"));
-*/
-
-    }
-
-    public void mathew() {
-        System.out.println("Gg");
     }
 }
