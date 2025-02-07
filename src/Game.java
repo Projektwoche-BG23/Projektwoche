@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Game {
     public JFrame frame;
@@ -14,6 +15,8 @@ public class Game {
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
+    int playerIDD;
+    String playerPositionDB;
 
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
@@ -56,7 +59,7 @@ public class Game {
 
 
     public Game(int playerID) {
-
+        playerIDD = playerID;
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -236,7 +239,7 @@ public class Game {
      * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
      */
 
-    public void createGameScreen() {
+    public void createGameScreen() throws SQLException {
         /**
          * Löscht den Vorherigen Inhalt von der GUI also es macht es unsichbar
          */
@@ -249,7 +252,6 @@ public class Game {
         playerPositiontext.setVisible(true);
         playerPositiontext2.setVisible(true);
         waffentext2.setVisible(true);
-
 
 
         frame.setLayout(null);
@@ -329,7 +331,342 @@ public class Game {
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
 
-        startGame();
+
+
+        String[] currentPosition = db.playerInfo(playerIDD);
+        playerPositionDB = currentPosition[1];
+
+        System.out.println(currentPosition[1]);
+
+        /**
+
+         switch (playerPositionDB) {
+         case "anfangsSzene1":
+         startGame();
+         break;
+         case "anfangsSzene2":
+         anfangsSzene();
+         break;
+         case "tavernCenter":
+         tavernSzene();
+         break;
+         case "tavernCenter2":
+         tavernSzene2();
+         break;
+         case "tavernFight":
+         tavernFight();
+         break;
+         case "afterFight":
+         afterFight();
+         break;
+         case "prison":
+         prisonScene();
+         break;
+         case "queenOffer":
+         queenOffer();
+         break;
+         case "queenYes":
+         queenYes();
+         break;
+         case "queenNo":
+         queenNo();
+         break;
+         case "weaponsSelect":
+         weaponChamber();
+         break;
+         case "tavernRevisited":
+         tavernRevisited();
+         break;
+         case "tavernRevisited1":
+         goToMarketplace();
+         break;
+         case "marketplace":
+         marketplace();
+         break;
+         case "appleSeller":
+         appleSeller();
+         break;
+         case "appleSeller1":
+         appleSellerAwnser();
+         break;
+         case "appleSeller2":
+         appleSellerABuy();
+         break;
+         case "appleSeller3":
+         appleSellerABuy1();
+         break;
+         case "appleSellerReject":
+         appleSellerAReject();
+         break;
+         case "appleSellerReject1":
+         appleSellerAReject1();
+         break;
+         case "blacksmith":
+         blacksmith();
+         break;
+         case "blacksmith1":
+         blacksmith1();
+         break;
+         case "blacksmith2":
+         blacksmith2();
+         break;
+         case "blacksmith3":
+         blacksmith3();
+         break;
+         case "oldManAlley":
+         oldManAlley();
+         break;
+         case "oldManAlley1":
+         oldManAlley1();
+         break;
+         case "oldManAlley2":
+         oldManAlley2();
+         break;
+         case "ch2followMap":
+         ch2followMap();
+         break;
+         case "ch2wolves1":
+         ch2fwolves();
+         break;
+         case "ch2fwolvescp2afterwolvesScene":
+         ch2fwolvescp2afterwolvesScene();
+         break;
+         case "ch2afterwolvesFight":
+         cp2afterwolvesFight();
+         break;
+         case "ch2afterwolvesFlee":
+         cp2afterwolvesFlee();
+         break;
+         case "cp2dungeon1":
+         cp2dungeon1();
+         break;
+         case "cp2dungeonFight":
+         cp2dungeonFight();
+         break;
+         case "cp2dungeonFightScene":
+         cp2dungeonFightScene();
+         break;
+         case "cp2dungeonAfterFight":
+         cp2dungeonAfterFight();
+         break;
+         case "cp2dungeonlabyrinth":
+         cp2dungeonlabyrinth();
+         break;
+         case "cp2dungeonlabyrinthChoose":
+         cp2dungeonlabyrinthChoose();
+         break;
+         case "cp2dungeonlabyrinthleft":
+         cp2LeftPath();
+         break;
+         case "cp2dungeonlabyrinthmiddle":
+         cp2TheMiddlePath();
+         break;
+         case "cp2dungeonlabyrinthright":
+         cp2TheRightHandPath();
+         break;
+         case "cp2dungeonlabyrinthrightScene":
+         cp2TheRightHandPathScene();
+         break;
+         case "cp2dungeonlabyrinthrighFightt":
+         cp2TheRightHandPathFight();
+         break;
+         case "cp2EncounterInLabyrinth":
+         cp2EncounterInLabyrinth();
+         break;
+         case "cp2EncounterOldMen":
+         cp2EncounterOldMen();
+         break;
+         case "cp2EncounterOldMenYes":
+         cp2EncounterOldMenYes();
+         break;
+         case "cp2EncounterOldMenNo":
+         cp2EncounterOldMenNo();
+         break;
+         case "cp2EncounterAdventurer":
+         cp2EncounterAdventurer();
+         break;
+         case "cp2EncounterAdventurerFree":
+         cp2EncounterAdventurerFree();
+         break;
+         case "cp2EncounterAdventurerFree1":
+         cp2EncounterAdventurerMoveOn();
+         break;
+         case "cp2Encountershadowysilhouette":
+         cp2Encountershadowysilhouette();
+         break;
+         case "cp2Encountershadowysilhouettetrue":
+         cp2Encountershadowysilhouetteture();
+         break;
+         case "cp2Encountershadowysilhouettefalse":
+         cp2Encountershadowysilhouetteturefalse();
+         break;
+         case "cp2EncountershadowysilhouetteMoveOn":
+         cp2EncountershadowysilhouetteMoveOn();
+         break;
+         case "cp2miniboss1":
+         cp2miniboss();
+         break;
+         case "cp2miniboss2":
+         cp2miniboss1();
+         break;
+         case "cp2miniboss2fight":
+         cp2miniboss1fight();
+         break;
+         case "cp2miniboss2fightWin":
+         cp2miniboss1Win();
+         break;
+         case "cp2miniboss1Rescue":
+         cp2miniboss1Rescue();
+         break;
+         case "cp2miniboss1RescueWonScene":
+         cp2miniboss1TowerFightScene();
+         break;
+         case "cp2miniboss1RescueWon":
+         cp2miniboss1TowerFight();
+         break;
+         case "cp2miniboss1RescueWon1":
+         cp2miniboss1TowerFightWon();
+         break;
+         case "cp2miniboss1TowerUnknown":
+         cp2miniboss1TowerUnknown();
+         break;
+         case "cp3TheEscape":
+         cp3TheEscape();
+         break;
+         case "cp3TheEscapeOption1":
+         cp3TheEscapeOption1();
+         break;
+         case "cp3TheEscapeOption2":
+         cp3TheEscapeOption2();
+         break;
+         case "cp3TheEscapeFightWon":
+         cp3TheEscapeFightWon();
+         break;
+         case "cp3TheEscapeFightDistraction":
+         cp3TheEscapeFightDistraction();
+         break;
+         case "cp3TheEscapeAfterFight":
+         cp3TheEscapeAfterFight();
+         break;
+         case "cp3TheEscapeAfterDistraction":
+         cp3TheEscapeAfterDistraction();
+         break;
+         case "cp3Guard":
+         cp3Guard();
+         break;
+         case "cp3GuardIgnore":
+         cp3GuardIgnore();
+         break;
+         case "cp3GuardAttack":
+         cp3GuardAttack();
+         break;
+         case "cp3GuardAfter":
+         cp3GuardAfter();
+         break;
+         case "cp3surface":
+         cp3surface();
+         break;
+         case "cp3Goblins":
+         cp3Goblins();
+         break;
+         case "cp3GoblinsFight":
+         cp3GoblinsFight();
+         break;
+         case "cp3GoblinsFightScene":
+         cp3GoblinsFightScene();
+         break;
+         case "cp3Night":
+         cp3Night();
+         break;
+         case "cp3NightQuest":
+         cp3NightQuest();
+         break;
+         case "cp3NightQuestFight":
+         cp3NightQuestFight();
+         break;
+         case "cp3NightQuestAfterFight":
+         cp3NightQuestAfterFight();
+         break;
+         case "cp3ArriveAtCity":
+         cp3ArriveAtCity();
+         break;
+         case "cp3ArriveAtCityFight":
+         cp3ArriveAtCityFight();
+         break;
+         case "cp3ArriveAtCityFightScene":
+         cp3ArriveAtCityFightScene();
+         break;
+         case "cp3ArriveAtCityOtherRoute":
+         cp3ArriveAtCityOtherRoute();
+         break;
+         case "cp4towardsCastle":
+         cp4towardsCastle();
+         break;
+         case "cp4InsideCastle":
+         cp4InsideCastle();
+         break;
+         case "cp4InsideCastleSkeletons":
+         cp4InsideCastleSkeletons();
+         break;
+         case "cp4InsideCastleSkeletonsFight":
+         cp4InsideCastleSkeletonsFight();
+         break;
+         case "cp4InsideCastleSkeletonsFightScene":
+         cp4InsideCastleSkeletonsFightScene();
+         break;
+         case "cp4AfterFight":
+         cp4AfterFight();
+         break;
+         case "cp4BossFight":
+         cp4BossFight();
+         break;
+         case "cp4AfterBossFight":
+         cp4AfterBossFight();
+         break;
+         case "cp4AfterBossFight1":
+         cp4AfterBossFight1();
+         break;
+         case "cp4AfterBossFight2":
+         cp4AfterBossFight2();
+         break;
+         case "cp4AfterBossFightOption1":
+         cp4AfterBossFightOption1();
+         break;
+         case "cp4AfterBossFightOption2":
+         cp4AfterBossFightOption2();
+         break;
+         case "SecretEnding":
+         SecretEnding();
+         break;
+         default:
+         System.out.println("Ungültige Position: " + currentPosition[1]);
+         break;
+         }
+
+
+
+         switch (playerPositionDB) {
+         case "anfangsSzene1":
+         anfangsSzene();
+         break;
+         case "anfangsSzene2":
+         tavernSzene();
+         break;
+         case "tavernCenter":
+         tavernSzene2();
+         break;
+         case "tavernCenter2":
+         tavernFight();
+         break;
+         case "tavernFight":
+         createGameScreen();
+         break;
+         default:
+         startGame();
+         }
+
+         **/
+
     }
 
     public void healthAktualisieren(int health) {
@@ -360,52 +697,148 @@ public class Game {
                     switch (position)
                     {
                         case "tavernFight":
-                            createGameScreen();
-                            afterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                afterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "ch2fwolvescp2afterwolvesScene":
-                            createGameScreen();
-                            cp2afterwolvesFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2afterwolvesFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2dungeonFightScene":
-                            createGameScreen();
-                            cp2dungeonAfterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2dungeonAfterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2dungeonlabyrinthrightScene":
-                            createGameScreen();
-                            cp2EncounterInLabyrinth();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2EncounterInLabyrinth();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2miniboss2fight":
-                            createGameScreen();
-                            cp2miniboss1Win();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2miniboss1Win();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2miniboss1RescueWonScene":
-                            createGameScreen();
-                            cp2miniboss1TowerFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2miniboss1TowerFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3TheEscapeOption1":
-                            createGameScreen();
-                            cp3TheEscapeFightWon();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3TheEscapeFightWon();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3GuardAttack":
-                            createGameScreen();
-                            cp3GuardAfter();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3GuardAfter();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3GoblinsFightScene":
-                            createGameScreen();
-                            cp3Night();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3Night();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3NightQuestFight":
-                            createGameScreen();
-                            cp3NightQuestAfterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3NightQuestAfterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp4InsideCastleSkeletonsFightScene":
-                            createGameScreen();
-                            cp4AfterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp4AfterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp4BossFight":
-                            createGameScreen();
-                            cp4AfterBossFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp4AfterBossFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
 
                     }
@@ -431,52 +864,148 @@ public class Game {
                     switch (position)
                     {
                         case "tavernFight":
-                            createGameScreen();
-                            afterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                afterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "ch2fwolvescp2afterwolvesScene":
-                            createGameScreen();
-                            cp2afterwolvesFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2afterwolvesFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2dungeonFightScene":
-                            createGameScreen();
-                            cp2dungeonAfterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2dungeonAfterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2dungeonlabyrinthrightScene":
-                            createGameScreen();
-                            cp2EncounterInLabyrinth();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2EncounterInLabyrinth();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2miniboss2fight":
-                            createGameScreen();
-                            cp2miniboss1Win();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2miniboss1Win();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp2miniboss1RescueWonScene":
-                            createGameScreen();
-                            cp2miniboss1TowerFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp2miniboss1TowerFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3TheEscapeOption1":
-                            createGameScreen();
-                            cp3TheEscapeFightWon();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3TheEscapeFightWon();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3GuardAttack":
-                            createGameScreen();
-                            cp3GuardAfter();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3GuardAfter();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3GoblinsFightScene":
-                            createGameScreen();
-                            cp3Night();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3Night();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp3NightQuestFight":
-                            createGameScreen();
-                            cp3NightQuestAfterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp3NightQuestAfterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp4InsideCastleSkeletonsFightScene":
-                            createGameScreen();
-                            cp4AfterFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp4AfterFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
                         case "cp4BossFight":
-                            createGameScreen();
-                            cp4AfterBossFight();
+                            try {
+                                createGameScreen();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            try {
+                                cp4AfterBossFight();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
                             break;
 
                     }
@@ -514,7 +1043,9 @@ public class Game {
      * Cheapter 1
      */
 
-    public void startGame() {
+    DB db = new DB();
+
+    public void startGame() throws SQLException {
         position = "anfangsSzene1";
         playerPosition = "Intro";
         playerPositiontext2.setText(playerPosition);
@@ -528,10 +1059,11 @@ public class Game {
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
+        db.updateLocation(playerIDD, position);
 
     }
 
-    public void anfangsSzene() {
+    public void anfangsSzene() throws SQLException {
         position = "anfangsSzene2";
         playerPosition = "Intro";
         playerPositiontext2.setText(playerPosition);
@@ -546,10 +1078,10 @@ public class Game {
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
-
+        db.updateLocation(playerIDD, position);
     }
 
-    public void tavernSzene(){
+    public void tavernSzene() throws SQLException {
         position = "tavernCenter";
         playerPosition = "Tavern Center";
         playerPositiontext2.setText(playerPosition);
@@ -565,9 +1097,10 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void tavernSzene2(){
+    public void tavernSzene2() throws SQLException {
         position = "tavernCenter2";
         playerPosition = "Tavern Center";
         playerPositiontext2.setText(playerPosition);
@@ -579,16 +1112,18 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
 
-    public void tavernFight() {
+    public void tavernFight() throws SQLException {
         position = "tavernFight";
         Enemy enemy = new Enemy("DRUNKENKNIGHT");
         createFightScreen(enemy);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void afterFight() {
+    public void afterFight() throws SQLException {
         position = "afterFight";
         playerPosition = "Tavern Center";
         playerPositiontext2.setText(playerPosition);
@@ -602,9 +1137,10 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void prisonScene() {
+    public void prisonScene() throws SQLException {
         position = "prison";
         playerPosition = "Prison";
         playerPositiontext2.setText(playerPosition);
@@ -620,9 +1156,10 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void queenOffer() {
+    public void queenOffer() throws SQLException {
         position = "queenOffer";
         playerPosition = "Prison";
         playerPositiontext2.setText(playerPosition);
@@ -639,9 +1176,10 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void queenYes() {
+    public void queenYes() throws SQLException {
         position = "queenYes";
         playerPosition = "Prison - Secret Chamber";
         playerPositiontext2.setText(playerPosition);
@@ -656,9 +1194,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaffenkammerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void queenNo() {
+    public void queenNo() throws SQLException {
         position = "queenNo";
         playerPosition = "Prison";
         playerPositiontext2.setText(playerPosition);
@@ -672,10 +1211,10 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-
+        db.updateLocation(playerIDD, position);
     }
 
-    public void weaponChamber() {
+    public void weaponChamber() throws SQLException {
         position = "weaponsSelect";
         playerPosition = "Secret Weapon Chamber";
         playerPositiontext2.setText(playerPosition);
@@ -688,9 +1227,10 @@ public class Game {
         changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void tavernRevisited() {
+    public void tavernRevisited() throws SQLException {
         position = "tavernRevisited";
         playerPosition = "Tavern";
         playerPositiontext2.setText(playerPosition);
@@ -703,9 +1243,10 @@ public class Game {
         changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void goToMarketplace() {
+    public void goToMarketplace() throws SQLException {
         position = "tavernRevisited1";
         playerPosition = "Tavern";
         playerPositiontext2.setText(playerPosition);
@@ -719,9 +1260,10 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void marketplace() {
+    public void marketplace() throws SQLException {
         position = "marketplace";
         playerPosition = "Marketplace";
         playerPositiontext2.setText(playerPosition);
@@ -735,9 +1277,10 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void appleSeller() {
+    public void appleSeller()throws SQLException {
         position = "appleSeller";
         playerPosition = "Marketplace - Apple Seller";
         playerPositiontext2.setText(playerPosition);
@@ -749,10 +1292,11 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
 
     }
 
-    public void appleSellerAwnser() {
+    public void appleSellerAwnser()throws SQLException {
         position = "appleSeller1";
         playerPosition = "Marketplace - Apple Seller";
         playerPositiontext2.setText(playerPosition);
@@ -764,9 +1308,9 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-
+        db.updateLocation(playerIDD, position);
     }
-    public void appleSellerABuy() {
+    public void appleSellerABuy()throws SQLException {
         position = "appleSeller2";
         playerPosition = "Marketplace - Apple Seller";
         playerPositiontext2.setText(playerPosition);
@@ -779,9 +1323,10 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void appleSellerABuy1() {
+    public void appleSellerABuy1()throws SQLException {
         position = "appleSeller3";
         playerPosition = "Marketplace - Apple Seller";
         playerPositiontext2.setText(playerPosition);
@@ -796,9 +1341,10 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void appleSellerAReject() {
+    public void appleSellerAReject()throws SQLException {
         position = "appleSellerReject";
         playerPosition = "Marketplace - Apple Seller";
         playerPositiontext2.setText(playerPosition);
@@ -811,9 +1357,10 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void appleSellerAReject1() {
+    public void appleSellerAReject1()throws SQLException {
         position = "appleSellerReject1";
         playerPosition = "Alley";
         playerPositiontext2.setText(playerPosition);
@@ -825,12 +1372,13 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
 
 
 
-    public void blacksmith() {
+    public void blacksmith()throws SQLException {
         position = "blacksmith";
         playerPosition = "Marketplace - Blacksmith";
         playerPositiontext2.setText(playerPosition);
@@ -842,9 +1390,10 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void blacksmith1() {
+    public void blacksmith1()throws SQLException {
         position = "blacksmith1";
         playerPosition = "Marketplace - Blacksmith";
         playerPositiontext2.setText(playerPosition);
@@ -856,9 +1405,10 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void blacksmith2() {
+    public void blacksmith2()throws SQLException {
         position = "blacksmith2";
         playerPosition = "Marketplace - Blacksmith";
         playerPositiontext2.setText(playerPosition);
@@ -872,9 +1422,10 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void blacksmith3() {
+    public void blacksmith3()throws SQLException {
         position = "blacksmith3";
         playerPosition = "Marketplace - Blacksmith";
         playerPositiontext2.setText(playerPosition);
@@ -887,9 +1438,10 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void oldManAlley() {
+    public void oldManAlley()throws SQLException {
         position = "oldManAlley";
         playerPosition = "Alley";
         playerPositiontext2.setText(playerPosition);
@@ -904,9 +1456,10 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void oldManAlley1() {
+    public void oldManAlley1()throws SQLException {
         position = "oldManAlley1";
         playerPosition = "Alley";
         playerPositiontext2.setText(playerPosition);
@@ -920,9 +1473,10 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void oldManAlley2() {
+    public void oldManAlley2()throws SQLException {
         position = "oldManAlley2";
         playerPosition = "Alley";
         playerPositiontext2.setText(playerPosition);
@@ -935,6 +1489,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
 
@@ -942,7 +1497,7 @@ public class Game {
      *  Cheapter 2
      */
 
-    public void ch2followMap() {
+    public void ch2followMap()throws SQLException {
         position = "ch2followMap";
         playerPosition = "CP2 - Intro";
         playerPositiontext2.setText(playerPosition);
@@ -956,9 +1511,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void ch2fwolves() {
+    public void ch2fwolves()throws SQLException {
         position = "ch2wolves1";
         playerPosition = "CP2 - Ruined Castle";
         playerPositiontext2.setText(playerPosition);
@@ -971,15 +1527,17 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void ch2fwolvescp2afterwolvesScene() {
+    public void ch2fwolvescp2afterwolvesScene()  throws SQLException  {
         position = "ch2fwolvescp2afterwolvesScene";
         Enemy enemy = new Enemy("Wolves");
         createFightScreen(enemy);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2afterwolvesFight() {
+    public void cp2afterwolvesFight()throws SQLException {
         position = "ch2afterwolvesFight";
         playerPosition = "CP2 - Ruined Castle";
         playerPositiontext2.setText(playerPosition);
@@ -993,9 +1551,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaldRuinenHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2afterwolvesFlee() {
+    public void cp2afterwolvesFlee()throws SQLException {
         position = "ch2afterwolvesFlee";
         playerPosition = "CP2 - Ruined Castle";
         playerPositiontext2.setText(playerPosition);
@@ -1009,9 +1568,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2dungeon1() {
+    public void cp2dungeon1()throws SQLException {
         position = "cp2dungeon1";
         playerPosition = "CP2 - Dungeon";
         playerPositiontext2.setText(playerPosition);
@@ -1026,9 +1586,10 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2dungeonFight() {
+    public void cp2dungeonFight()throws SQLException {
         position = "cp2dungeonFight";
         playerPosition = "CP2 - Dungeon Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1040,15 +1601,16 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2dungeonFightScene() {
+    public void cp2dungeonFightScene()throws SQLException {
         position = "cp2dungeonFightScene";
         Enemy enemy = new Enemy("SKELLETGUARD");
         createFightScreen(enemy);
     }
 
-    public void cp2dungeonAfterFight() {
+    public void cp2dungeonAfterFight()throws SQLException {
         position = "cp2dungeonAfterFight";
         playerPosition = "CP2 - Dungeon Room";
         playerPositiontext2.setText(playerPosition);
@@ -1062,9 +1624,10 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2dungeonlabyrinth() {
+    public void cp2dungeonlabyrinth()throws SQLException {
         position = "cp2dungeonlabyrinth";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1076,9 +1639,10 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2dungeonlabyrinthChoose() {
+    public void cp2dungeonlabyrinthChoose()throws SQLException {
         position = "cp2dungeonlabyrinthChoose";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1090,9 +1654,10 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2LeftPath() {
+    public void cp2LeftPath()throws SQLException {
         position = "cp2dungeonlabyrinthleft";
         playerPosition = "CP2 - Dungeon Labyrinth Left";
         playerPositiontext2.setText(playerPosition);
@@ -1104,9 +1669,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonLinkerPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2TheMiddlePath() {
+    public void cp2TheMiddlePath()throws SQLException {
         position = "cp2dungeonlabyrinthmiddle";
         playerPosition = "CP2 - Dungeon Labyrinth Middle";
         playerPositiontext2.setText(playerPosition);
@@ -1119,9 +1685,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonWaffenkammerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2TheRightHandPath() {
+    public void cp2TheRightHandPath()throws SQLException {
         position = "cp2dungeonlabyrinthright";
         playerPosition = "CP2 - Dungeon Labyrinth Right";
         playerPositiontext2.setText(playerPosition);
@@ -1133,15 +1700,17 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2TheRightHandPathScene() {
+    public void cp2TheRightHandPathScene()throws SQLException {
         position = "cp2dungeonlabyrinthrightScene";
         Enemy enemy = new Enemy("SHADOWGUARDS");
         createFightScreen(enemy);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2TheRightHandPathFight() {
+    public void cp2TheRightHandPathFight()throws SQLException {
         position = "cp2dungeonlabyrinthrighFightt";
         playerPosition = "CP2 - Dungeon Labyrinth Right";
         playerPositiontext2.setText(playerPosition);
@@ -1153,9 +1722,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncounterInLabyrinth() {
+    public void cp2EncounterInLabyrinth()throws SQLException {
         position = "cp2EncounterInLabyrinth";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1169,9 +1739,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncounterOldMen() {
+    public void cp2EncounterOldMen()throws SQLException {
         position = "cp2EncounterOldMen";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1183,9 +1754,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncounterOldMenYes() {
+    public void cp2EncounterOldMenYes()throws SQLException {
         position = "cp2EncounterOldMenYes";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1197,9 +1769,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncounterOldMenNo() {
+    public void cp2EncounterOldMenNo()throws SQLException {
         position = "cp2EncounterOldMenNo";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1211,9 +1784,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncounterAdventurer() {
+    public void cp2EncounterAdventurer()throws SQLException {
         position = "cp2EncounterAdventurer";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1228,9 +1802,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncounterAdventurerFree() {
+    public void cp2EncounterAdventurerFree()throws SQLException {
         position = "cp2EncounterAdventurerFree";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1243,9 +1818,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncounterAdventurerMoveOn() {
+    public void cp2EncounterAdventurerMoveOn()throws SQLException {
         position = "cp2EncounterAdventurerFree1";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1259,9 +1835,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2Encountershadowysilhouette() {
+    public void cp2Encountershadowysilhouette()throws SQLException {
         position = "cp2Encountershadowysilhouette";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1276,9 +1853,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2Encountershadowysilhouetteture() {
+    public void cp2Encountershadowysilhouetteture()throws SQLException {
         position = "cp2Encountershadowysilhouettetrue";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1290,9 +1868,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2Encountershadowysilhouetteturefalse() {
+    public void cp2Encountershadowysilhouetteturefalse()throws SQLException {
         position = "cp2Encountershadowysilhouettefalse";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1304,9 +1883,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2EncountershadowysilhouetteMoveOn() {
+    public void cp2EncountershadowysilhouetteMoveOn()throws SQLException {
         position = "cp2EncountershadowysilhouetteMoveOn";
         playerPosition = "CP2 - Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
@@ -1321,9 +1901,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRunentürHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2miniboss() {
+    public void cp2miniboss()throws SQLException {
         position = "cp2miniboss1";
         playerPosition = "CP2 - Huge Chamber";
         playerPositiontext2.setText(playerPosition);
@@ -1336,9 +1917,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2miniboss1() {
+    public void cp2miniboss1()throws SQLException {
         position = "cp2miniboss2";
         playerPosition = "CP2 - Huge Chamber";
         playerPositiontext2.setText(playerPosition);
@@ -1351,15 +1933,16 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2miniboss1fight() {
+    public void cp2miniboss1fight()throws SQLException {
         position = "cp2miniboss2fight";
         Enemy enemy = new Enemy("DARKTITANAZROTH");
         createFightScreen(enemy);
     }
 
-    public void cp2miniboss1Win() {
+    public void cp2miniboss1Win()throws SQLException {
         position = "cp2miniboss2fightWin";
         playerPosition = "CP2 - Huge Chamber Won";
         playerPositiontext2.setText(playerPosition);
@@ -1372,9 +1955,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2miniboss1Rescue() {
+    public void cp2miniboss1Rescue()throws SQLException {
         position = "cp2miniboss1Rescue";
         playerPosition = "CP2 - Tower";
         playerPositiontext2.setText(playerPosition);
@@ -1388,15 +1972,17 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppezumTurmHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2miniboss1TowerFightScene() {
+    public void cp2miniboss1TowerFightScene()throws SQLException {
         position = "cp2miniboss1RescueWonScene";
         Enemy enemy = new Enemy("ELITEKNIGHTS");
         createFightScreen(enemy);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2miniboss1TowerFight() {
+    public void cp2miniboss1TowerFight()throws SQLException {
         position = "cp2miniboss1RescueWon";
         playerPosition = "CP2 - Tower";
         playerPositiontext2.setText(playerPosition);
@@ -1409,9 +1995,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp2miniboss1TowerFightWon() {
+    public void cp2miniboss1TowerFightWon()throws SQLException {
         position = "cp2miniboss1RescueWon1";
         playerPosition = "CP2 - Tower Princess";
         playerPositiontext2.setText(playerPosition);
@@ -1426,8 +2013,9 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
-    public void cp2miniboss1TowerUnknown() {
+    public void cp2miniboss1TowerUnknown()throws SQLException {
         position = "cp2miniboss1TowerUnknown";
         playerPosition = "CP2 - Tower Princess";
         playerPositiontext2.setText(playerPosition);
@@ -1440,13 +2028,14 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
     /**
      * Cheapter 3
      */
 
-    public void cp3TheEscape() {
+    public void cp3TheEscape()throws SQLException {
         position = "cp3TheEscape";
         playerPosition = "CP3 - Tower Princess";
         playerPositiontext2.setText(playerPosition);
@@ -1460,15 +2049,16 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3TheEscapeOption1() {
+    public void cp3TheEscapeOption1()throws SQLException {
         position = "cp3TheEscapeOption1";
         Enemy enemy = new Enemy("THREEHEADDOG");
         createFightScreen(enemy);
     }
 
-    public void cp3TheEscapeOption2() {
+    public void cp3TheEscapeOption2()throws SQLException {
         position = "cp3TheEscapeOption2";
         playerPosition = "CP3 - Tower Princess Distraction";
         playerPositiontext2.setText(playerPosition);
@@ -1482,9 +2072,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3TheEscapeFightWon() {
+    public void cp3TheEscapeFightWon()throws SQLException {
         position = "cp3TheEscapeFightWon";
         playerPosition = "CP3 - Tower Princess Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1496,9 +2087,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3TheEscapeFightDistraction() {
+    public void cp3TheEscapeFightDistraction()throws SQLException {
         position = "cp3TheEscapeFightDistraction";
         playerPosition = "CP3 - Tower Princess Distraction";
         playerPositiontext2.setText(playerPosition);
@@ -1510,9 +2102,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3TheEscapeAfterFight() {
+    public void cp3TheEscapeAfterFight()throws SQLException {
         position = "cp3TheEscapeAfterFight";
         playerPosition = "CP3 - Tower Princess Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1526,9 +2119,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3TheEscapeAfterDistraction() {
+    public void cp3TheEscapeAfterDistraction()throws SQLException {
         position = "cp3TheEscapeAfterDistraction";
         playerPosition = "CP3 - Tower Princess Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1542,9 +2136,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3Guard() {
+    public void cp3Guard()throws SQLException {
         position = "cp3Guard";
         playerPosition = "CP3 - Dark Corridors";
         playerPositiontext2.setText(playerPosition);
@@ -1556,9 +2151,10 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrundverbarikadiert.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3GuardIgnore() {
+    public void cp3GuardIgnore()throws SQLException {
         position = "cp3GuardIgnore";
         playerPosition = "CP3 - Dark Corridors";
         playerPositiontext2.setText(playerPosition);
@@ -1570,15 +2166,16 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3GuardAttack() {
+    public void cp3GuardAttack()throws SQLException {
         position = "cp3GuardAttack";
         Enemy enemy = new Enemy("ELITEGUARDS");
         createFightScreen(enemy);
     }
 
-    public void cp3GuardAfter() {
+    public void cp3GuardAfter()throws SQLException {
         position = "cp3GuardAfter";
         playerPosition = "CP3 - Surface";
         playerPositiontext2.setText(playerPosition);
@@ -1591,9 +2188,10 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3surface() {
+    public void cp3surface()throws SQLException {
         position = "cp3surface";
         playerPosition = "CP3 - Surface";
         playerPositiontext2.setText(playerPosition);
@@ -1608,9 +2206,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaldRuinenNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3Goblins() {
+    public void cp3Goblins()throws SQLException {
         position = "cp3Goblins";
         playerPosition = "CP3 - Surface";
         playerPositiontext2.setText(playerPosition);
@@ -1623,9 +2222,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3GoblinsFight() {
+    public void cp3GoblinsFight()throws SQLException {
         position = "cp3GoblinsFight";
         playerPosition = "CP3 - Surface Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1639,15 +2239,17 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3GoblinsFightScene() {
+    public void cp3GoblinsFightScene()throws SQLException {
         position = "cp3GoblinsFightScene";
         Enemy enemy =new Enemy("Goblins");
+        db.updateLocation(playerIDD, position);
         createFightScreen(enemy);
     }
 
-    public void cp3Night() {
+    public void cp3Night()throws SQLException {
         position = "cp3Night";
         playerPosition = "CP3 - Surface Night";
         playerPositiontext2.setText(playerPosition);
@@ -1660,9 +2262,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3NightQuest() {
+    public void cp3NightQuest()throws SQLException {
         position = "cp3NightQuest";
         playerPosition = "CP3 - Surface Night Quest";
         playerPositiontext2.setText(playerPosition);
@@ -1675,15 +2278,17 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3NightQuestFight() {
+    public void cp3NightQuestFight()throws SQLException {
         position = "cp3NightQuestFight";
         Enemy enemy = new Enemy("Bandit");
+        db.updateLocation(playerIDD, position);
         createFightScreen(enemy);
     }
 
-    public void cp3NightQuestAfterFight() {
+    public void cp3NightQuestAfterFight()throws SQLException {
         position = "cp3NightQuestAfterFight";
         playerPosition = "CP3 - Surface Night Quest";
         playerPositiontext2.setText(playerPosition);
@@ -1696,9 +2301,10 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3ArriveAtCity() {
+    public void cp3ArriveAtCity()throws SQLException {
         position = "cp3ArriveAtCity";
         playerPosition = "CP3 - City";
         playerPositiontext2.setText(playerPosition);
@@ -1712,15 +2318,17 @@ public class Game {
         changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp3ArriveAtCityFight() {
+    public void cp3ArriveAtCityFight()throws SQLException {
         position = "cp3ArriveAtCityFight";
         Enemy enemy = new Enemy("EliteGuards");
+        db.updateLocation(playerIDD, position);
         createFightScreen(enemy);
     }
 
-    public void cp3ArriveAtCityFightScene() {
+    public void cp3ArriveAtCityFightScene()throws SQLException {
         position = "cp3ArriveAtCityFightScene";
         playerPosition = "CP3 - City Fight ";
         playerPositiontext2.setText(playerPosition);
@@ -1732,9 +2340,11 @@ public class Game {
         changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
+
     }
 
-    public void cp3ArriveAtCityOtherRoute() {
+    public void cp3ArriveAtCityOtherRoute()throws SQLException {
         position = "cp3ArriveAtCityOtherRoute";
         playerPosition = "CP3 - City Tunnel ";
         playerPositiontext2.setText(playerPosition);
@@ -1747,6 +2357,7 @@ public class Game {
         changeImage("Images/Hintergründe/GeheimgangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
     /**
@@ -1754,7 +2365,7 @@ public class Game {
      */
 
 
-    public void cp4towardsCastle() {
+    public void cp4towardsCastle()throws SQLException {
         position = "cp4towardsCastle";
         playerPosition = "CP4 - Towards Castle";
         playerPositiontext2.setText(playerPosition);
@@ -1768,9 +2379,10 @@ public class Game {
         changeImage("Images/Hintergründe/SchlossvonStraßeausHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4InsideCastle() {
+    public void cp4InsideCastle()throws SQLException {
         position = "cp4InsideCastle";
         playerPosition = "CP4 - Inside Castle";
         playerPositiontext2.setText(playerPosition);
@@ -1784,9 +2396,10 @@ public class Game {
         changeImage("Images/Hintergründe/SchlosstorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4InsideCastleSkeletons() {
+    public void cp4InsideCastleSkeletons()throws SQLException {
         position = "cp4InsideCastleSkeletons";
         playerPosition = "CP4 - Inside Castle Skeletons";
         playerPositiontext2.setText(playerPosition);
@@ -1799,9 +2412,10 @@ public class Game {
         changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4InsideCastleSkeletonsFight() {
+    public void cp4InsideCastleSkeletonsFight()throws SQLException {
         position = "cp4InsideCastleSkeletonsFight";
         playerPosition = "CP4 - Inside Castle Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1815,15 +2429,17 @@ public class Game {
         changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4InsideCastleSkeletonsFightScene() {
+    public void cp4InsideCastleSkeletonsFightScene()throws SQLException {
         position = "cp4InsideCastleSkeletonsFightScene";
+        db.updateLocation(playerIDD, position);
         Enemy enemy = new Enemy("SKELLETGUARD");
         createFightScreen(enemy);
     }
 
-    public void cp4AfterFight() {
+    public void cp4AfterFight()throws SQLException {
         position = "cp4AfterFight";
         playerPosition = "CP4 - Inside Castle";
         playerPositiontext2.setText(playerPosition);
@@ -1838,15 +2454,17 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4BossFight() {
+    public void cp4BossFight()throws SQLException {
         position = "cp4BossFight";
         Enemy enemy = new Enemy("KING");
+        db.updateLocation(playerIDD, position);
         createFightScreen(enemy);
     }
 
-    public void cp4AfterBossFight() {
+    public void cp4AfterBossFight()throws SQLException {
         position = "cp4AfterBossFight";
         playerPosition = "CP4 - After Boss Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1861,9 +2479,10 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4AfterBossFight1() {
+    public void cp4AfterBossFight1()throws SQLException {
         position = "cp4AfterBossFight1";
         playerPosition = "CP4 - After Boss Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1875,8 +2494,9 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
-    public void cp4AfterBossFight2() {
+    public void cp4AfterBossFight2() throws SQLException{
         position = "cp4AfterBossFight2";
         playerPosition = "CP4 - After Boss Fight";
         playerPositiontext2.setText(playerPosition);
@@ -1891,9 +2511,10 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4AfterBossFightOption1() {
+    public void cp4AfterBossFightOption1()throws SQLException {
         position = "cp4AfterBossFightOption1";
         playerPosition = "CP4 - Become King";
         playerPositiontext2.setText(playerPosition);
@@ -1907,9 +2528,10 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
-    public void cp4AfterBossFightOption2() {
+    public void cp4AfterBossFightOption2()throws SQLException {
         position = "cp4AfterBossFightOption2";
         playerPosition = "CP4 - Decline";
         playerPositiontext2.setText(playerPosition);
@@ -1923,13 +2545,14 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
 
 
 
 
-    public void SecretEnding() {
+    public void SecretEnding()throws SQLException {
         position = "SecretEnding";
         playerPosition = "";
         waffentext2.setText("");
@@ -1942,6 +2565,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
+        db.updateLocation(playerIDD, position);
     }
 
     private class ChoiceHandler implements ActionListener {
@@ -1951,54 +2575,94 @@ public class Game {
             switch (position) {
                 case "anfangsSzene1":
                     if (yourChoice.equals("c1")) {
-                        anfangsSzene(); // Move to the next scene
+                        try {
+                            anfangsSzene(); // Move to the next scene
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "anfangsSzene2":
                     if (yourChoice.equals("c1")) {
-                        tavernSzene(); // Move to the tavern scene
+                        try {
+                            tavernSzene(); // Move to the tavern scene
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "tavernCenter":
                     if (yourChoice.equals("c1")) {
-                        tavernSzene2(); // Start the tavern fight
+                        try {
+                            tavernSzene2(); // Start the tavern fight
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "tavernCenter2":
                     if (yourChoice.equals("c1")) {
-                        tavernFight();
+                        try {
+                            tavernFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "tavernFight":
                     if(lebtDergegner() == true){
-                        createGameScreen();
-                        afterFight(); // Hier Muss die Kampf Mehtode rein.
+                        try {
+                            createGameScreen();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        try {
+                            afterFight(); // Hier Muss die Kampf Mehtode rein.
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "afterFight":
                     if (yourChoice.equals("c1")) {
-                        prisonScene();
+                        try {
+                            prisonScene();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "prison":
                     if (yourChoice.equals("c1")) {
-                        queenOffer();
+                        try {
+                            queenOffer();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     break;
 
                 case "queenOffer":
                     if(yourChoice.equals("c1")){
-                        queenYes();
+                        try {
+                            queenYes();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        queenNo();
+                        try {
+                            queenNo();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
@@ -2006,373 +2670,637 @@ public class Game {
                     if (yourChoice.equals("c1")) {
                         waffentext2.setText("Sword");
                         waffe = "Sword";
-                        weaponChamber();
+                        try {
+                            weaponChamber();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (yourChoice.equals("c2")) {
                         waffentext2.setText("Axe");
                         waffe = "Axe";
-                        weaponChamber();
+                        try {
+                            weaponChamber();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "queenNo":
                     if (yourChoice.equals("c1")) {
-                        queenOffer();
+                        try {
+                            queenOffer();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "weaponsSelect":
                     if (yourChoice.equals("c1")) {
-                        tavernRevisited();
+                        try {
+                            tavernRevisited();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (yourChoice.equals("c2")) {
-                        marketplace();
+                        try {
+                            marketplace();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "tavernRevisited":
                     if (yourChoice.equals("c1"))
                     {
-                        marketplace();
+                        try {
+                            marketplace();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if (yourChoice.equals("c2")) {
-                        goToMarketplace();
+                        try {
+                            goToMarketplace();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "tavernRevisited1":
                     if (yourChoice.equals("c1"))
                     {
-                        marketplace();
+                        try {
+                            marketplace();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "marketplace":
                     if (yourChoice.equals("c1")) {
-                        appleSeller();
+                        try {
+                            appleSeller();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if (yourChoice.equals("c2")) {
-                        blacksmith();
+                        try {
+                            blacksmith();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     break;
 
                 case "appleSeller":
                     if (yourChoice.equals("c1")) {
-                        appleSellerAwnser();
+                        try {
+                            appleSellerAwnser();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     break;
 
                 case "appleSeller1":
                     if (yourChoice.equals("c1")) {
-                        appleSellerABuy();
+                        try {
+                            appleSellerABuy();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if (yourChoice.equals("c2")) {
-                        appleSellerAReject();
+                        try {
+                            appleSellerAReject();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "appleSeller2":
                     if (yourChoice.equals("c1")) {
-                        appleSellerABuy1();
+                        try {
+                            appleSellerABuy1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "appleSeller3":
                     if (yourChoice.equals("c1")) {
-                        oldManAlley();
+                        try {
+                            oldManAlley();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "oldManAlley":
                     if (yourChoice.equals("c1")) {
-                        oldManAlley1();
+                        try {
+                            oldManAlley1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "oldManAlley1":
                     if (yourChoice.equals("c1")) {
-                        oldManAlley2();
+                        try {
+                            oldManAlley2();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "appleSellerReject":
                     if (yourChoice.equals("c1")) {
-                        appleSellerAReject1();
+                        try {
+                            appleSellerAReject1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "blacksmith":
                     if (yourChoice.equals("c1")) {
-                        blacksmith1();
+                        try {
+                            blacksmith1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "blacksmith1":
                     if (yourChoice.equals("c1")) {
-                        blacksmith2();
+                        try {
+                            blacksmith2();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "blacksmith2":
                     if (yourChoice.equals("c1")) {
-                        blacksmith3();
+                        try {
+                            blacksmith3();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "blacksmith3":
                     if (yourChoice.equals("c1")) {
-                        oldManAlley();
+                        try {
+                            oldManAlley();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "appleSellerReject1":
                     if (yourChoice.equals("c1")) {
-                        oldManAlley();
+                        try {
+                            oldManAlley();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "oldManAlley2":
                     if (yourChoice.equals("c1")) {
-                        ch2followMap();
+                        try {
+                            ch2followMap();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "ch2followMap":
                     if(yourChoice.equals("c1")){
-                        ch2fwolves();
+                        try {
+                            ch2fwolves();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "ch2wolves1":
                     if(yourChoice.equals("c1")){
-                        ch2fwolvescp2afterwolvesScene(); // Hier muss die Kampf Methode gegen den die Wölfe eingefügt werden.
+                        try {
+                            ch2fwolvescp2afterwolvesScene(); // Hier muss die Kampf Methode gegen den die Wölfe eingefügt werden.
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp2afterwolvesFlee();
+                        try {
+                            cp2afterwolvesFlee();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "ch2fwolvescp2afterwolvesScene":
                     if(yourChoice.equals("c1")){
-                        cp2afterwolvesFight();
+                        try {
+                            cp2afterwolvesFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "ch2afterwolvesFlee":
                     if(yourChoice.equals("c1")){
-                        cp2dungeon1();
+                        try {
+                            cp2dungeon1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "ch2afterwolvesFight":
                     if(yourChoice.equals("c1")){
-                        cp2dungeon1();
+                        try {
+                            cp2dungeon1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeon1":
                     if(yourChoice.equals("c1")){
-                        cp2dungeonFight();
+                        try {
+                            cp2dungeonFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonFight":
                     if(yourChoice.equals("c1")){
-                        cp2dungeonFightScene();
+                        try {
+                            cp2dungeonFightScene();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonFightScene":
                     if(yourChoice.equals("c1")){
-                        cp2dungeonAfterFight();
+                        try {
+                            cp2dungeonAfterFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonAfterFight":
                     if(yourChoice.equals("c1")){
-                        cp2dungeonlabyrinth();
+                        try {
+                            cp2dungeonlabyrinth();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonlabyrinth":
                     if(yourChoice.equals("c1")){
-                        cp2dungeonlabyrinthChoose();
+                        try {
+                            cp2dungeonlabyrinthChoose();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonlabyrinthChoose":
                     if(yourChoice.equals("c1")){
-                        cp2LeftPath();
+                        try {
+                            cp2LeftPath();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp2TheMiddlePath();
+                        try {
+                            cp2TheMiddlePath();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c3")){
-                        cp2TheRightHandPath(); // Hier ist der Kampf gegen den Spirit warrior guardian Kampfmethode hier einfügen
+                        try {
+                            cp2TheRightHandPath(); // Hier ist der Kampf gegen den Spirit warrior guardian Kampfmethode hier einfügen
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2dungeonlabyrinthleft":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterInLabyrinth();
+                        try {
+                            cp2EncounterInLabyrinth();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonlabyrinthmiddle":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterInLabyrinth();
+                        try {
+                            cp2EncounterInLabyrinth();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonlabyrinthright":
                     if(yourChoice.equals("c1")){
-                        cp2TheRightHandPathScene();
+                        try {
+                            cp2TheRightHandPathScene();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonlabyrinthrightScene":
                     if(yourChoice.equals("c1")){
-                        cp2TheRightHandPathFight();
+                        try {
+                            cp2TheRightHandPathFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2dungeonlabyrinthrighFightt":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterInLabyrinth();
+                        try {
+                            cp2EncounterInLabyrinth();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2EncounterInLabyrinth":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterOldMen();
+                        try {
+                            cp2EncounterOldMen();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2EncounterOldMen":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterOldMenYes();
+                        try {
+                            cp2EncounterOldMenYes();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp2EncounterOldMenNo();
+                        try {
+                            cp2EncounterOldMenNo();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2EncounterOldMenYes":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterAdventurer();
+                        try {
+                            cp2EncounterAdventurer();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2EncounterOldMenNo":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterAdventurer();
+                        try {
+                            cp2EncounterAdventurer();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2EncounterAdventurer":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterAdventurerFree();
+                        try {
+                            cp2EncounterAdventurerFree();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp2EncounterAdventurerMoveOn();
+                        try {
+                            cp2EncounterAdventurerMoveOn();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2EncounterAdventurerFree":
                     if(yourChoice.equals("c1")){
-                        cp2EncounterAdventurerMoveOn();
+                        try {
+                            cp2EncounterAdventurerMoveOn();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2EncounterAdventurerFree1":
                     if(yourChoice.equals("c1")){
-                        cp2Encountershadowysilhouette();
+                        try {
+                            cp2Encountershadowysilhouette();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2Encountershadowysilhouette":
                     if(yourChoice.equals("c1")){
-                        cp2Encountershadowysilhouetteture();
+                        try {
+                            cp2Encountershadowysilhouetteture();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp2Encountershadowysilhouetteturefalse();
+                        try {
+                            cp2Encountershadowysilhouetteturefalse();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c3")){
-                        cp2Encountershadowysilhouetteturefalse();
+                        try {
+                            cp2Encountershadowysilhouetteturefalse();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2Encountershadowysilhouettetrue":
                     if(yourChoice.equals("c1")){
-                        cp2EncountershadowysilhouetteMoveOn();
+                        try {
+                            cp2EncountershadowysilhouetteMoveOn();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2Encountershadowysilhouettefalse":
                     if(yourChoice.equals("c1")){
-                        cp2Encountershadowysilhouette();
+                        try {
+                            cp2Encountershadowysilhouette();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2EncountershadowysilhouetteMoveOn":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss();
+                        try {
+                            cp2miniboss();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2miniboss1":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1();
+                        try {
+                            cp2miniboss1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2miniboss2":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1fight();
+                        try {
+                            cp2miniboss1fight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp2miniboss1fight();
+                        try {
+                            cp2miniboss1fight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c3")){
-                        cp2miniboss1fight();
+                        try {
+                            cp2miniboss1fight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2miniboss2fight":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1Win();
+                        try {
+                            cp2miniboss1Win();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2miniboss2fightWin":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1Rescue();
+                        try {
+                            cp2miniboss1Rescue();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp2miniboss1Rescue":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1TowerFightScene();
+                        try {
+                            cp2miniboss1TowerFightScene();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2miniboss1RescueWonScene":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1TowerFight();
+                        try {
+                            cp2miniboss1TowerFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
@@ -2380,237 +3308,405 @@ public class Game {
 
                 case "cp2miniboss1RescueWon":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1TowerFightWon();
+                        try {
+                            cp2miniboss1TowerFightWon();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2miniboss1RescueWon1":
                     if(yourChoice.equals("c1")){
-                        cp2miniboss1TowerUnknown();
+                        try {
+                            cp2miniboss1TowerUnknown();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp2miniboss1TowerUnknown":
                     if(yourChoice.equals("c1")){
-                        cp3TheEscape();
+                        try {
+                            cp3TheEscape();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3TheEscape":
                     if(yourChoice.equals("c1")){
-                        cp3TheEscapeOption1();
+                        try {
+                            cp3TheEscapeOption1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp3TheEscapeOption2();
+                        try {
+                            cp3TheEscapeOption2();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3TheEscapeOption1":
                     if(yourChoice.equals("c1")){
-                        cp3TheEscapeFightWon(); // Hier soll die Kampfmethode gegen den Hund eingefüght werdem
+                        try {
+                            cp3TheEscapeFightWon(); // Hier soll die Kampfmethode gegen den Hund eingefüght werdem
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3TheEscapeOption2":
                     if(yourChoice.equals("c1")){
-                        cp3TheEscapeFightDistraction();
+                        try {
+                            cp3TheEscapeFightDistraction();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3TheEscapeFightWon":
                     if(yourChoice.equals("c1")){
-                        cp3TheEscapeAfterFight();
+                        try {
+                            cp3TheEscapeAfterFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3TheEscapeFightDistraction":
                     if(yourChoice.equals("c1")){
-                        cp3TheEscapeAfterDistraction();
+                        try {
+                            cp3TheEscapeAfterDistraction();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3TheEscapeAfterFight":
                     if(yourChoice.equals("c1")){
-                        cp3Guard();
+                        try {
+                            cp3Guard();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3TheEscapeAfterDistraction":
                     if(yourChoice.equals("c1")){
-                        cp3Guard();
+                        try {
+                            cp3Guard();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3Guard":
                     if(yourChoice.equals("c1")){
-                        cp3GuardIgnore();
+                        try {
+                            cp3GuardIgnore();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp3GuardAttack(); // Hier muss die Methode für den Kampf gegen den Wächter eingfügt werden
+                        try {
+                            cp3GuardAttack(); // Hier muss die Methode für den Kampf gegen den Wächter eingfügt werden
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3GuardAfter":
                     if(yourChoice.equals("c1")){
-                        cp3surface();
+                        try {
+                            cp3surface();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp3GuardIgnore":
                     if(yourChoice.equals("c1")){
-                        cp3GuardAfter();
+                        try {
+                            cp3GuardAfter();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3GuardAttack":
                     if(yourChoice.equals("c1")){
-                        cp3GuardAfter();
+                        try {
+                            cp3GuardAfter();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3surface":
                     if(yourChoice.equals("c1")){
-                        cp3Goblins();
+                        try {
+                            cp3Goblins();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3Goblins":
                     if(yourChoice.equals("c1")){
-                        cp3GoblinsFight();
+                        try {
+                            cp3GoblinsFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3GoblinsFight":
                     if(yourChoice.equals("c1")){
-                        cp3GoblinsFightScene(); //Hier Muss die Methode für den Kampf gegen die Goblins eingefügt werden
+                        try {
+                            cp3GoblinsFightScene(); //Hier Muss die Methode für den Kampf gegen die Goblins eingefügt werden
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3GoblinsFightScene":
                     if(yourChoice.equals("c1")){
-                        cp3Night();
+                        try {
+                            cp3Night();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3Night":
                     if(yourChoice.equals("c1")){
-                        cp3NightQuest();
+                        try {
+                            cp3NightQuest();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3NightQuest":
                     if(yourChoice.equals("c1")){
-                        cp3NightQuestFight(); //Hier muss die Methode für den Kampf gegen die Skelete eingefügt werden
+                        try {
+                            cp3NightQuestFight(); //Hier muss die Methode für den Kampf gegen die Skelete eingefügt werden
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp3ArriveAtCity();
+                        try {
+                            cp3ArriveAtCity();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3NightQuestFight":
                     if(yourChoice.equals("c1")){
-                        cp3NightQuestAfterFight();
+                        try {
+                            cp3NightQuestAfterFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3NightQuestAfterFight":
                     if(yourChoice.equals("c1")){
-                        cp3ArriveAtCity();
+                        try {
+                            cp3ArriveAtCity();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3ArriveAtCity":
                     if(yourChoice.equals("c1")){
-                        cp3ArriveAtCityFight();
+                        try {
+                            cp3ArriveAtCityFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp3ArriveAtCityOtherRoute();
+                        try {
+                            cp3ArriveAtCityOtherRoute();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3ArriveAtCityFightScene":
                     if(yourChoice.equals("c1")){
-                        cp3ArriveAtCityFightScene(); //Hier muss die Methode für den Kampf gegen die Zwei Elite Guards eingefügt werden
+                        try {
+                            cp3ArriveAtCityFightScene(); //Hier muss die Methode für den Kampf gegen die Zwei Elite Guards eingefügt werden
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp3ArriveAtCityFight":
                     if(yourChoice.equals("c1")){
-                        cp4towardsCastle();
+                        try {
+                            cp4towardsCastle();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
 
                 case "cp3ArriveAtCityOtherRoute":
                     if(yourChoice.equals("c1")){
-                        cp4towardsCastle();
+                        try {
+                            cp4towardsCastle();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4towardsCastle":
                     if(yourChoice.equals("c1")){
-                        cp4InsideCastle();
+                        try {
+                            cp4InsideCastle();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4InsideCastle":
                     if(yourChoice.equals("c1")){
-                        cp4InsideCastleSkeletons();
+                        try {
+                            cp4InsideCastleSkeletons();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4InsideCastleSkeletons":
                     if(yourChoice.equals("c1")){
-                        cp4InsideCastleSkeletonsFight();
+                        try {
+                            cp4InsideCastleSkeletonsFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4InsideCastleSkeletonsFight":
                     if(yourChoice.equals("c1")){
-                        cp4InsideCastleSkeletonsFightScene(); //Hier muss die Methodde für den Kampf gegen die Skelete eingefügt werden
+                        try {
+                            cp4InsideCastleSkeletonsFightScene(); //Hier muss die Methodde für den Kampf gegen die Skelete eingefügt werden
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4InsideCastleSkeletonsFightScene":
                     if(yourChoice.equals("c1")){
-                        cp4AfterFight();
+                        try {
+                            cp4AfterFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4AfterFight":
                     if(yourChoice.equals("c1")){
-                        cp4BossFight(); //Hier muss die Methode für den BossKampf eingefügt werden
+                        try {
+                            cp4BossFight(); //Hier muss die Methode für den BossKampf eingefügt werden
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        SecretEnding();
+                        try {
+                            SecretEnding();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4BossFight":
                     if(yourChoice.equals("c1")){
-                        cp4AfterBossFight();
+                        try {
+                            cp4AfterBossFight();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4AfterBossFight":
                     if(yourChoice.equals("c1")){
-                        cp4AfterBossFight1();
+                        try {
+                            cp4AfterBossFight1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4AfterBossFight1":
                     if(yourChoice.equals("c1")){
-                        cp4AfterBossFight2();
+                        try {
+                            cp4AfterBossFight2();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
                 case "cp4AfterBossFight2":
                     if(yourChoice.equals("c1")){
-                        cp4AfterBossFightOption1();
+                        try {
+                            cp4AfterBossFightOption1();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else if(yourChoice.equals("c2")){
-                        cp4AfterBossFightOption2();
+                        try {
+                            cp4AfterBossFightOption2();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     break;
 
@@ -2623,7 +3719,11 @@ public class Game {
     }
     private class TitleScreenHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            createGameScreen();
+            try {
+                createGameScreen();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
