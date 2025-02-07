@@ -25,8 +25,6 @@ public class main {
 
         DB db = new DB();
         //System.out.println(db.getUser_ID("test", "123"));
-        Game game = new Game();
-
         Player player = new Player();
 
         Inventory inv = new Inventory();
