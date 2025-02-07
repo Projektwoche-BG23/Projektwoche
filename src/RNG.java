@@ -8,11 +8,11 @@ public class RNG {
     static Random rand = new Random();
     static  DB db = new DB();
 
-    public static String[] randomDrop(String chest) throws SQLException {
+    public static String randomDrop(String chest) throws SQLException {
         switch (chest){
             default:
                 return null;
-            case "chest1":
+            case "chapter1":
                 return chest1();
         }
     }
@@ -46,7 +46,7 @@ public class RNG {
     /**
      * gibt an welche item der spieler aus chest1 bekommen soll
      */
-    private static String[] chest1() throws SQLException {
+    private static String chest1() throws SQLException {
 
         //Chest Inhalt
         Object[] chances = new Object[3];
@@ -55,33 +55,29 @@ public class RNG {
         chances[2] = new Object[]{3, 100};
 
         // Item Anzahl bestimmen
-    /**
+
         // Item Anzahl bestimmen
-        int itemRate = itemDropCount();
-        String[] droppedItems = new String[itemRate];
+        int itemRate = 1;
 
-        for (int i = 0; i < itemRate; i++)
-        {
+        String id = "";
 
-            int chance = rand.nextInt(100);
+        int chance = rand.nextInt(100);
 
-            for (Object item : chances) {
-                Object[] chanceEntry = (Object[]) item;
-                int dropChance = (int) chanceEntry[1];  // Get the chance value (second element)
+        for (Object item : chances) {
+            Object[] chanceEntry = (Object[]) item;
 
-                // Check if the random chance is less than the drop chance
-                if (chance < dropChance) {
-                    Object[] droppedItem = dictionary.items((String) chanceEntry[0]); // Item aus dem Dictionary holen
-                    droppedItems[i] = (droppedItem != null) ? (String) droppedItem[0] : "Unknown Item";
-                    break; // Sobald ein Item gefunden wurde, aus der Schleife ausbrechen
+            int dropChance = (int) chanceEntry[1];
 
-                }
+            if (chance < dropChance) {
+                Object[] droppedItem = db.itemInfo((Integer) chanceEntry[0]);
+                id = (String )droppedItem[0];
+                return id;
+
             }
+
         }
-*/
 
-        return (String[]) chances;
-
+        return id;
 
     }
 }

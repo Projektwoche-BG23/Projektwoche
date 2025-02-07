@@ -3,7 +3,7 @@ import java.util.Objects;
 
 /**
  * Class to access the Database. We will add more features in the future.
- * Every Character has a unique user_ID, it is needed to access the Character Information.
+ * Every Player has a unique user_ID, it is needed to access the Player Information.
  */
 public class DB {
     // Login information of the Database
