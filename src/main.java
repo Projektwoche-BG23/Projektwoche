@@ -23,7 +23,7 @@ public class main {
 
 
         DB db = new DB();
-        //System.out.println(db.getUser_ID("test", "123"));
+        System.out.println(db.getUser_ID("test", "123"));
         Game game = new Game();
 
         RNG rng = new RNG();
