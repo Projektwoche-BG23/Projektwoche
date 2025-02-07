@@ -121,6 +121,7 @@ public class LoginGUI {
         System.out.print("LoginGUI enabled\n");
     }
     public int getDBLoginID() {
-        return dbLoginID;
+        return AccountID;
     }
+
 }

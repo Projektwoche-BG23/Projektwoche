@@ -21,13 +21,13 @@ public class Character {
     // Current Stats
     private int health = 60;
     private int attack = 30;
-    private int magicAttack;
+    private int magicAttack = 20;
     private int defense;
     private int magicDefense;
     private int agility = 60;
     private int luck;
     private int strength;
-    private int mana;
+    private int mana = 50;
     private int manaReg;
     private int maxHealth;
     private int maxMana;

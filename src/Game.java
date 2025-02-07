@@ -407,6 +407,8 @@ public class Game {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rk.fight(c,"magic",enemy);
+                System.out.println("Leben: " + enemy.getHealth());
+                System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
                     fightScreenButtonPanel.setVisible(false);
