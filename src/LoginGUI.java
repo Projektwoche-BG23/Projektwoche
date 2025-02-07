@@ -17,7 +17,7 @@ public class LoginGUI {
     private int dbLoginID = 0; //default ID 0 so it doesn't work will be overwritten by login data ID
     private String loginName = ""; //String for name to ask DB
     private String loginPassword = ""; //String for password to ask DB
-    public int AccountID; //AccountID to use for Save and load in Game
+    public int accountID; //AccountID to use for Save and load in Game
 
 
 
@@ -31,9 +31,10 @@ public class LoginGUI {
             try {
                 dbLoginID = db1.getUser_ID(loginName,loginPassword); //Asks DB if namelogin and passwordlogin is in DB
                 if (!(dbLoginID == 0)) {
-                    AccountID = dbLoginID; //sets account id to string that will be sent to game
-                    System.out.println("login successful with id: " + AccountID);
+                    accountID = dbLoginID; //sets account id to string that will be sent to game
+                    System.out.println("login successful with id: " + accountID);
                     loginFrame.dispose();
+                    Game game = new Game(accountID);
                     if (registerWindowOpen) {
                         registerFrame.dispose();
                     }
@@ -121,7 +122,7 @@ public class LoginGUI {
         System.out.print("LoginGUI enabled\n");
     }
     public int getDBLoginID() {
-        return AccountID;
+        return accountID;
     }
 
 }

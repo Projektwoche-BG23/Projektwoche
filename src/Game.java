@@ -61,9 +61,10 @@ public class Game {
      */
 
 
-    public Game() {
+    public Game(int playerID) {
         //  initializeMusic();
         //initializeMusic();
+        System.out.println(playerID);
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
