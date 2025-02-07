@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Game {
     public JFrame frame;
@@ -335,6 +336,48 @@ public class Game {
     public void healthAktualisieren(int health) {
         healtbartext.setText("Player Health: " + health);
     }
+    public void setFightPictures(int playerID,String enemyType) throws SQLException {
+        DB db = null;
+        Object[] equip = db.getEquipped(playerID);
+        String weaponID = (String) equip[2];
+        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
+        String playerImmage = (String) weaponInfo[2];
+        //Funktion zum Player bild in fight scene einfügen
+        String enemyPicturePath;
+        switch (enemyType) {
+            case "DRUNKENKNIGHT":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/BetrunkenerRitter.png";
+                break;
+            case "WOLVES":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/Wolfis.png";
+                break;
+            case "SHADOWGUARDS":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/SchattenWache.png";
+                break;
+            case "AZROTH":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/Azroth.png";
+                break;
+            case "ELITEKNIGHTS":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/3EliteGuards(Dungeon).png";
+                break;
+            case "CERBERUS":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/3KopfHund 2.png";
+                break;
+            case "GOBLIN":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/Goblin.png";
+                break;
+            case "SKELETON":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/ZweiSkelettGegner.png";
+                break;
+            case "SKELLETGUARD":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/2EliteGuards(Echt).png";
+                break;
+            case "KING":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/KönigGegner.png";
+                break;
+        }
+    }
+
 
     public void createFightScreen(Enemy enemy){
         mainTextPanel.setVisible(false);
