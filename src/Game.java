@@ -1,3 +1,8 @@
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +21,10 @@ public class Game {
     Character c = new Character();
     RechnerKampf rk = new RechnerKampf();
 
+
+    private Clip clip;
+    private FloatControl volumeControl;
+    private boolean isMuted = false;
     /**
      * Dies sind die Schriftarten. Nach belieben ändern.
      */
@@ -53,7 +62,8 @@ public class Game {
 
 
     public Game() {
-
+        //  initializeMusic();
+        //initializeMusic();
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
@@ -125,12 +135,31 @@ public class Game {
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(einstellungenButton);
 
+        einstellungenButton.addActionListener(new ActionListener() {
+            //Action Listener hinzufügen für Funktion
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showSettings();
+            }
+        });
+
         verlassenButton = new JButton("Verlassen");
         verlassenButton.setBackground(new Color(23, 32, 56));
         verlassenButton.setForeground(new Color(222, 158, 65));
         verlassenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(verlassenButton);
+
+
+        verlassenButton.addActionListener(new ActionListener() {
+            //Action Listener hinzufügen für Funktion
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+
 
         /**
          * Dies ist die Healtbar
@@ -214,6 +243,112 @@ public class Game {
         frame.add(startButtonPanel);
         frame.setVisible(true);
     }
+
+    // Musik initialisieren
+    private void InitialisierenMusic() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("to-adventure-193760.mp3"));
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Musik abspielen
+    // public void playMusic() {
+    //  if (!clip.isRunning()) {
+    //     clip.loop(Clip.LOOP_CONTINUOUSLY);    // <---- Braucht man Eigentlich aber ich bekomms nicht geschissen gerade
+    // }
+    //  }
+
+    // Lautstärke anpassen
+    public void setVolume(float volume) {
+        volumeControl.setValue(volume);
+    }
+
+    // Stummschalten umschalten
+    public void toggleMute() {
+        if (isMuted) {
+            volumeControl.setValue(0.5f); // Standardlautstärke
+            isMuted = false;
+        } else {
+            volumeControl.setValue(-80.0f); // Stumm
+            isMuted = true;
+        }
+    }
+
+    private void showSettings() {
+        // Titelname ausblenden wenn auf Einstellungen geklickt wird
+        titleNamePanel.setVisible(false); // Setzt das Titel-Panel unsichtbar
+
+        // Panel für Einstellungen erstellen
+        JPanel settingsPanel = new JPanel();
+        settingsPanel.setLayout(new GridBagLayout());
+        settingsPanel.setBackground(new Color(23, 32, 56));
+
+        // GridBagConstraints <--- Zentriete Positionen fpr die einzelnen buttons
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 10, 0);  // Abstand nach oben und unten
+
+        // Lautstärkeregler
+        JSlider volumeSlider = new JSlider(0, 100, 50);
+        volumeSlider.setMajorTickSpacing(25);
+        volumeSlider.setPaintTicks(true);
+        volumeSlider.setPaintLabels(true);
+        volumeSlider.addChangeListener(e -> setVolume(volumeSlider.getValue() / 100.0f));
+        volumeSlider.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie Buttons
+
+        // Lautstärkeregler oben hinzufügen
+        settingsPanel.add(volumeSlider, gbc);
+
+        // Stummschalt-Button
+        JButton muteButton = new JButton("Ton Ein/Aus");
+        muteButton.setFont(startButtonFont);
+        muteButton.setBackground(new Color(23, 32, 56));
+        muteButton.setForeground(new Color(222, 158, 65));
+        muteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleMute(); // Schaltet den Ton ein oder aus
+            }
+        });
+        muteButton.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie der Zurück-Button
+
+        // Button unter dem Lautstärkeregler
+        gbc.gridy++;
+        settingsPanel.add(muteButton, gbc);
+
+        // Zurück-Button zum Startbildschirm
+        JButton backButton = new JButton("Zurück zum Startbildschirm");
+        backButton.setFont(startButtonFont);
+        backButton.setBackground(new Color(23, 32, 56));
+        backButton.setForeground(new Color(222, 158, 65));
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Startbildschirm wieder anzeigen
+                startButtonPanel.setVisible(true);
+                settingsPanel.setVisible(false); // Einstellungen ausblenden
+                titleNamePanel.setVisible(true); // Titel wieder sichtbar machen
+            }
+        });
+        backButton.setSize(new Dimension(600, 50));
+
+        // Zurück-Button unter dem "Ton Ein/Aus"-Button
+        gbc.gridy++;
+        settingsPanel.add(backButton, gbc);
+
+        // Panel im gleichen Fenster einfügen
+        startButtonPanel.setVisible(false);  // Versteckt den Startbildschirm
+        frame.add(settingsPanel);  // Fügt das Einstellungs-Panel hinzu
+        settingsPanel.setBounds(0, 100, 1600, 800);  // Positionieren des Panels
+        settingsPanel.setVisible(true);
+    }
+
 
     /**
      * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
