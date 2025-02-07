@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 public class Game {
     public JFrame frame;
-    JPanel enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
+    JPanel potionScreenButtonPanel,enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
     public JLabel imageLabel;
@@ -339,6 +339,9 @@ public class Game {
     public void createFightScreen(Enemy enemy){
         mainTextPanel.setVisible(false);
         choiceButtonPanel.setVisible(false);
+        ImagePanel.setBounds(500,300,900,500);
+
+
         fightScreenButtonPanel = new JPanel();
         fightScreenButtonPanel.setBounds(100,300,380,550);
         fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
@@ -358,9 +361,9 @@ public class Game {
                 {
                    figthSceneManager();
                 }
-              if(c.getHealth == 0)
+              if(c.getHealth() == 0)
               {
-                fightScreenButtonPanel.setVisable(false);
+                fightScreenButtonPanel.setVisible(false);
                 createGameScreen();
               }
             }
@@ -379,11 +382,11 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
-                  figthSceneManager();
+                    figthSceneManager();
                 }
-              if(c.getHealth == 0)
+              if(c.getHealth() == 0)
               {
-                fightScreenButtonPanel.setVisable(false);
+                fightScreenButtonPanel.setVisible(false);
                 createGameScreen();
               }
          }
@@ -397,15 +400,15 @@ public class Game {
         itemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            createPotionSceene();
+                createPotionSceene();
             }
-              
-        itemButton.setBackground(new Color(23, 32, 56));
-        itemButton.setForeground(new Color(222, 158,65));
+
+        });
+        itemButton.setBackground(new Color(23,32,56));
+        itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
-
-
+    }
 
      public void createPotionSceene()
     {
@@ -1910,12 +1913,6 @@ public class Game {
                     }
                     break;
 
-                case "tavernFight":
-                    if(lebtDergegner() == true){
-                        createGameScreen();
-                        afterFight(); // Hier Muss die Kampf Mehtode rein.
-                    }
-                    break;
 
                 case "afterFight":
                     if (yourChoice.equals("c1")) {
