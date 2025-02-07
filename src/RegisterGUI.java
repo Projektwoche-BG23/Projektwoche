@@ -9,7 +9,7 @@ public class RegisterGUI {
     private String registerName= "";
     private String registerPassword = "";
     private final DB db1 = new DB();
-    private final LoginGUI loginGUI = new LoginGUI();
+    private final LoginGUI loginGUI = new LoginGUI(); // Make sure LoginGUI extends JFrame or wraps a JFrame
     /**
      * Sets the registerName and the registerPassword from textfield to String
      */
@@ -39,7 +39,7 @@ public class RegisterGUI {
             if (0!=db1.getUser_ID(registerName, registerPassword)) {
                 JOptionPane.showMessageDialog(null,"Register Successful");
                 loginGUI.registerFrame.dispose();
-                loginGUI.enableLoginUI();
+                loginGUI.registerFrame.setVisible(true); // Use registerFrame's setVisible method instead
                 loginGUI.registerWindowOpen = false;
             }
             else {
