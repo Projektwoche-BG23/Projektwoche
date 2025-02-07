@@ -340,60 +340,12 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
+                    figthSceneManager();
+                }
+                if(c.getHealth() == 0)
+                {
                     fightScreenButtonPanel.setVisible(false);
-                    switch (position)
-                    {
-                        case "tavernFight":
-                            createGameScreen();
-                            afterFight();
-                            break;
-                        case "ch2fwolvescp2afterwolvesScene":
-                            createGameScreen();
-                            cp2afterwolvesFight();
-                            break;
-                        case "cp2dungeonFightScene":
-                            createGameScreen();
-                            cp2dungeonAfterFight();
-                            break;
-                        case "cp2dungeonlabyrinthrightScene":
-                            createGameScreen();
-                            cp2EncounterInLabyrinth();
-                            break;
-                        case "cp2miniboss2fight":
-                            createGameScreen();
-                            cp2miniboss1Win();
-                            break;
-                        case "cp2miniboss1RescueWonScene":
-                            createGameScreen();
-                            cp2miniboss1TowerFight();
-                            break;
-                        case "cp3TheEscapeOption1":
-                            createGameScreen();
-                            cp3TheEscapeFightWon();
-                            break;
-                        case "cp3GuardAttack":
-                            createGameScreen();
-                            cp3GuardAfter();
-                            break;
-                        case "cp3GoblinsFightScene":
-                            createGameScreen();
-                            cp3Night();
-                            break;
-                        case "cp3NightQuestFight":
-                            createGameScreen();
-                            cp3NightQuestAfterFight();
-                            break;
-                        case "cp4InsideCastleSkeletonsFightScene":
-                            createGameScreen();
-                            cp4AfterFight();
-                            break;
-                        case "cp4BossFight":
-                            createGameScreen();
-                            cp4AfterBossFight();
-                            break;
-
-                    }
-
+                    createGameScreen();
                 }
             }
         });
@@ -411,59 +363,12 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
+                    figthSceneManager();
+                }
+                if(c.getHealth() == 0)
+                {
                     fightScreenButtonPanel.setVisible(false);
-                    switch (position)
-                    {
-                        case "tavernFight":
-                            createGameScreen();
-                            afterFight();
-                            break;
-                        case "ch2fwolvescp2afterwolvesScene":
-                            createGameScreen();
-                            cp2afterwolvesFight();
-                            break;
-                        case "cp2dungeonFightScene":
-                            createGameScreen();
-                            cp2dungeonAfterFight();
-                            break;
-                        case "cp2dungeonlabyrinthrightScene":
-                            createGameScreen();
-                            cp2EncounterInLabyrinth();
-                            break;
-                        case "cp2miniboss2fight":
-                            createGameScreen();
-                            cp2miniboss1Win();
-                            break;
-                        case "cp2miniboss1RescueWonScene":
-                            createGameScreen();
-                            cp2miniboss1TowerFight();
-                            break;
-                        case "cp3TheEscapeOption1":
-                            createGameScreen();
-                            cp3TheEscapeFightWon();
-                            break;
-                        case "cp3GuardAttack":
-                            createGameScreen();
-                            cp3GuardAfter();
-                            break;
-                        case "cp3GoblinsFightScene":
-                            createGameScreen();
-                            cp3Night();
-                            break;
-                        case "cp3NightQuestFight":
-                            createGameScreen();
-                            cp3NightQuestAfterFight();
-                            break;
-                        case "cp4InsideCastleSkeletonsFightScene":
-                            createGameScreen();
-                            cp4AfterFight();
-                            break;
-                        case "cp4BossFight":
-                            createGameScreen();
-                            cp4AfterBossFight();
-                            break;
-
-                    }
+                    createGameScreen();
                 }
 
             }
@@ -2357,6 +2262,62 @@ public class Game {
                     break;
 
             }
+        }
+    }
+    private void figthSceneManager()
+    {
+        fightScreenButtonPanel.setVisible(false);
+        switch (position)
+        {
+            case "tavernFight":
+                createGameScreen();
+                afterFight();
+                break;
+            case "ch2fwolvescp2afterwolvesScene":
+                createGameScreen();
+                cp2afterwolvesFight();
+                break;
+            case "cp2dungeonFightScene":
+                createGameScreen();
+                cp2dungeonAfterFight();
+                break;
+            case "cp2dungeonlabyrinthrightScene":
+                createGameScreen();
+                cp2EncounterInLabyrinth();
+                break;
+            case "cp2miniboss2fight":
+                createGameScreen();
+                cp2miniboss1Win();
+                break;
+            case "cp2miniboss1RescueWonScene":
+                createGameScreen();
+                cp2miniboss1TowerFight();
+                break;
+            case "cp3TheEscapeOption1":
+                createGameScreen();
+                cp3TheEscapeFightWon();
+                break;
+            case "cp3GuardAttack":
+                createGameScreen();
+                cp3GuardAfter();
+                break;
+            case "cp3GoblinsFightScene":
+                createGameScreen();
+                cp3Night();
+                break;
+            case "cp3NightQuestFight":
+                createGameScreen();
+                cp3NightQuestAfterFight();
+                break;
+            case "cp4InsideCastleSkeletonsFightScene":
+                createGameScreen();
+                cp4AfterFight();
+                break;
+            case "cp4BossFight":
+                createGameScreen();
+                cp4AfterBossFight();
+                break;
+
         }
     }
     private class TitleScreenHandler implements ActionListener {
