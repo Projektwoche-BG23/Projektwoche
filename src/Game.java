@@ -2482,7 +2482,6 @@ public class Game {
                 createGameScreen();
                 cp4AfterBossFight();
                 break;
-
         }
     }
     private class TitleScreenHandler implements ActionListener {
