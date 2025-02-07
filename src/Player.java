@@ -94,6 +94,9 @@ public class Player {
     public void setMana(int newMana) { mana = Math.max(newMana, 0); }
     public void setManaReg(int newManaReg) { manaReg = Math.max(newManaReg, 0); }
 
+    /**
+     * zählt die Runden die eine potion noch wirken soll
+     */
     public void countpotion(){
         if((potionCooldown)>0){
             potionCooldown--;
@@ -102,9 +105,16 @@ public class Player {
             attack -= tempStrength;
         }
     }
+
+    /**
+     * Verrechnet die werte wenn ein Spieler eine potion verwendet.
+     * @param itemID id der Potion
+     * @throws SQLException
+     */
     public void usePotion(String itemID) throws SQLException {
-        String[] itemInfo = db.itemInfo(Integer.parseInt(itemID));
-        int potionValue = Integer.parseInt(itemInfo[15]);
+        Object[] itemInfo = db.itemInfo(Integer.parseInt(itemID));
+        String werte = (String)itemInfo[15];
+        int potionValue = Integer.parseInt(werte);
 
         switch (Integer.parseInt(itemID)){
             case 25,26:
