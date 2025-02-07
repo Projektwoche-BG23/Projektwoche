@@ -34,7 +34,9 @@ public class LoginGUI {
                     accountID = dbLoginID; //sets account id to string that will be sent to game
                     System.out.println("login successful with id: " + accountID);
                     loginFrame.dispose();
+
                     Game game = new Game(accountID);
+
                     if (registerWindowOpen) {
                         registerFrame.dispose();
                     }
