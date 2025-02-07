@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
 
 public class Game {
     public JFrame frame;
-    JPanel enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
+    JPanel potionScreenButtonPanel, enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton strengthPotionButton, manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
     public JTextArea mainTextArea;
@@ -514,6 +514,12 @@ public class Game {
         fightScreenButtonPanel.add(magicButton);
 
         itemButton = new JButton();
+        itemButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createPotionSceene();
+            }
+        });
         itemButton.setBackground(new Color(23, 32, 56));
         itemButton.setForeground(new Color(222, 158,65));
         itemButton.setText("Item");
@@ -522,10 +528,39 @@ public class Game {
 
 
     }
-    private boolean lebtDergegner()
-    {
-        return true;
-    }
+   public void createPotionSceene()
+   {
+       fightScreenButtonPanel.setVisible(false);
+       mainTextPanel.setVisible(false);
+       choiceButtonPanel.setVisible(false);
+       ImagePanel.setBounds(500,300,900,500);
+
+       potionScreenButtonPanel = new JPanel();
+       potionScreenButtonPanel.setBounds(100,300,380,550);
+       potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
+       potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
+       frame.add(potionScreenButtonPanel);
+
+       healthPotionButton = new JButton();
+       healthPotionButton.setText("Health Potion");
+       healthPotionButton.setBackground(new Color(23,32,56));
+       healthPotionButton.setForeground(new Color(222, 158,65));
+       potionScreenButtonPanel.add(healthPotionButton);
+
+       manaPotionButton = new JButton();
+       manaPotionButton.setText("Mana Potion");
+       manaPotionButton.setBackground(new Color(23, 32, 56));
+       manaPotionButton.setForeground(new Color(222, 158,65));
+       potionScreenButtonPanel.add(manaPotionButton);
+
+       strengthPotionButton = new JButton();
+       strengthPotionButton.setText("Strength Potion");
+       strengthPotionButton.setBackground(new Color(23, 32, 56));
+       strengthPotionButton.setForeground(new Color(222, 158,65));
+       potionScreenButtonPanel.add(strengthPotionButton);
+
+   }
+
 
     /**
      * Cheapter 1
@@ -1751,12 +1786,7 @@ public class Game {
                     }
                     break;
 
-                case "tavernFight":
-                    if(lebtDergegner() == true){
-                        createGameScreen();
-                        afterFight(); // Hier Muss die Kampf Mehtode rein.
-                    }
-                    break;
+
 
                 case "afterFight":
                     if (yourChoice.equals("c1")) {
