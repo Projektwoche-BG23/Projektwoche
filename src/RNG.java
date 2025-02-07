@@ -17,6 +17,10 @@ public class RNG {
         }
     }
 
+    public static String[] potionDrop() throws SQLException {
+        return potions();
+    }
+
     /**
      * gibt an wie viele item der spieler bekommen soll
      * @return anzahl Drops
@@ -46,10 +50,48 @@ public class RNG {
     /**
      * gibt an welche item der spieler aus chest1 bekommen soll
      */
+
+    private static String[] potions() throws SQLException {
+
+        //Chest Inhalt
+        Object[] chances = new Object[4];
+        chances[0] = new Object[]{26, 15}; // ItemID, chance
+        chances[1] = new Object[]{28, 40};
+        chances[2] = new Object[]{27, 70};
+        chances[3] = new Object[]{28, 100};
+
+        int count = itemDropCount();
+
+        String[] drops = new String[count];
+
+        for (int i = 0; i < count; i++)
+        {
+
+            int chance = rand.nextInt(100);
+
+            for (Object item : chances) {
+
+                Object[] chanceEntry = (Object[]) item;
+
+                int dropChance = (int) chanceEntry[1];
+
+                if (chance <= dropChance) {
+                    Object[] droppedItem = db.itemInfo((Integer) chanceEntry[0]);
+                    drops[i] = (String )droppedItem[0];
+                }
+
+            }
+
+        }
+
+        return drops;
+
+    }
+
     private static String chest1() throws SQLException {
 
         //Chest Inhalt
-        Object[] chances = new Object[3];
+        Object[] chances = new Object[6];
         chances[0] = new Object[]{1, 34}; // ItemID, chance
         chances[1] = new Object[]{2, 67};
         chances[2] = new Object[]{3, 100};
@@ -68,7 +110,7 @@ public class RNG {
 
             int dropChance = (int) chanceEntry[1];
 
-            if (chance < dropChance) {
+            if (chance <= dropChance) {
                 Object[] droppedItem = db.itemInfo((Integer) chanceEntry[0]);
                 id = (String )droppedItem[0];
                 return id;
