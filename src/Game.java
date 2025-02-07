@@ -1,8 +1,3 @@
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,21 +5,20 @@ import java.awt.event.ActionListener;
 
 public class Game {
     public JFrame frame;
-    JPanel potionScreenButtonPanel, enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
+    JPanel enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton strengthPotionButton, manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
+    public JLabel imageLabel;
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
+
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
 
 
-    private Clip clip;
-    private FloatControl volumeControl;
-    private boolean isMuted = false;
     /**
      * Dies sind die Schriftarten. Nach belieben ändern.
      */
@@ -62,9 +56,8 @@ public class Game {
 
 
     public Game(int playerID) {
-        //  initializeMusic();
-        //initializeMusic();
-        System.out.println(playerID);
+
+
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
@@ -136,31 +129,12 @@ public class Game {
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(einstellungenButton);
 
-        einstellungenButton.addActionListener(new ActionListener() {
-            //Action Listener hinzufügen für Funktion
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showSettings();
-            }
-        });
-
         verlassenButton = new JButton("Verlassen");
         verlassenButton.setBackground(new Color(23, 32, 56));
         verlassenButton.setForeground(new Color(222, 158, 65));
         verlassenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(verlassenButton);
-
-
-        verlassenButton.addActionListener(new ActionListener() {
-            //Action Listener hinzufügen für Funktion
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-
 
         /**
          * Dies ist die Healtbar
@@ -240,116 +214,23 @@ public class Game {
         playerPositionPanel2.add(playerPositiontext2);
         playerPositiontext2.setVisible(false);
 
+        ImagePanel = new JPanel();
+        ImagePanel.setBounds(300, 300, 988, 550);
+
+
+
+        ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
+        imageLabel = new JLabel(imageIcon);
+        ImagePanel.add(imageLabel);
+
+        frame.add(ImagePanel);
         frame.add(titleNamePanel);
         frame.add(startButtonPanel);
         frame.setVisible(true);
+
+        ImagePanel.setVisible(false);
+        imageLabel.setVisible(false);
     }
-
-    // Musik initialisieren
-    private void InitialisierenMusic() {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("to-adventure-193760.mp3"));
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Musik abspielen
-    // public void playMusic() {
-    //  if (!clip.isRunning()) {
-    //     clip.loop(Clip.LOOP_CONTINUOUSLY);    // <---- Braucht man Eigentlich aber ich bekomms nicht geschissen gerade
-    // }
-    //  }
-
-    // Lautstärke anpassen
-    public void setVolume(float volume) {
-        volumeControl.setValue(volume);
-    }
-
-    // Stummschalten umschalten
-    public void toggleMute() {
-        if (isMuted) {
-            volumeControl.setValue(0.5f); // Standardlautstärke
-            isMuted = false;
-        } else {
-            volumeControl.setValue(-80.0f); // Stumm
-            isMuted = true;
-        }
-    }
-
-    private void showSettings() {
-        // Titelname ausblenden wenn auf Einstellungen geklickt wird
-        titleNamePanel.setVisible(false); // Setzt das Titel-Panel unsichtbar
-
-        // Panel für Einstellungen erstellen
-        JPanel settingsPanel = new JPanel();
-        settingsPanel.setLayout(new GridBagLayout());
-        settingsPanel.setBackground(new Color(23, 32, 56));
-
-        // GridBagConstraints <--- Zentriete Positionen fpr die einzelnen buttons
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 10, 0);  // Abstand nach oben und unten
-
-        // Lautstärkeregler
-        JSlider volumeSlider = new JSlider(0, 100, 50);
-        volumeSlider.setMajorTickSpacing(25);
-        volumeSlider.setPaintTicks(true);
-        volumeSlider.setPaintLabels(true);
-        volumeSlider.addChangeListener(e -> setVolume(volumeSlider.getValue() / 100.0f));
-        volumeSlider.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie Buttons
-
-        // Lautstärkeregler oben hinzufügen
-        settingsPanel.add(volumeSlider, gbc);
-
-        // Stummschalt-Button
-        JButton muteButton = new JButton("Ton Ein/Aus");
-        muteButton.setFont(startButtonFont);
-        muteButton.setBackground(new Color(23, 32, 56));
-        muteButton.setForeground(new Color(222, 158, 65));
-        muteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toggleMute(); // Schaltet den Ton ein oder aus
-            }
-        });
-        muteButton.setPreferredSize(new Dimension(400, 50));  // Gleiche Größe wie der Zurück-Button
-
-        // Button unter dem Lautstärkeregler
-        gbc.gridy++;
-        settingsPanel.add(muteButton, gbc);
-
-        // Zurück-Button zum Startbildschirm
-        JButton backButton = new JButton("Zurück zum Startbildschirm");
-        backButton.setFont(startButtonFont);
-        backButton.setBackground(new Color(23, 32, 56));
-        backButton.setForeground(new Color(222, 158, 65));
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Startbildschirm wieder anzeigen
-                startButtonPanel.setVisible(true);
-                settingsPanel.setVisible(false); // Einstellungen ausblenden
-                titleNamePanel.setVisible(true); // Titel wieder sichtbar machen
-            }
-        });
-        backButton.setSize(new Dimension(600, 50));
-
-        // Zurück-Button unter dem "Ton Ein/Aus"-Button
-        gbc.gridy++;
-        settingsPanel.add(backButton, gbc);
-
-        // Panel im gleichen Fenster einfügen
-        startButtonPanel.setVisible(false);  // Versteckt den Startbildschirm
-        frame.add(settingsPanel);  // Fügt das Einstellungs-Panel hinzu
-        settingsPanel.setBounds(0, 100, 1600, 800);  // Positionieren des Panels
-        settingsPanel.setVisible(true);
-    }
-
 
     /**
      * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
@@ -359,6 +240,8 @@ public class Game {
         /**
          * Löscht den Vorherigen Inhalt von der GUI also es macht es unsichbar
          */
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
         titleNamePanel.setVisible(false);
         startButtonPanel.setVisible(false);
         waffentext.setVisible(true);
@@ -368,13 +251,9 @@ public class Game {
         waffentext2.setVisible(true);
 
 
-        ImagePanel = new JPanel();
-        ImagePanel.setBounds(300, 300, 1200, 550);
-        frame.add(ImagePanel);
 
-        ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
-        JLabel label = new JLabel(imageIcon);
-        ImagePanel.add(label);
+        frame.setLayout(null);
+        frame.setVisible(true);
 
 
         /**
@@ -447,6 +326,9 @@ public class Game {
         choiceButton4.setFocusPainted(false);
         choiceButtonPanel.add(choiceButton4);
 
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
+
         startGame();
     }
 
@@ -457,8 +339,6 @@ public class Game {
     public void createFightScreen(Enemy enemy){
         mainTextPanel.setVisible(false);
         choiceButtonPanel.setVisible(false);
-        ImagePanel.setBounds(500,300,900,500);
-
         fightScreenButtonPanel = new JPanel();
         fightScreenButtonPanel.setBounds(100,300,380,550);
         fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
@@ -476,12 +356,60 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
-                    figthSceneManager();
-                }
-                if(c.getHealth() == 0)
-                {
                     fightScreenButtonPanel.setVisible(false);
-                    createGameScreen();
+                    switch (position)
+                    {
+                        case "tavernFight":
+                            createGameScreen();
+                            afterFight();
+                            break;
+                        case "ch2fwolvescp2afterwolvesScene":
+                            createGameScreen();
+                            cp2afterwolvesFight();
+                            break;
+                        case "cp2dungeonFightScene":
+                            createGameScreen();
+                            cp2dungeonAfterFight();
+                            break;
+                        case "cp2dungeonlabyrinthrightScene":
+                            createGameScreen();
+                            cp2EncounterInLabyrinth();
+                            break;
+                        case "cp2miniboss2fight":
+                            createGameScreen();
+                            cp2miniboss1Win();
+                            break;
+                        case "cp2miniboss1RescueWonScene":
+                            createGameScreen();
+                            cp2miniboss1TowerFight();
+                            break;
+                        case "cp3TheEscapeOption1":
+                            createGameScreen();
+                            cp3TheEscapeFightWon();
+                            break;
+                        case "cp3GuardAttack":
+                            createGameScreen();
+                            cp3GuardAfter();
+                            break;
+                        case "cp3GoblinsFightScene":
+                            createGameScreen();
+                            cp3Night();
+                            break;
+                        case "cp3NightQuestFight":
+                            createGameScreen();
+                            cp3NightQuestAfterFight();
+                            break;
+                        case "cp4InsideCastleSkeletonsFightScene":
+                            createGameScreen();
+                            cp4AfterFight();
+                            break;
+                        case "cp4BossFight":
+                            createGameScreen();
+                            cp4AfterBossFight();
+                            break;
+
+                    }
+
                 }
             }
         });
@@ -499,12 +427,59 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
-                    figthSceneManager();
-                }
-                if(c.getHealth() == 0)
-                {
                     fightScreenButtonPanel.setVisible(false);
-                    createGameScreen();
+                    switch (position)
+                    {
+                        case "tavernFight":
+                            createGameScreen();
+                            afterFight();
+                            break;
+                        case "ch2fwolvescp2afterwolvesScene":
+                            createGameScreen();
+                            cp2afterwolvesFight();
+                            break;
+                        case "cp2dungeonFightScene":
+                            createGameScreen();
+                            cp2dungeonAfterFight();
+                            break;
+                        case "cp2dungeonlabyrinthrightScene":
+                            createGameScreen();
+                            cp2EncounterInLabyrinth();
+                            break;
+                        case "cp2miniboss2fight":
+                            createGameScreen();
+                            cp2miniboss1Win();
+                            break;
+                        case "cp2miniboss1RescueWonScene":
+                            createGameScreen();
+                            cp2miniboss1TowerFight();
+                            break;
+                        case "cp3TheEscapeOption1":
+                            createGameScreen();
+                            cp3TheEscapeFightWon();
+                            break;
+                        case "cp3GuardAttack":
+                            createGameScreen();
+                            cp3GuardAfter();
+                            break;
+                        case "cp3GoblinsFightScene":
+                            createGameScreen();
+                            cp3Night();
+                            break;
+                        case "cp3NightQuestFight":
+                            createGameScreen();
+                            cp3NightQuestAfterFight();
+                            break;
+                        case "cp4InsideCastleSkeletonsFightScene":
+                            createGameScreen();
+                            cp4AfterFight();
+                            break;
+                        case "cp4BossFight":
+                            createGameScreen();
+                            cp4AfterBossFight();
+                            break;
+
+                    }
                 }
 
             }
@@ -515,12 +490,6 @@ public class Game {
         fightScreenButtonPanel.add(magicButton);
 
         itemButton = new JButton();
-        itemButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createPotionSceene();
-            }
-        });
         itemButton.setBackground(new Color(23, 32, 56));
         itemButton.setForeground(new Color(222, 158,65));
         itemButton.setText("Item");
@@ -529,39 +498,17 @@ public class Game {
 
 
     }
-   public void createPotionSceene()
-   {
-       fightScreenButtonPanel.setVisible(false);
-       mainTextPanel.setVisible(false);
-       choiceButtonPanel.setVisible(false);
-       ImagePanel.setBounds(500,300,900,500);
+    private boolean lebtDergegner()
+    {
+        return true;
+    }
 
-       potionScreenButtonPanel = new JPanel();
-       potionScreenButtonPanel.setBounds(100,300,380,550);
-       potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
-       potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
-       frame.add(potionScreenButtonPanel);
-
-       healthPotionButton = new JButton();
-       healthPotionButton.setText("Health Potion");
-       healthPotionButton.setBackground(new Color(23,32,56));
-       healthPotionButton.setForeground(new Color(222, 158,65));
-       potionScreenButtonPanel.add(healthPotionButton);
-
-       manaPotionButton = new JButton();
-       manaPotionButton.setText("Mana Potion");
-       manaPotionButton.setBackground(new Color(23, 32, 56));
-       manaPotionButton.setForeground(new Color(222, 158,65));
-       potionScreenButtonPanel.add(manaPotionButton);
-
-       strengthPotionButton = new JButton();
-       strengthPotionButton.setText("Strength Potion");
-       strengthPotionButton.setBackground(new Color(23, 32, 56));
-       strengthPotionButton.setForeground(new Color(222, 158,65));
-       potionScreenButtonPanel.add(strengthPotionButton);
-
-   }
-
+    public void changeImage(String imagePath) {
+        ImageIcon newIcon = new ImageIcon(imagePath);
+        imageLabel.setIcon(newIcon);
+        ImagePanel.revalidate(); // Refresh layout
+        ImagePanel.repaint();    // Force UI redraw
+    }
 
     /**
      * Cheapter 1
@@ -578,7 +525,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        ImagePanel.setVisible(false);
+        imageLabel.setVisible(false);
+        changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
 
     }
 
@@ -594,6 +543,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        ImagePanel.setVisible(false);
+        imageLabel.setVisible(false);
+        changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
 
     }
 
@@ -610,7 +562,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/TaverneHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void tavernSzene2(){
@@ -622,7 +576,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/TaverneHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
 
@@ -630,8 +586,6 @@ public class Game {
         position = "tavernFight";
         Enemy enemy = new Enemy("DRUNKENKNIGHT");
         createFightScreen(enemy);
-
-
     }
 
     public void afterFight() {
@@ -645,7 +599,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/TaverneHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void prisonScene() {
@@ -661,7 +617,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/KerkerHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void queenOffer() {
@@ -678,7 +636,9 @@ public class Game {
         choiceButton2.setText("No");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/KerkerHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void queenYes() {
@@ -693,7 +653,9 @@ public class Game {
         choiceButton2.setText("Axe");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/WaffenkammerHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void queenNo() {
@@ -707,6 +669,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/KerkerHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
 
     }
 
@@ -720,6 +685,9 @@ public class Game {
         choiceButton2.setText("Go to Marketplace");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void tavernRevisited() {
@@ -732,6 +700,9 @@ public class Game {
         choiceButton2.setText("I'm looking for the princess.");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void goToMarketplace() {
@@ -745,6 +716,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/TaverneHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void marketplace() {
@@ -758,6 +732,9 @@ public class Game {
         choiceButton2.setText("Talk to Blacksmith");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void appleSeller() {
@@ -769,6 +746,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
 
     }
 
@@ -781,6 +761,9 @@ public class Game {
         choiceButton2.setText("Refuse");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
 
     }
     public void appleSellerABuy() {
@@ -793,7 +776,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void appleSellerABuy1() {
@@ -808,7 +793,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void appleSellerAReject() {
@@ -821,6 +808,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void appleSellerAReject1() {
@@ -832,6 +822,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
 
@@ -846,7 +839,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void blacksmith1() {
@@ -858,7 +853,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void blacksmith2() {
@@ -872,6 +869,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void blacksmith3() {
@@ -884,6 +884,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void oldManAlley() {
@@ -898,7 +901,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void oldManAlley1() {
@@ -912,7 +917,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void oldManAlley2() {
@@ -925,7 +932,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
 
@@ -944,6 +953,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void ch2fwolves() {
@@ -956,6 +968,9 @@ public class Game {
         choiceButton2.setText("Flee");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void ch2fwolvescp2afterwolvesScene() {
@@ -975,6 +990,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldRuinenHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2afterwolvesFlee() {
@@ -988,6 +1006,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2dungeon1() {
@@ -1002,6 +1023,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2dungeonFight() {
@@ -1013,6 +1037,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2dungeonFightScene() {
@@ -1032,6 +1059,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2dungeonlabyrinth() {
@@ -1043,6 +1073,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2dungeonlabyrinthChoose() {
@@ -1054,6 +1087,9 @@ public class Game {
         choiceButton2.setText("The middle path *A seemingly safe path*");
         choiceButton3.setText("The right-hand path *A wide open area with corpses of past adventurers.*");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2LeftPath() {
@@ -1065,6 +1101,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonLinkerPfadHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2TheMiddlePath() {
@@ -1072,11 +1111,14 @@ public class Game {
         playerPosition = "CP2 - Dungeon Labyrinth Middle";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player briefly loses his orientation(room switch?) \n" +
-                "but can discovera secret weapon. *\n");
+                "but can discovers three secret weapons. *\n");
         choiceButton1.setText("Continue");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonWaffenkammerHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2TheRightHandPath() {
@@ -1088,6 +1130,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2TheRightHandPathScene() {
@@ -1105,6 +1150,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncounterInLabyrinth() {
@@ -1118,6 +1166,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncounterOldMen() {
@@ -1129,6 +1180,9 @@ public class Game {
         choiceButton2.setText("Ignore the Men");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncounterOldMenYes() {
@@ -1140,6 +1194,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncounterOldMenNo() {
@@ -1151,6 +1208,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncounterAdventurer() {
@@ -1165,6 +1225,9 @@ public class Game {
         choiceButton2.setText("Leave him behinde");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncounterAdventurerFree() {
@@ -1177,6 +1240,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncounterAdventurerMoveOn() {
@@ -1190,6 +1256,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2Encountershadowysilhouette() {
@@ -1204,6 +1273,9 @@ public class Game {
         choiceButton2.setText("A shadow");
         choiceButton3.setText("A thought");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2Encountershadowysilhouetteture() {
@@ -1215,6 +1287,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2Encountershadowysilhouetteturefalse() {
@@ -1226,6 +1301,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2EncountershadowysilhouetteMoveOn() {
@@ -1240,18 +1318,24 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonRunentürHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2miniboss() {
         position = "cp2miniboss1";
         playerPosition = "CP2 - Huge Chamber";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*In burning torches stands a creature*\n" +
+        mainTextArea.setText("*In burning lava stands a creature*\n" +
                 "Its... the Dark Titan, Azroth!.");
         choiceButton1.setText("...");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2miniboss1() {
@@ -1264,6 +1348,9 @@ public class Game {
         choiceButton2.setText("Use the environment");
         choiceButton3.setText("Negotiate with Azroth");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2miniboss1fight() {
@@ -1282,6 +1369,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2miniboss1Rescue() {
@@ -1295,6 +1385,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonTreppezumTurmHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2miniboss1TowerFightScene() {
@@ -1313,6 +1406,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp2miniboss1TowerFightWon() {
@@ -1327,6 +1423,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
     public void cp2miniboss1TowerUnknown() {
         position = "cp2miniboss1TowerUnknown";
@@ -1338,6 +1437,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     /**
@@ -1355,6 +1457,9 @@ public class Game {
         choiceButton2.setText("Distraction");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3TheEscapeOption1() {
@@ -1374,6 +1479,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3TheEscapeFightWon() {
@@ -1385,6 +1493,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3TheEscapeFightDistraction() {
@@ -1396,6 +1507,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3TheEscapeAfterFight() {
@@ -1409,6 +1523,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3TheEscapeAfterDistraction() {
@@ -1422,6 +1539,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3Guard() {
@@ -1433,6 +1553,9 @@ public class Game {
         choiceButton2.setText("Attack");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrundverbarikadiert.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3GuardIgnore() {
@@ -1444,6 +1567,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3GuardAttack() {
@@ -1462,6 +1588,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3surface() {
@@ -1476,6 +1605,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldRuinenNachtHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3Goblins() {
@@ -1488,6 +1620,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3GoblinsFight() {
@@ -1501,6 +1636,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3GoblinsFightScene() {
@@ -1519,6 +1657,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3NightQuest() {
@@ -1531,6 +1672,9 @@ public class Game {
         choiceButton2.setText("Ignore the merchant");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3NightQuestFight() {
@@ -1549,6 +1693,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3ArriveAtCity() {
@@ -1562,6 +1709,9 @@ public class Game {
         choiceButton2.setText("Alternative route");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3ArriveAtCityFight() {
@@ -1579,8 +1729,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
-
+        changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp3ArriveAtCityOtherRoute() {
@@ -1593,6 +1744,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/GeheimgangHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     /**
@@ -1611,7 +1765,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
-
+        changeImage("Images/Hintergründe/SchlossvonStraßeausHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4InsideCastle() {
@@ -1625,6 +1781,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/SchlosstorHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4InsideCastleSkeletons() {
@@ -1637,6 +1796,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4InsideCastleSkeletonsFight() {
@@ -1650,6 +1812,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4InsideCastleSkeletonsFightScene() {
@@ -1670,6 +1835,9 @@ public class Game {
         choiceButton2.setText("Shit in Pants");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4BossFight() {
@@ -1690,6 +1858,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4AfterBossFight1() {
@@ -1701,6 +1872,9 @@ public class Game {
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
     public void cp4AfterBossFight2() {
         position = "cp4AfterBossFight2";
@@ -1714,6 +1888,9 @@ public class Game {
         choiceButton2.setText("Decline");
         choiceButton3.setText("");
         choiceButton4.setText("");
+        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4AfterBossFightOption1() {
@@ -1727,6 +1904,9 @@ public class Game {
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
+        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     public void cp4AfterBossFightOption2() {
@@ -1740,6 +1920,9 @@ public class Game {
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
+        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
 
@@ -1756,6 +1939,9 @@ public class Game {
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
+        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        ImagePanel.setVisible(true);
+        imageLabel.setVisible(true);
     }
 
     private class ChoiceHandler implements ActionListener {
@@ -1787,7 +1973,12 @@ public class Game {
                     }
                     break;
 
-
+                case "tavernFight":
+                    if(lebtDergegner() == true){
+                        createGameScreen();
+                        afterFight(); // Hier Muss die Kampf Mehtode rein.
+                    }
+                    break;
 
                 case "afterFight":
                     if (yourChoice.equals("c1")) {
@@ -2428,62 +2619,6 @@ public class Game {
                     break;
 
             }
-        }
-    }
-    private void figthSceneManager()
-    {
-        fightScreenButtonPanel.setVisible(false);
-        switch (position)
-        {
-            case "tavernFight":
-                createGameScreen();
-                afterFight();
-                break;
-            case "ch2fwolvescp2afterwolvesScene":
-                createGameScreen();
-                cp2afterwolvesFight();
-                break;
-            case "cp2dungeonFightScene":
-                createGameScreen();
-                cp2dungeonAfterFight();
-                break;
-            case "cp2dungeonlabyrinthrightScene":
-                createGameScreen();
-                cp2EncounterInLabyrinth();
-                break;
-            case "cp2miniboss2fight":
-                createGameScreen();
-                cp2miniboss1Win();
-                break;
-            case "cp2miniboss1RescueWonScene":
-                createGameScreen();
-                cp2miniboss1TowerFight();
-                break;
-            case "cp3TheEscapeOption1":
-                createGameScreen();
-                cp3TheEscapeFightWon();
-                break;
-            case "cp3GuardAttack":
-                createGameScreen();
-                cp3GuardAfter();
-                break;
-            case "cp3GoblinsFightScene":
-                createGameScreen();
-                cp3Night();
-                break;
-            case "cp3NightQuestFight":
-                createGameScreen();
-                cp3NightQuestAfterFight();
-                break;
-            case "cp4InsideCastleSkeletonsFightScene":
-                createGameScreen();
-                cp4AfterFight();
-                break;
-            case "cp4BossFight":
-                createGameScreen();
-                cp4AfterBossFight();
-                break;
-
         }
     }
     private class TitleScreenHandler implements ActionListener {

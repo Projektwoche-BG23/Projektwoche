@@ -25,17 +25,15 @@ public class main {
 
         DB db = new DB();
         //System.out.println(db.getUser_ID("test", "123"));
-
+        RNG rng = new RNG();
         Inventory inv = new Inventory();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
 
 
 
-        inv.setUserID(42);
-        //System.out.println(inv.addRandom("chapter1"));
-        //System.out.println(inv.hasItem("1"));
-        //System.out.println(inv.hasItem("2"));
+        inv.setUserID(10);
+        inv.unequipItem("2");
         /**
          String[] drops = inv.addRandom("chest1");
          for (int i = 0; i < drops.length; i++) {
