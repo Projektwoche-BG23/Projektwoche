@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class Game {
     public JFrame frame;
-    JPanel enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
+    JPanel potionScreenButtonPanel,enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
     public JLabel imageLabel;
@@ -672,10 +672,55 @@ public class Game {
     public void healthAktualisieren(int health) {
         healtbartext.setText("Player Health: " + health);
     }
+    public void setFightPictures(int playerID,String enemyType) throws SQLException {
+        DB db = null;
+        Object[] equip = db.getEquipped(playerID);
+        String weaponID = (String) equip[2];
+        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
+        String playerImmage = (String) weaponInfo[2];
+        //Funktion zum Player bild in fight scene einfügen
+        String enemyPicturePath;
+        switch (enemyType) {
+            case "DRUNKENKNIGHT":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/BetrunkenerRitter.png";
+                break;
+            case "WOLVES":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/Wolfis.png";
+                break;
+            case "SHADOWGUARDS":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/SchattenWache.png";
+                break;
+            case "AZROTH":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/Azroth.png";
+                break;
+            case "ELITEKNIGHTS":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/3EliteGuards(Dungeon).png";
+                break;
+            case "CERBERUS":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/3KopfHund 2.png";
+                break;
+            case "GOBLIN":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/Goblin.png";
+                break;
+            case "SKELETON":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/ZweiSkelettGegner.png";
+                break;
+            case "SKELLETGUARD":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/2EliteGuards(Echt).png";
+                break;
+            case "KING":
+                enemyPicturePath = "Images/Characters/Gegner/Rahmen/KönigGegner.png";
+                break;
+        }
+    }
+
 
     public void createFightScreen(Enemy enemy){
         mainTextPanel.setVisible(false);
         choiceButtonPanel.setVisible(false);
+        ImagePanel.setBounds(500,300,900,500);
+
+
         fightScreenButtonPanel = new JPanel();
         fightScreenButtonPanel.setBounds(100,300,380,550);
         fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
@@ -693,157 +738,14 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
-                    fightScreenButtonPanel.setVisible(false);
-                    switch (position)
-                    {
-                        case "tavernFight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                afterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "ch2fwolvescp2afterwolvesScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2afterwolvesFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2dungeonFightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2dungeonAfterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2dungeonlabyrinthrightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2EncounterInLabyrinth();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2miniboss2fight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2miniboss1Win();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2miniboss1RescueWonScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2miniboss1TowerFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3TheEscapeOption1":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3TheEscapeFightWon();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3GuardAttack":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3GuardAfter();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3GoblinsFightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3Night();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3NightQuestFight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3NightQuestAfterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp4InsideCastleSkeletonsFightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp4AfterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp4BossFight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp4AfterBossFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-
-                    }
+                   figthSceneManager();
 
                 }
+              if(c.getHealth() == 0)
+              {
+                fightScreenButtonPanel.setVisible(false);
+                createGameScreen();
+              }
             }
         });
         attackButton.setBackground(new Color(23, 32, 56));
@@ -860,158 +762,14 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
-                    fightScreenButtonPanel.setVisible(false);
-                    switch (position)
-                    {
-                        case "tavernFight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                afterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "ch2fwolvescp2afterwolvesScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2afterwolvesFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2dungeonFightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2dungeonAfterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2dungeonlabyrinthrightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2EncounterInLabyrinth();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2miniboss2fight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2miniboss1Win();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp2miniboss1RescueWonScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp2miniboss1TowerFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3TheEscapeOption1":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3TheEscapeFightWon();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3GuardAttack":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3GuardAfter();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3GoblinsFightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3Night();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp3NightQuestFight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp3NightQuestAfterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp4InsideCastleSkeletonsFightScene":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp4AfterFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-                        case "cp4BossFight":
-                            try {
-                                createGameScreen();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                cp4AfterBossFight();
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            break;
-
-                    }
+                    figthSceneManager();
                 }
-
-            }
+              if(c.getHealth() == 0)
+              {
+                fightScreenButtonPanel.setVisible(false);
+                createGameScreen();
+              }
+         }
         });
         magicButton.setBackground(new Color(23, 32, 56));
         magicButton.setForeground(new Color(222, 158,65));
@@ -1019,17 +777,50 @@ public class Game {
         fightScreenButtonPanel.add(magicButton);
 
         itemButton = new JButton();
-        itemButton.setBackground(new Color(23, 32, 56));
-        itemButton.setForeground(new Color(222, 158,65));
+        itemButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createPotionSceene();
+            }
+
+        });
+        itemButton.setBackground(new Color(23,32,56));
+        itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
-
-
-
     }
-    private boolean lebtDergegner()
+
+     public void createPotionSceene()
     {
-        return true;
+        fightScreenButtonPanel.setVisible(false);
+        mainTextPanel.setVisible(false);
+        choiceButtonPanel.setVisible(false);
+        ImagePanel.setBounds(500,300,900,500);
+
+        potionScreenButtonPanel = new JPanel();
+        potionScreenButtonPanel.setBounds(100,300,380,550);
+        potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
+        potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
+        frame.add(potionScreenButtonPanel);
+
+        healthPotionButton = new JButton();
+        healthPotionButton.setText("Health Potion");
+        healthPotionButton.setBackground(new Color(23,32,56));
+        healthPotionButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(healthPotionButton);
+
+        manaPotionButton = new JButton();
+        manaPotionButton.setText("Mana Potion");
+        manaPotionButton.setBackground(new Color(23, 32, 56));
+        manaPotionButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(manaPotionButton);
+
+        strengthPotionButton = new JButton();
+        strengthPotionButton.setText("Strength Potion");
+        strengthPotionButton.setBackground(new Color(23, 32, 56));
+        strengthPotionButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(strengthPotionButton);
+
     }
 
     public void changeImage(String imagePath) {
@@ -1796,7 +1587,7 @@ public class Game {
                 "I can help you! \n" +
                 "*Player found a captured adventurer in a cell*\n");
         choiceButton1.setText("Free him");
-        choiceButton2.setText("Leave him behinde");
+        choiceButton2.setText("Leave him behind");
         choiceButton3.setText("");
         choiceButton4.setText("");
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
@@ -2607,21 +2398,6 @@ public class Game {
                     if (yourChoice.equals("c1")) {
                         try {
                             tavernFight();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    break;
-
-                case "tavernFight":
-                    if(lebtDergegner() == true){
-                        try {
-                            createGameScreen();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            afterFight(); // Hier Muss die Kampf Mehtode rein.
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -3715,6 +3491,61 @@ public class Game {
                     break;
 
             }
+        }
+    }
+    private void figthSceneManager()
+    {
+        fightScreenButtonPanel.setVisible(false);
+        switch (position)
+        {
+            case "tavernFight":
+                createGameScreen();
+                afterFight();
+                break;
+            case "ch2fwolvescp2afterwolvesScene":
+                createGameScreen();
+                cp2afterwolvesFight();
+                break;
+            case "cp2dungeonFightScene":
+                createGameScreen();
+                cp2dungeonAfterFight();
+                break;
+            case "cp2dungeonlabyrinthrightScene":
+                createGameScreen();
+                cp2EncounterInLabyrinth();
+                break;
+            case "cp2miniboss2fight":
+                createGameScreen();
+                cp2miniboss1Win();
+                break;
+            case "cp2miniboss1RescueWonScene":
+                createGameScreen();
+                cp2miniboss1TowerFight();
+                break;
+            case "cp3TheEscapeOption1":
+                createGameScreen();
+                cp3TheEscapeFightWon();
+                break;
+            case "cp3GuardAttack":
+                createGameScreen();
+                cp3GuardAfter();
+                break;
+            case "cp3GoblinsFightScene":
+                createGameScreen();
+                cp3Night();
+                break;
+            case "cp3NightQuestFight":
+                createGameScreen();
+                cp3NightQuestAfterFight();
+                break;
+            case "cp4InsideCastleSkeletonsFightScene":
+                createGameScreen();
+                cp4AfterFight();
+                break;
+            case "cp4BossFight":
+                createGameScreen();
+                cp4AfterBossFight();
+                break;
         }
     }
     private class TitleScreenHandler implements ActionListener {

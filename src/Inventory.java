@@ -30,6 +30,12 @@ public class Inventory {
 
     }
 
+    public void addItem(String itemID) throws SQLException {
+        Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID));
+        int slotID = Integer.parseInt((String) itemAttributes[0]);
+        db.addItem(userID, slotID, Integer.parseInt(itemID));
+    }
+
     public boolean hasItem(String itemID) throws SQLException {
 
         String[] itemsList = db.getInventory(userID);
@@ -53,13 +59,17 @@ public class Inventory {
         if (hasItem(itemID))
         {
             db.addItem(userID, Integer.parseInt(itemID), -1);
-            player.usePotion(itemID);
+            //player.usePotion(itemID);
             System.out.println("consumed successfully");
             return true;
         }else{
             return false;
         }
 
+    }
+
+    public String[] addPotions() throws SQLException {
+        return rng.potionDrop();
     }
 
     public String addRandom(String chapterName) throws SQLException {
