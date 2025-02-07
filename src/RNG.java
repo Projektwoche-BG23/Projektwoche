@@ -10,10 +10,17 @@ public class RNG {
 
     public static String randomDrop(String chest) throws SQLException {
         switch (chest){
-            default:
-                return null;
             case "chapter1":
                 return chest1();
+            case "chapter2":
+                return chest2();
+            case "chapter3":
+                return chest3();
+            case "chapter4":
+                return chest4();
+            default:
+                return null;
+
         }
     }
 
@@ -92,9 +99,12 @@ public class RNG {
 
         //Chest Inhalt
         Object[] chances = new Object[6];
-        chances[0] = new Object[]{1, 34}; // ItemID, chance
-        chances[1] = new Object[]{2, 67};
-        chances[2] = new Object[]{3, 100};
+        chances[0] = new Object[]{2, 16}; // ItemID, chance
+        chances[1] = new Object[]{5, 32};
+        chances[2] = new Object[]{13, 48};
+        chances[3] = new Object[]{7, 65};
+        chances[4] = new Object[]{10, 82};
+        chances[5] = new Object[]{16, 100};
 
         // Item Anzahl bestimmen
 
@@ -122,4 +132,117 @@ public class RNG {
         return id;
 
     }
+
+    private static String chest2() throws SQLException {
+
+        //Chest Inhalt
+        Object[] chances = new Object[6];
+        chances[0] = new Object[]{19, 15}; // ItemID, chance
+        chances[1] = new Object[]{17, 30};
+        chances[2] = new Object[]{4, 46};
+        chances[3] = new Object[]{3, 63};
+        chances[4] = new Object[]{11, 80};
+        chances[5] = new Object[]{8, 100};
+
+        // Item Anzahl bestimmen
+
+        // Item Anzahl bestimmen
+        int itemRate = 1;
+
+        String id = "";
+
+        int chance = rand.nextInt(100);
+
+        for (Object item : chances) {
+            Object[] chanceEntry = (Object[]) item;
+
+            int dropChance = (int) chanceEntry[1];
+
+            if (chance <= dropChance) {
+                Object[] droppedItem = db.itemInfo((Integer) chanceEntry[0]);
+                id = (String )droppedItem[0];
+                return id;
+
+            }
+
+        }
+
+        return id;
+
+    }
+
+    private static String chest3() throws SQLException {
+
+        //Chest Inhalt
+        Object[] chances = new Object[5];
+        chances[0] = new Object[]{21, 15}; // ItemID, chance
+        chances[1] = new Object[]{22, 30};
+        chances[2] = new Object[]{6, 55};
+        chances[3] = new Object[]{14, 75};
+        chances[4] = new Object[]{15, 100};
+
+        // Item Anzahl bestimmen
+
+        // Item Anzahl bestimmen
+        int itemRate = 1;
+
+        String id = "";
+
+        int chance = rand.nextInt(100);
+
+        for (Object item : chances) {
+            Object[] chanceEntry = (Object[]) item;
+
+            int dropChance = (int) chanceEntry[1];
+
+            if (chance <= dropChance) {
+                Object[] droppedItem = db.itemInfo((Integer) chanceEntry[0]);
+                id = (String )droppedItem[0];
+                return id;
+
+            }
+
+        }
+
+        return id;
+
+    }
+
+    private static String chest4() throws SQLException {
+
+        //Chest Inhalt
+        Object[] chances = new Object[5];
+        chances[0] = new Object[]{20, 15}; // ItemID, chance
+        chances[1] = new Object[]{23, 30};
+        chances[2] = new Object[]{12, 50};
+        chances[3] = new Object[]{9, 75};
+        chances[4] = new Object[]{18, 100};
+
+        // Item Anzahl bestimmen
+
+        // Item Anzahl bestimmen
+        int itemRate = 1;
+
+        String id = "";
+
+        int chance = rand.nextInt(100);
+
+        for (Object item : chances) {
+            Object[] chanceEntry = (Object[]) item;
+
+            int dropChance = (int) chanceEntry[1];
+
+            if (chance <= dropChance) {
+                Object[] droppedItem = db.itemInfo((Integer) chanceEntry[0]);
+                id = (String )droppedItem[0];
+                return id;
+
+            }
+
+        }
+
+        return id;
+
+    }
+
 }
