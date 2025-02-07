@@ -528,38 +528,38 @@ public class Game {
 
 
     }
-   public void createPotionSceene()
-   {
-       fightScreenButtonPanel.setVisible(false);
-       mainTextPanel.setVisible(false);
-       choiceButtonPanel.setVisible(false);
-       ImagePanel.setBounds(500,300,900,500);
+    public void createPotionSceene()
+    {
+        fightScreenButtonPanel.setVisible(false);
+        mainTextPanel.setVisible(false);
+        choiceButtonPanel.setVisible(false);
+        ImagePanel.setBounds(500,300,900,500);
 
-       potionScreenButtonPanel = new JPanel();
-       potionScreenButtonPanel.setBounds(100,300,380,550);
-       potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
-       potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
-       frame.add(potionScreenButtonPanel);
+        potionScreenButtonPanel = new JPanel();
+        potionScreenButtonPanel.setBounds(100,300,380,550);
+        potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
+        potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
+        frame.add(potionScreenButtonPanel);
 
-       healthPotionButton = new JButton();
-       healthPotionButton.setText("Health Potion");
-       healthPotionButton.setBackground(new Color(23,32,56));
-       healthPotionButton.setForeground(new Color(222, 158,65));
-       potionScreenButtonPanel.add(healthPotionButton);
+        healthPotionButton = new JButton();
+        healthPotionButton.setText("Health Potion");
+        healthPotionButton.setBackground(new Color(23,32,56));
+        healthPotionButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(healthPotionButton);
 
-       manaPotionButton = new JButton();
-       manaPotionButton.setText("Mana Potion");
-       manaPotionButton.setBackground(new Color(23, 32, 56));
-       manaPotionButton.setForeground(new Color(222, 158,65));
-       potionScreenButtonPanel.add(manaPotionButton);
+        manaPotionButton = new JButton();
+        manaPotionButton.setText("Mana Potion");
+        manaPotionButton.setBackground(new Color(23, 32, 56));
+        manaPotionButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(manaPotionButton);
 
-       strengthPotionButton = new JButton();
-       strengthPotionButton.setText("Strength Potion");
-       strengthPotionButton.setBackground(new Color(23, 32, 56));
-       strengthPotionButton.setForeground(new Color(222, 158,65));
-       potionScreenButtonPanel.add(strengthPotionButton);
+        strengthPotionButton = new JButton();
+        strengthPotionButton.setText("Strength Potion");
+        strengthPotionButton.setBackground(new Color(23, 32, 56));
+        strengthPotionButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(strengthPotionButton);
 
-   }
+    }
 
 
     /**
