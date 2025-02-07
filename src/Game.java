@@ -662,10 +662,11 @@ public class Game {
          createGameScreen();
          break;
          default:
-         startGame();
+
          }
 
          **/
+        startGame();
 
     }
 
@@ -738,13 +739,21 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
-                   figthSceneManager();
+                    try {
+                        figthSceneManager();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
 
                 }
               if(c.getHealth() == 0)
               {
                 fightScreenButtonPanel.setVisible(false);
-                createGameScreen();
+                  try {
+                      createGameScreen();
+                  } catch (SQLException ex) {
+                      throw new RuntimeException(ex);
+                  }
               }
             }
         });
@@ -762,12 +771,20 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
-                    figthSceneManager();
+                    try {
+                        figthSceneManager();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
               if(c.getHealth() == 0)
               {
                 fightScreenButtonPanel.setVisible(false);
-                createGameScreen();
+                  try {
+                      createGameScreen();
+                  } catch (SQLException ex) {
+                      throw new RuntimeException(ex);
+                  }
               }
          }
         });
@@ -3493,8 +3510,7 @@ public class Game {
             }
         }
     }
-    private void figthSceneManager()
-    {
+    private void figthSceneManager() throws SQLException {
         fightScreenButtonPanel.setVisible(false);
         switch (position)
         {
