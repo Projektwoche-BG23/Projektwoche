@@ -11,7 +11,7 @@ public class Game {
     public JButton strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
-    public JLabel imageLabel, imageLabelGegner, imageLabelPlayer;
+    public JLabel imageLabel, imageLabelGegner , imageLabelPlayer;
     public JTextArea mainTextArea;
     public TitleScreenHandler tsHandler = new TitleScreenHandler();
     public ChoiceHandler choiceHandler = new ChoiceHandler();
@@ -226,24 +226,27 @@ public class Game {
         ImagePanel.setBounds(300, 300, 988, 550);
 
         imagePanelFightScreenGegner = new JPanel();
-        imagePanelFightScreenGegner.setBounds(1260,155,340,590);
+        imagePanelFightScreenGegner.setBounds(1160,300,340,590);
 
         imagePanelFightScreenPlayer = new JPanel();
-        imagePanelFightScreenPlayer.setBounds(480,155,340,590);
-
-
+        imagePanelFightScreenPlayer.setBounds(480,300,340,590);
 
         ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
         imageLabel = new JLabel(imageIcon);
         ImagePanel.add(imageLabel);
 
-        ImageIcon imageIconGegner = new ImageIcon("");
+        ImageIcon imageIconGegner = new ImageIcon("Images/Characters/Gegner/Rahmen/3KopfHund 2.png");
         imageLabelGegner = new JLabel(imageIconGegner);
         imagePanelFightScreenGegner.add(imageLabelGegner);
 
-        ImageIcon imageIconPlayer = new ImageIcon("");
+        ImageIcon imageIconPlayer = new ImageIcon("Images/Characters/Gegner/Rahmen/3KopfHund 2.png");
         imageLabelPlayer = new JLabel(imageIconPlayer);
         imagePanelFightScreenPlayer.add(imageLabelPlayer);
+
+        frame.add(imagePanelFightScreenGegner);
+        frame.add(imagePanelFightScreenPlayer);
+        frame.add(imageLabelGegner);
+        frame.add(imageLabelPlayer);
 
         frame.add(ImagePanel);
         frame.add(titleNamePanel);
@@ -252,6 +255,10 @@ public class Game {
 
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
+        imagePanelFightScreenGegner.setVisible(false);
+        imageLabelGegner.setVisible(false);
+        imagePanelFightScreenPlayer.setVisible(false);
+        imageLabelPlayer.setVisible(false);
     }
 
     /**
@@ -349,7 +356,10 @@ public class Game {
 
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-
+        imagePanelFightScreenGegner.setVisible(false);
+        imagePanelFightScreenPlayer.setVisible(false);
+        imageLabelGegner.setVisible(false);
+        imageLabelPlayer.setVisible(false);
 
 
         String[] currentPosition = db.playerInfo(playerIDD);
@@ -430,6 +440,10 @@ public class Game {
         imageLabel.setVisible(false);
         mainTextPanel.setVisible(false);
         choiceButtonPanel.setVisible(false);
+        imagePanelFightScreenGegner.setVisible(true);
+        imagePanelFightScreenPlayer.setVisible(true);
+        imageLabelGegner.setVisible(true);
+        imageLabelPlayer.setVisible(true);
         ImagePanel.setBounds(500,300,900,500);
 
 
@@ -516,6 +530,10 @@ public class Game {
         itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
+
+        //Fixt vielleicht das Problem das die Bilder nicht richtig angeziegt werden
+        frame.revalidate(); // Refresh the layout
+        frame.repaint();
     }
 
      public void createPotionSceene()
@@ -559,16 +577,18 @@ public class Game {
     }
     public void changeImageGegner(String imagePath) {
         ImageIcon newIcon = new ImageIcon(imagePath);
-        imageLabel.setIcon(newIcon);
-        ImagePanel.revalidate(); // Refresh layout
-        ImagePanel.repaint();    // Force UI redraw
+        imageLabelGegner.setIcon(newIcon);
+        imageLabelGegner.revalidate(); // Refresh layout
+        imageLabelGegner.repaint();    // Force UI redraw
     }
     public void changeImagePlayer(String imagePath) {
         ImageIcon newIcon = new ImageIcon(imagePath);
-        imageLabel.setIcon(newIcon);
-        ImagePanel.revalidate(); // Refresh layout
-        ImagePanel.repaint();    // Force UI redraw
+        imageLabelPlayer.setIcon(newIcon);
+        imageLabelPlayer.revalidate(); // Refresh layout
+        imageLabelPlayer.repaint();    // Force UI redraw
     }
+
+
 
 
 
