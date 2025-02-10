@@ -1,7 +1,7 @@
 import java.sql.SQLException;
 
 public class Player {
-    private DB db;
+    public DB db;
     // Base Stats
     private final int baseAttack = 30;
     private final int baseMagicAttack = 40;
@@ -28,7 +28,7 @@ public class Player {
     private int manaReg;
     private int maxHealth;
     private int maxMana;
-    private int tempStrength;       //Bitte hier nicht in datenbank speichern wird nach Kampf resettet
+    private int tempStrength;       //Do not save it in database, it resets after every fight.
     private int potionCooldown = 0;
 
     public void joinUpdate(int userID) throws SQLException {
@@ -53,8 +53,8 @@ public class Player {
 
         for (String itemIDString : equippedItems) {
             if (itemIDString != null && !itemIDString.isEmpty()) {
-                int itemID = Integer.parseInt(itemIDString);  // Item-ID aus dem Slot
-                String[] itemStats = db.itemInfo(itemID);  // Hole die Item-Informationen aus der DB
+                int itemID = Integer.parseInt(itemIDString);  // Item-ID from the slot
+                String[] itemStats = db.itemInfo(itemID);  // get the item information from the database
 
 
                 maxHealth += Integer.parseInt(itemStats[7]);
@@ -73,7 +73,7 @@ public class Player {
 
     }
 
-    // Getter Methods
+    // Get Methods
     public int getAttack() { return attack; }
     public int getHealth() { return health; }
     public int getMagicAttack() { return magicAttack; }
@@ -89,7 +89,7 @@ public class Player {
     public int getMaxHealth() { return  maxHealth; }
 
 
-    // Setter Methods
+    // Set Methods
     public void setHealth(int newHealth) { health = Math.max(newHealth, 0); }
     public void setAttack(int newAttack) { attack = Math.max(newAttack, 0); }
     public void setMagicAttack(int newMagicAttack) { magicAttack = Math.max(newMagicAttack, 0); }
@@ -102,7 +102,7 @@ public class Player {
     public void setManaReg(int newManaReg) { manaReg = Math.max(newManaReg, 0); }
 
     /**
-     * zählt die Runden die eine potion noch wirken soll
+     * checks if potion has still effects on.
      */
     public void countpotion(){
         if((potionCooldown)>0){
@@ -114,8 +114,8 @@ public class Player {
     }
 
     /**
-     * Verrechnet die werte wenn ein Spieler eine potion verwendet.
-     * @param itemID id der Potion
+     * Calculates and increases the potion buffs on top of the player stats.
+     * @param itemID id of the potion
      * @throws SQLException
      */
     public void usePotion(String itemID) throws SQLException {
