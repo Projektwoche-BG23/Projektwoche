@@ -22,7 +22,7 @@ public class Game {
     boolean ch2 = false;
     boolean ch3 = false;
 
-
+    InventoryGUIv1 inv = new InventoryGUIv1();
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
 
@@ -496,8 +496,12 @@ public class Game {
                 System.out.println("Leben1: " +c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
+
                     try {
-                        figthSceneManager();
+                        inv.startInventoryGUI();
+                       if(inv.inventoryGUIOpened =false){
+                           figthSceneManager();
+                       }
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
