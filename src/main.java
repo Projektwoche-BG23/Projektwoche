@@ -29,14 +29,11 @@ public class main {
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
 
-        Sounds msc = new Sounds();
-        msc.playStory();
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        msc.playBattle();
 
     }
 }

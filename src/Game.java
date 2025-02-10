@@ -2077,7 +2077,7 @@ public class Game {
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
-        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        changeImage("Images/Hintergründe/PlayerKönigGewordenHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
         
