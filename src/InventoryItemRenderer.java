@@ -19,6 +19,7 @@ public class InventoryItemRenderer extends JLabel implements ListCellRenderer<In
             setForeground(list.getForeground());
         }
 
+
         return this;
     }
 

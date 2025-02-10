@@ -17,7 +17,7 @@ public class Player {
 
     // Current Stats
     private int health = 6000;
-    private int attack = 30;
+    private int attack = 50;
     private int magicAttack = 20;
     private int defense;
     private int magicDefense;
