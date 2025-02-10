@@ -18,6 +18,8 @@ public class Game {
     int playerIDD;
     String playerPositionDB;
 
+    Sounds msc = new Sounds();
+
     boolean ch1 = false;
     boolean ch2 = false;
     boolean ch3 = false;
@@ -450,6 +452,7 @@ public class Game {
 
 
     public void createFightScreen(Enemy enemy){
+        msc.playFight1();
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -646,11 +649,6 @@ public class Game {
         imageLabelPlayer.repaint();    // Force UI redraw
     }
 
-
-
-
-
-
     /**
      * Cheapter 1
      */
@@ -658,6 +656,7 @@ public class Game {
     DB db = new DB();
 
     public void startGame() throws SQLException {
+        msc.playBackground1();
         position = "anfangsSzene1";
         playerPosition = "Intro";
         playerPositiontext2.setText(playerPosition);
@@ -1108,6 +1107,7 @@ public class Game {
      */
 
     public void ch2followMap()throws SQLException {
+        msc.playBackground2();
         position = "ch2followMap";
         playerPosition = "CP2 - Intro";
         playerPositiontext2.setText(playerPosition);
@@ -1646,6 +1646,7 @@ public class Game {
      */
 
     public void cp3TheEscape()throws SQLException {
+        msc.playBackground3();
         position = "cp3TheEscape";
         playerPosition = "CP3 - Tower Princess";
         playerPositiontext2.setText(playerPosition);
@@ -1978,6 +1979,7 @@ public class Game {
 
 
     public void cp4towardsCastle()throws SQLException {
+        msc.playBackground4();
         position = "cp4towardsCastle";
         playerPosition = "CP4 - Towards Castle";
         playerPositiontext2.setText(playerPosition);
@@ -3369,6 +3371,7 @@ public class Game {
                 cp4AfterFight();
                 break;
             case "cp4BossFight":
+                msc.playBossFight();
                 createGameScreen();
                 cp4AfterBossFight();
                 break;
