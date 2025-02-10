@@ -16,49 +16,49 @@ public class Sounds {
     public Sounds() {
 
         try {
-            File background1File = new File("Musics/backgroundMusic1.wav");
+            File background1File = new File("Sounds/backgroundMusic1.wav");
             AudioInputStream background1Stream = AudioSystem.getAudioInputStream(background1File);
             backgroundMusic1 = AudioSystem.getClip();
             backgroundMusic1.open(background1Stream);
 
             //--------------
 
-            File background2File = new File("Musics/backgroundMusic2.wav");
+            File background2File = new File("Sounds/backgroundMusic2.wav");
             AudioInputStream background2Stream = AudioSystem.getAudioInputStream(background2File);
             backgroundMusic2 = AudioSystem.getClip();
             backgroundMusic2.open(background2Stream);
 
             //--------------
 
-            File background3File = new File("Musics/backgroundMusic3.wav");
+            File background3File = new File("Sounds/backgroundMusic3.wav");
             AudioInputStream background3Stream = AudioSystem.getAudioInputStream(background3File);
             backgroundMusic3 = AudioSystem.getClip();
             backgroundMusic3.open(background3Stream);
 
             //--------------
 
-            File background4File = new File("Musics/backgroundMusic4.wav");
+            File background4File = new File("Sounds/backgroundMusic4.wav");
             AudioInputStream background4Stream = AudioSystem.getAudioInputStream(background4File);
             backgroundMusic4 = AudioSystem.getClip();
             backgroundMusic4.open(background4Stream);
 
             //--------------
 
-            File fightMusic1File = new File("Musics/fightMusic1.wav");
+            File fightMusic1File = new File("Sounds/fightMusic1.wav");
             AudioInputStream fightMusic1Stream = AudioSystem.getAudioInputStream(fightMusic1File);
             fightMusic1 = AudioSystem.getClip();
             fightMusic1.open(fightMusic1Stream);
 
             //--------------
 
-            File fightMusic2File = new File("Musics/fightMusic2.wav");
+            File fightMusic2File = new File("Sounds/fightMusic2.wav");
             AudioInputStream fightMusic2Stream = AudioSystem.getAudioInputStream(fightMusic2File);
             fightMusic2 = AudioSystem.getClip();
             fightMusic2.open(fightMusic2Stream);
 
             //--------------
 
-            File bossFightFile = new File("Musics/bossFight.wav");
+            File bossFightFile = new File("Sounds/bossFight.wav");
             AudioInputStream bossFightStream = AudioSystem.getAudioInputStream(bossFightFile);
             bossFightMusic = AudioSystem.getClip();
             bossFightMusic.open(bossFightStream);

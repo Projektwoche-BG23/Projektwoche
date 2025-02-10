@@ -239,43 +239,43 @@ public class Game {
         playerPositionPanel2.add(playerPositiontext2);
         playerPositiontext2.setVisible(false);
 
-        ImagePanel = new JPanel();
-        ImagePanel.setBounds(300, 300, 988, 550);
-
-        imagePanelFightScreenGegner = new JPanel();
-        imagePanelFightScreenGegner.setBounds(1160,300,340,590);
-
-        imagePanelFightScreenPlayer = new JPanel();
-        imagePanelFightScreenPlayer.setBounds(480,300,340,590);
 
         ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
         imageLabel = new JLabel(imageIcon);
+
+        ImagePanel = new JPanel();
+        ImagePanel.setBounds(300, 300, 988, 550);
         ImagePanel.add(imageLabel);
+        frame.add(ImagePanel);
+        ImagePanel.setVisible(false);
+
 
         ImageIcon imageIconGegner = new ImageIcon("Images/Characters/Gegner/Rahmen/3KopfHund 2.png");
         imageLabelGegner = new JLabel(imageIconGegner);
+
+        imagePanelFightScreenGegner = new JPanel();
+        imagePanelFightScreenGegner.setBounds(1160,300,340,590);
         imagePanelFightScreenGegner.add(imageLabelGegner);
+        frame.add(imagePanelFightScreenGegner);
+        imagePanelFightScreenGegner.setVisible(false);
+        imageLabelGegner.setVisible(true);
+
 
         ImageIcon imageIconPlayer = new ImageIcon("Images/Characters/Gegner/Rahmen/3KopfHund 2.png");
         imageLabelPlayer = new JLabel(imageIconPlayer);
+
+        imagePanelFightScreenPlayer = new JPanel();
+        imagePanelFightScreenPlayer.setBounds(480,300,340,590);
         imagePanelFightScreenPlayer.add(imageLabelPlayer);
-
-        frame.add(imagePanelFightScreenGegner);
+        imagePanelFightScreenPlayer.setVisible(false);
+        imageLabelPlayer.setVisible(false);
         frame.add(imagePanelFightScreenPlayer);
-        frame.add(imageLabelGegner);
-        frame.add(imageLabelPlayer);
 
-        frame.add(ImagePanel);
+
         frame.add(titleNamePanel);
         frame.add(startButtonPanel);
         frame.setVisible(true);
 
-        ImagePanel.setVisible(false);
-        imageLabel.setVisible(false);
-        imagePanelFightScreenGegner.setVisible(false);
-        imageLabelGegner.setVisible(false);
-        imagePanelFightScreenPlayer.setVisible(false);
-        imageLabelPlayer.setVisible(false);
     }
 
     /**
