@@ -214,7 +214,7 @@ public class Game {
         waffentext2.setVisible(false);
 
         /**
-         * Displays the current position of the player
+         * Displays the current position of the player.
          */
 
         playerPositionPanel = new JPanel();
