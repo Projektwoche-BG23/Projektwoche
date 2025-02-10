@@ -434,10 +434,7 @@ public class Game {
                 break;
         }
 
-        System.out.println(playerImmagePath);
-        System.out.println(enemyPicturePath);
-        changeImagePlayer(playerImmagePath);
-        changeImageGegner(enemyPicturePath);
+
     }
 
 
