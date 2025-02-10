@@ -29,16 +29,10 @@ public class main {
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
 
-
-        Game game = new Game(1);
-        Sounds msc = new Sounds();
-
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }
