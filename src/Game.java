@@ -46,7 +46,7 @@ public class Game {
     String position;
 
     /**
-     * Variable "waffe" is importnat for the current weapon equipped.
+     * Variable "waffe" is importnat for the current weapon equipped.n
      */
 
     String waffe = "Fists";
