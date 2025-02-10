@@ -21,7 +21,6 @@ public class main {
 
     public static void main(String[] args) throws SQLException {
 
-
         DB db = new DB();
         //System.out.println(db.getUser_ID("test", "123"));
         Player player = new Player();
@@ -29,5 +28,12 @@ public class main {
         Inventory inv = new Inventory();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
