@@ -175,6 +175,7 @@ public class DB {
      * Method to update the location of the player
      * @param location: the new location to save.
      */
+
     public void updateLocation(int user_ID, String location) throws SQLException {
         sql = "UPDATE gamefiles SET location = ? WHERE user_ID = ? ";
         stmt = con.prepareStatement(sql);
@@ -182,7 +183,6 @@ public class DB {
         stmt.setInt(2, user_ID);
         stmt.executeUpdate();
     }
-
     /**
      * Method to make an important decision, that has consequences in the future.
      */
