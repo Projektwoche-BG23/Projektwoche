@@ -413,12 +413,6 @@ public class Game {
         healtbartext.setText("Player Health: " + health);
     }
     public void setFightPictures(int playerID,String enemyType) throws SQLException {
-        DB db = new DB();
-        Object[] equip = db.getEquipped(playerID);
-        String weaponID = (String) equip[2];
-        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
-        String playerImmagePath = (String) weaponInfo[2];
-        //Funktion zum Player bild in fight scene einfügen
         String enemyPicturePath="";
         switch (enemyType) {
             case "DRUNKENKNIGHT":
@@ -452,8 +446,15 @@ public class Game {
                 enemyPicturePath = "Images/Characters/Gegner/Rahmen/KönigGegner.png";
                 break;
         }
-        changeImagePlayer(playerImmagePath);
         changeImageGegner(enemyPicturePath);
+
+        DB db = new DB();
+        Object[] equip = db.getEquipped(playerID);
+        String weaponID = (String) equip[3];
+        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
+        String playerImmagePath = (String) weaponInfo[2];
+        //Funktion zum Player bild in fight scene einfügen
+        changeImagePlayer(playerImmagePath);
     }
 
 
