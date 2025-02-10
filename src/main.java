@@ -28,8 +28,8 @@ public class main {
         Inventory inv = new Inventory();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
-
         Sounds msc = new Sounds();
+
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {

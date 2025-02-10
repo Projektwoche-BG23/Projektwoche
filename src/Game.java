@@ -8,7 +8,7 @@ public class Game {
     public JFrame frame;
     JPanel potionScreenButtonPanel,enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2, imagePanelFightScreenGegner,imagePanelFightScreenPlayer;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton exitButton,strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
     public JLabel imageLabel, imageLabelGegner , imageLabelPlayer;
@@ -18,6 +18,8 @@ public class Game {
     int playerIDD;
     String playerPositionDB;
 
+    Sounds msc = new Sounds();
+
     boolean ch1 = false;
     boolean ch2 = false;
     boolean ch3 = false;
@@ -25,10 +27,11 @@ public class Game {
 
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
+    Inventory inf = new Inventory();
 
 
     /**
-     * Dies sind die Schriftarten. Nach belieben ändern.
+     * Fonts for all text seen in game
      */
 
     public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
@@ -36,36 +39,36 @@ public class Game {
     public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
     /**
-     * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler.
+     * This gives the position of the story. Imoportant for ChoiceHandler.
      */
 
     String position;
 
     /**
-     * Die Variable waffe ist für die ausgewählte Waffe verantwortlich.
+     * Variable "waffe" is importnat for the current weapon equipped.
      */
 
     String waffe = "Fists";
 
     /**
-     * Die Variable health ist für die Leben die der Spieler hat verantwortlich,.
+     * Variable "health" is responsible for Players health.
      */
 
     int health = c.getHealth();
 
     /**
-     * Die Variable playerPosition ist für den Standort verantwortlich wo der Spiler sich gerade im Spiel befindet.
+     * Variable "playerPosition" is responsible for player's position in game .
      */
     String playerPosition = "Intro";
 
     /**
-     * @Game Titelbildschirm des Spieles
+     * @Game Titlescreen
      */
 
 
     public Game(int playerID) {
         playerIDD = playerID;
-
+        inf.setUserID(playerID);
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
@@ -73,7 +76,7 @@ public class Game {
         }
 
         /**
-         * Dies ist der Hauptframe, auf dem alle anderen Frames hinzugefügt werden.
+         * Primary screen where all oher screens are displayed
          */
 
         frame = new JFrame();
@@ -85,7 +88,7 @@ public class Game {
         frame.setResizable(false);
 
         /**
-         * Dieses Panel ist für das anzeigen des Titels
+         * displays the title
          */
 
         titleNamePanel = new JPanel();
@@ -94,16 +97,16 @@ public class Game {
         frame.add(titleNamePanel);
 
         /**
-         * Dieses Label ist der Titel
+         * The title itself
          */
 
-        titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
+        titleNameLabel = new JLabel("Seidler's Legacy", SwingConstants.CENTER);
         titleNameLabel.setForeground(new Color(222, 158, 65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
 
         /**
-         * Dies Panel bietet Platz für die Buttons des Titelscreens
+         * This panel creates place for all buttons
          */
 
         startButtonPanel = new JPanel();
@@ -112,7 +115,7 @@ public class Game {
         startButtonPanel.setLayout(new GridLayout(4, 1));
 
         /**
-         * Dies ist für das Anzeigen des Start-Buttons us
+         * Displays the start button
          */
 
         startButton = new JButton("Start");
@@ -123,21 +126,33 @@ public class Game {
         startButton.setFocusPainted(false);
         startButtonPanel.add(startButton);
 
-        ladenButton = new JButton("Laden");
+        /**
+         * Displays the load button
+         */
+
+        ladenButton = new JButton("Load");
         ladenButton.setBackground(new Color(23, 32, 56));
         ladenButton.setForeground(new Color(222, 158, 65));
         ladenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(ladenButton);
 
-        einstellungenButton = new JButton("Einstellungen");
+        /**
+         * Displays the settings button
+         */
+
+        einstellungenButton = new JButton("Settings");
         einstellungenButton.setBackground(new Color(23, 32, 56));
         einstellungenButton.setForeground(new Color(222, 158, 65));
         einstellungenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(einstellungenButton);
 
-        verlassenButton = new JButton("Verlassen");
+        /**
+         * Displays the exit button
+         */
+
+        verlassenButton = new JButton("Exit");
         verlassenButton.setBackground(new Color(23, 32, 56));
         verlassenButton.setForeground(new Color(222, 158, 65));
         verlassenButton.setFont(startButtonFont);
@@ -145,7 +160,7 @@ public class Game {
         startButtonPanel.add(verlassenButton);
 
         /**
-         * Dies ist die Healtbar
+         * Dislpays the healthbar
          */
 
         healtbartextpanel = new JPanel();
@@ -170,8 +185,9 @@ public class Game {
         enemyHealtbartextpanel.add(enemyHealtbartext);
         enemyHealtbartext.setVisible(false);
 
+
         /**
-         * Dies ist die Waffenanzeige
+         * Displays the current weapon
          */
 
         waffentextpanel = new JPanel();
@@ -197,7 +213,7 @@ public class Game {
         waffentext2.setVisible(false);
 
         /**
-         * Dies ist die Position des Spielers
+         * Displays the current position of the player
          */
 
         playerPositionPanel = new JPanel();
@@ -437,7 +453,9 @@ public class Game {
     }
 
 
-    public void createFightScreen(Enemy enemy, String enemyType) throws SQLException {
+
+    public void createFightScreen(Enemy enemy){
+        msc.playFight1();
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -548,26 +566,70 @@ public class Game {
         potionScreenButtonPanel = new JPanel();
         potionScreenButtonPanel.setBounds(100,300,380,550);
         potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
-        potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
+        potionScreenButtonPanel.setLayout(new GridLayout(3, 2));
         frame.add(potionScreenButtonPanel);
 
         healthPotionButton = new JButton();
+        healthPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.usePotion("26");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         healthPotionButton.setText("Health Potion");
         healthPotionButton.setBackground(new Color(23,32,56));
         healthPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(healthPotionButton);
 
         manaPotionButton = new JButton();
+        manaPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.usePotion("27");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         manaPotionButton.setText("Mana Potion");
         manaPotionButton.setBackground(new Color(23, 32, 56));
         manaPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(manaPotionButton);
 
         strengthPotionButton = new JButton();
+        strengthPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    inf.consum("29",c);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         strengthPotionButton.setText("Strength Potion");
         strengthPotionButton.setBackground(new Color(23, 32, 56));
         strengthPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(strengthPotionButton);
+
+        exitButton = new JButton();
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fightScreenButtonPanel.setVisible(true);
+                potionScreenButtonPanel.setVisible(false);
+
+            }
+        });
+        exitButton.setText("Exit");
+        exitButton.setBackground(new Color(23, 32, 56));
+        exitButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(exitButton);
 
     }
 
@@ -590,11 +652,6 @@ public class Game {
         imageLabelPlayer.repaint();    // Force UI redraw
     }
 
-
-
-
-
-
     /**
      * Cheapter 1
      */
@@ -602,6 +659,7 @@ public class Game {
     DB db = new DB();
 
     public void startGame() throws SQLException {
+        msc.playBackground1();
         position = "anfangsSzene1";
         playerPosition = "Intro";
         playerPositiontext2.setText(playerPosition);
@@ -1052,6 +1110,7 @@ public class Game {
      */
 
     public void ch2followMap()throws SQLException {
+        msc.playBackground2();
         position = "ch2followMap";
         playerPosition = "CP2 - Intro";
         playerPositiontext2.setText(playerPosition);
@@ -1494,6 +1553,7 @@ public class Game {
         position = "cp2miniboss2fight";
         Enemy enemy = new Enemy("AZROTH");
         createFightScreen(enemy,"AZROTH");
+
     }
 
     public void cp2miniboss1Win()throws SQLException {
@@ -1590,6 +1650,7 @@ public class Game {
      */
 
     public void cp3TheEscape()throws SQLException {
+        msc.playBackground3();
         position = "cp3TheEscape";
         playerPosition = "CP3 - Tower Princess";
         playerPositiontext2.setText(playerPosition);
@@ -1610,6 +1671,7 @@ public class Game {
         position = "cp3TheEscapeOption1";
         Enemy enemy = new Enemy("CERBERUS");
         createFightScreen(enemy,"CERBERUS");
+
     }
 
     public void cp3TheEscapeOption2()throws SQLException {
@@ -1727,6 +1789,7 @@ public class Game {
         position = "cp3GuardAttack";
         Enemy enemy = new Enemy("PRINCESSGUARD");
         createFightScreen(enemy,"PRINCESSGUARD");
+
     }
 
     public void cp3GuardAfter()throws SQLException {
@@ -1798,9 +1861,9 @@ public class Game {
 
     public void cp3GoblinsFightScene()throws SQLException {
         position = "cp3GoblinsFightScene";
-        Enemy enemy =new Enemy("GOBLIN");
-        
+        Enemy enemy =new Enemy("GOBLIN");        
         createFightScreen(enemy,"GOBLIN");
+
     }
 
     public void cp3Night()throws SQLException {
@@ -1840,6 +1903,7 @@ public class Game {
         Enemy enemy = new Enemy("SKELETON");
         
         createFightScreen(enemy,"SKELETON");
+
     }
 
     public void cp3NightQuestAfterFight()throws SQLException {
@@ -1880,6 +1944,7 @@ public class Game {
         Enemy enemy = new Enemy("EliteGuards");
         
         createFightScreen(enemy,"SKELLETGUARD");
+
     }
 
     public void cp3ArriveAtCityFightScene()throws SQLException {
@@ -1920,6 +1985,7 @@ public class Game {
 
 
     public void cp4towardsCastle()throws SQLException {
+        msc.playBackground4();
         position = "cp4towardsCastle";
         playerPosition = "CP4 - Towards Castle";
         playerPositiontext2.setText(playerPosition);
@@ -2079,7 +2145,7 @@ public class Game {
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
-        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        changeImage("Images/Hintergründe/PlayerKönigGewordenHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
         
@@ -2089,9 +2155,9 @@ public class Game {
         position = "cp4AfterBossFightOption2";
         playerPosition = "CP4 - Decline";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player: I can´t there are more kingdoms to be rescued.\n" +
-                "*The end* *you rescued two more princesses and got more adventures\n" +
-                "than u thought would ever get. After 58years you get into retirement*");
+        mainTextArea.setText("*The End*\n You decline and ride off proudly\n" +
+                "23 Minutes later: carriage 1 you 0\n The next princess? Has long saved " +
+                "herself.Your epic legend?\n Nerver existed. Wow. Great movie, champion. ");
         choiceButton1.setVisible(false);
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
@@ -3303,11 +3369,15 @@ public class Game {
                 createGameScreen();
                 cp3NightQuestAfterFight();
                 break;
+            case "cp3ArriveAtCityFight":
+                createGameScreen();
+                cp4towardsCastle();
             case "cp4InsideCastleSkeletonsFightScene":
                 createGameScreen();
                 cp4AfterFight();
                 break;
             case "cp4BossFight":
+                msc.playBossFight();
                 createGameScreen();
                 cp4AfterBossFight();
                 break;
