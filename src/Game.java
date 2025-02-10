@@ -8,7 +8,7 @@ public class Game {
     public JFrame frame;
     JPanel potionScreenButtonPanel,enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2, imagePanelFightScreenGegner,imagePanelFightScreenPlayer;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton exitButton,strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
     public JLabel imageLabel, imageLabelGegner , imageLabelPlayer;
@@ -25,6 +25,7 @@ public class Game {
 
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
+    Inventory inf = new Inventory();
 
 
     /**
@@ -65,7 +66,7 @@ public class Game {
 
     public Game(int playerID) {
         playerIDD = playerID;
-
+        inf.setUserID(playerID);
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
@@ -559,26 +560,70 @@ public class Game {
         potionScreenButtonPanel = new JPanel();
         potionScreenButtonPanel.setBounds(100,300,380,550);
         potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
-        potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
+        potionScreenButtonPanel.setLayout(new GridLayout(3, 2));
         frame.add(potionScreenButtonPanel);
 
         healthPotionButton = new JButton();
+        healthPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.usePotion("26");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         healthPotionButton.setText("Health Potion");
         healthPotionButton.setBackground(new Color(23,32,56));
         healthPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(healthPotionButton);
 
         manaPotionButton = new JButton();
+        manaPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.usePotion("27");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         manaPotionButton.setText("Mana Potion");
         manaPotionButton.setBackground(new Color(23, 32, 56));
         manaPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(manaPotionButton);
 
         strengthPotionButton = new JButton();
+        strengthPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    inf.consum("29",c);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         strengthPotionButton.setText("Strength Potion");
         strengthPotionButton.setBackground(new Color(23, 32, 56));
         strengthPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(strengthPotionButton);
+
+        exitButton = new JButton();
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fightScreenButtonPanel.setVisible(true);
+                potionScreenButtonPanel.setVisible(false);
+
+            }
+        });
+        exitButton.setText("Exit");
+        exitButton.setBackground(new Color(23, 32, 56));
+        exitButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(exitButton);
 
     }
 
@@ -1503,7 +1548,7 @@ public class Game {
 
     public void cp2miniboss1fight()throws SQLException {
         position = "cp2miniboss2fight";
-        Enemy enemy = new Enemy("DARKTITANAZROTH");
+        Enemy enemy = new Enemy("AZROTH");
         createFightScreen(enemy);
     }
 
@@ -1619,7 +1664,7 @@ public class Game {
 
     public void cp3TheEscapeOption1()throws SQLException {
         position = "cp3TheEscapeOption1";
-        Enemy enemy = new Enemy("THREEHEADDOG");
+        Enemy enemy = new Enemy("CERBERUS");
         createFightScreen(enemy);
     }
 
@@ -1736,7 +1781,7 @@ public class Game {
 
     public void cp3GuardAttack()throws SQLException {
         position = "cp3GuardAttack";
-        Enemy enemy = new Enemy("ELITEGUARDS");
+        Enemy enemy = new Enemy("PRINCESSGUARD");
         createFightScreen(enemy);
     }
 
@@ -1809,8 +1854,8 @@ public class Game {
 
     public void cp3GoblinsFightScene()throws SQLException {
         position = "cp3GoblinsFightScene";
-        Enemy enemy =new Enemy("Goblins");
-        
+        Enemy enemy =new Enemy("GOBLIN");
+        db.updateLocation(playerIDD, position);
         createFightScreen(enemy);
     }
 
@@ -1848,8 +1893,9 @@ public class Game {
 
     public void cp3NightQuestFight()throws SQLException {
         position = "cp3NightQuestFight";
-        Enemy enemy = new Enemy("Bandit");
-        
+        Enemy enemy = new Enemy("SKELETON");
+        db.updateLocation(playerIDD, position);
+
         createFightScreen(enemy);
     }
 
@@ -1888,8 +1934,9 @@ public class Game {
 
     public void cp3ArriveAtCityFight()throws SQLException {
         position = "cp3ArriveAtCityFight";
-        Enemy enemy = new Enemy("EliteGuards");
-        
+        Enemy enemy = new Enemy("ELITEKNIGHTS");
+        db.updateLocation(playerIDD, position);
+
         createFightScreen(enemy);
     }
 
@@ -2090,7 +2137,7 @@ public class Game {
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
-        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        changeImage("Images/Hintergründe/PlayerKönigGewordenHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
         
@@ -2100,9 +2147,9 @@ public class Game {
         position = "cp4AfterBossFightOption2";
         playerPosition = "CP4 - Decline";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player: I can´t there are more kingdoms to be rescued.\n" +
-                "*The end* *you rescued two more princesses and got more adventures\n" +
-                "than u thought would ever get. After 58years you get into retirement*");
+        mainTextArea.setText("*The End*\n You decline and ride off proudly\n" +
+                "23 Minutes later: carriage 1 you 0\n The next princess? Has long saved " +
+                "herself.Your epic legend?\n Nerver existed. Wow. Great movie, champion. ");
         choiceButton1.setVisible(false);
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
@@ -3314,6 +3361,9 @@ public class Game {
                 createGameScreen();
                 cp3NightQuestAfterFight();
                 break;
+            case "cp3ArriveAtCityFight":
+                createGameScreen();
+                cp4towardsCastle();
             case "cp4InsideCastleSkeletonsFightScene":
                 createGameScreen();
                 cp4AfterFight();
