@@ -409,13 +409,13 @@ public class Game {
         healtbartext.setText("Player Health: " + health);
     }
     public void setFightPictures(int playerID,String enemyType) throws SQLException {
-        DB db = null;
+        DB db = new DB();
         Object[] equip = db.getEquipped(playerID);
         String weaponID = (String) equip[2];
         Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
-        String playerImmage = (String) weaponInfo[2];
+        String playerImmagePath = (String) weaponInfo[2];
         //Funktion zum Player bild in fight scene einfügen
-        String enemyPicturePath;
+        String enemyPicturePath="";
         switch (enemyType) {
             case "DRUNKENKNIGHT":
                 enemyPicturePath = "Images/Characters/Gegner/Rahmen/BetrunkenerRitter.png";
@@ -448,7 +448,10 @@ public class Game {
                 enemyPicturePath = "Images/Characters/Gegner/Rahmen/KönigGegner.png";
                 break;
         }
+        changeImagePlayer(playerImmagePath);
+        changeImageGegner(enemyPicturePath);
     }
+
 
 
     public void createFightScreen(Enemy enemy){
@@ -462,7 +465,6 @@ public class Game {
         imageLabelGegner.setVisible(true);
         imageLabelPlayer.setVisible(true);
         ImagePanel.setBounds(500,300,900,500);
-
 
         fightScreenButtonPanel = new JPanel();
         fightScreenButtonPanel.setBounds(100,300,380,550);
@@ -547,6 +549,7 @@ public class Game {
         itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
+        setFightPictures(playerIDD,enemyType);
 
         //Fixt vielleicht das Problem das die Bilder nicht richtig angeziegt werden
         frame.revalidate(); // Refresh the layout
@@ -728,7 +731,7 @@ public class Game {
     public void tavernFight() throws SQLException {
         position = "tavernFight";
         Enemy enemy = new Enemy("DRUNKENKNIGHT");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"DRUNKENKNIGHT");
         
     }
 
@@ -1142,8 +1145,8 @@ public class Game {
 
     public void ch2fwolvescp2afterwolvesScene()  throws SQLException  {
         position = "ch2fwolvescp2afterwolvesScene";
-        Enemy enemy = new Enemy("Wolves");
-        createFightScreen(enemy);
+        Enemy enemy = new Enemy("WOLVES");
+        createFightScreen(enemy,"WOLVES");
         
     }
 
@@ -1217,7 +1220,7 @@ public class Game {
     public void cp2dungeonFightScene()throws SQLException {
         position = "cp2dungeonFightScene";
         Enemy enemy = new Enemy("SKELLETGUARD");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"SKELLETGUARD");
     }
 
     public void cp2dungeonAfterFight()throws SQLException {
@@ -1316,7 +1319,7 @@ public class Game {
     public void cp2TheRightHandPathScene()throws SQLException {
         position = "cp2dungeonlabyrinthrightScene";
         Enemy enemy = new Enemy("SHADOWGUARDS");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"SHADOWGUARDS");
         
     }
 
@@ -1549,7 +1552,8 @@ public class Game {
     public void cp2miniboss1fight()throws SQLException {
         position = "cp2miniboss2fight";
         Enemy enemy = new Enemy("AZROTH");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"AZROTH");
+
     }
 
     public void cp2miniboss1Win()throws SQLException {
@@ -1588,7 +1592,7 @@ public class Game {
     public void cp2miniboss1TowerFightScene()throws SQLException {
         position = "cp2miniboss1RescueWonScene";
         Enemy enemy = new Enemy("ELITEKNIGHTS");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"ELITEKNIGHTS");
         
     }
 
@@ -1666,7 +1670,8 @@ public class Game {
     public void cp3TheEscapeOption1()throws SQLException {
         position = "cp3TheEscapeOption1";
         Enemy enemy = new Enemy("CERBERUS");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"CERBERUS");
+
     }
 
     public void cp3TheEscapeOption2()throws SQLException {
@@ -1783,7 +1788,8 @@ public class Game {
     public void cp3GuardAttack()throws SQLException {
         position = "cp3GuardAttack";
         Enemy enemy = new Enemy("PRINCESSGUARD");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"PRINCESSGUARD");
+
     }
 
     public void cp3GuardAfter()throws SQLException {
@@ -1855,9 +1861,9 @@ public class Game {
 
     public void cp3GoblinsFightScene()throws SQLException {
         position = "cp3GoblinsFightScene";
-        Enemy enemy =new Enemy("GOBLIN");
-        db.updateLocation(playerIDD, position);
-        createFightScreen(enemy);
+        Enemy enemy =new Enemy("GOBLIN");        
+        createFightScreen(enemy,"GOBLIN");
+
     }
 
     public void cp3Night()throws SQLException {
@@ -1895,9 +1901,9 @@ public class Game {
     public void cp3NightQuestFight()throws SQLException {
         position = "cp3NightQuestFight";
         Enemy enemy = new Enemy("SKELETON");
-        db.updateLocation(playerIDD, position);
+        
+        createFightScreen(enemy,"SKELETON");
 
-        createFightScreen(enemy);
     }
 
     public void cp3NightQuestAfterFight()throws SQLException {
@@ -1935,10 +1941,10 @@ public class Game {
 
     public void cp3ArriveAtCityFight()throws SQLException {
         position = "cp3ArriveAtCityFight";
-        Enemy enemy = new Enemy("ELITEKNIGHTS");
-        db.updateLocation(playerIDD, position);
+        Enemy enemy = new Enemy("EliteGuards");
+        
+        createFightScreen(enemy,"SKELLETGUARD");
 
-        createFightScreen(enemy);
     }
 
     public void cp3ArriveAtCityFightScene()throws SQLException {
@@ -2050,7 +2056,7 @@ public class Game {
         position = "cp4InsideCastleSkeletonsFightScene";
         
         Enemy enemy = new Enemy("SKELLETGUARD");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"SKELLETGUARD");
     }
 
     public void cp4AfterFight()throws SQLException {
@@ -2075,7 +2081,7 @@ public class Game {
         position = "cp4BossFight";
         Enemy enemy = new Enemy("KING");
         
-        createFightScreen(enemy);
+        createFightScreen(enemy,"KING");
     }
 
     public void cp4AfterBossFight()throws SQLException {

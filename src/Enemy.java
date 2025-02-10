@@ -75,7 +75,7 @@ public class Enemy {
                 attackTyp =1;
                 break;
             case "ELITEKNIGHTS": //2
-                health =65;
+                health =70;
                 defense =15;
                 magicDefense =15;
                 attack =25;
