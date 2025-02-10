@@ -413,12 +413,6 @@ public class Game {
         healtbartext.setText("Player Health: " + health);
     }
     public void setFightPictures(int playerID,String enemyType) throws SQLException {
-        DB db = new DB();
-        Object[] equip = db.getEquipped(playerID);
-        String weaponID = (String) equip[2];
-        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
-        String playerImmagePath = (String) weaponInfo[2];
-        //Funktion zum Player bild in fight scene einfügen
         String enemyPicturePath="";
         switch (enemyType) {
             case "DRUNKENKNIGHT":
@@ -452,8 +446,15 @@ public class Game {
                 enemyPicturePath = "Images/Characters/Gegner/Rahmen/KönigGegner.png";
                 break;
         }
-        changeImagePlayer(playerImmagePath);
         changeImageGegner(enemyPicturePath);
+
+        DB db = new DB();
+        Object[] equip = db.getEquipped(playerID);
+        String weaponID = (String) equip[3];
+        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
+        String playerImmagePath = (String) weaponInfo[2];
+        //Funktion zum Player bild in fight scene einfügen
+        changeImagePlayer(playerImmagePath);
     }
 
 
@@ -556,7 +557,7 @@ public class Game {
         itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
-        setFightPictures(playerIDD,enemyType);
+        //setFightPictures(playerIDD,enemyType);
 
         //Fixt vielleicht das Problem das die Bilder nicht richtig angeziegt werden
         frame.revalidate(); // Refresh the layout
@@ -3323,6 +3324,7 @@ public class Game {
                     else if(yourChoice.equals("c2")){
                         try {
                             db.updateLocation(playerIDD, "cp4Finish");
+
                             cp4AfterBossFightOption2();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
