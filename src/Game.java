@@ -3315,7 +3315,7 @@ public class Game {
                 case "cp4AfterBossFight2":
                     if(yourChoice.equals("c1")){
                         try {
-                            db.updateLocation(playerIDD,"cp4Finish");
+                            db.updateLocation(playerIDD, "cp4Finish");
                             cp4AfterBossFightOption1();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3323,7 +3323,8 @@ public class Game {
                     }
                     else if(yourChoice.equals("c2")){
                         try {
-                            db.updateLocation(playerIDD,"cp4Finish");
+                            db.updateLocation(playerIDD, "cp4Finish");
+
                             cp4AfterBossFightOption2();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
