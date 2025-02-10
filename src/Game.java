@@ -465,6 +465,7 @@ public class Game {
                 rk.fight(c,"normal",enemy);
                 System.out.println("Leben: " + enemy.getHealth());
                 System.out.println("Leben1: " +c.getHealth());
+                healthAktualisieren(c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
                     try {
@@ -497,6 +498,7 @@ public class Game {
                 rk.fight(c,"magic",enemy);
                 System.out.println("Leben: " + enemy.getHealth());
                 System.out.println("Leben1: " +c.getHealth());
+                healthAktualisieren(c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
                     try {
@@ -723,6 +725,7 @@ public class Game {
     }
 
     public void afterFight() throws SQLException {
+
         position = "afterFight";
         playerPosition = "Tavern Center";
         playerPositiontext2.setText(playerPosition);
