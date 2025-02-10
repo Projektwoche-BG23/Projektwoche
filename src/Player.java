@@ -1,7 +1,7 @@
 import java.sql.SQLException;
 
 public class Player {
-    private DB db;
+    public DB db;
     // Base Stats
     private final int baseAttack = 30;
     private final int baseMagicAttack = 40;

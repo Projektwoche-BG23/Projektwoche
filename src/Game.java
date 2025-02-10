@@ -29,7 +29,7 @@ public class Game {
 
 
     /**
-     * Dies sind die Schriftarten. Nach belieben ändern.
+     * Fonts for all text seen in game
      */
 
     public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
@@ -37,30 +37,30 @@ public class Game {
     public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
     /**
-     * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler.
+     * This gives the position of the story. Imoportant for ChoiceHandler.
      */
 
     String position;
 
     /**
-     * Die Variable waffe ist für die ausgewählte Waffe verantwortlich.
+     * Variable "waffe" is importnat for the current weapon equipped.
      */
 
     String waffe = "Fists";
 
     /**
-     * Die Variable health ist für die Leben die der Spieler hat verantwortlich,.
+     * Variable "health" is responsible for Players health.
      */
 
     int health = c.getHealth();
 
     /**
-     * Die Variable playerPosition ist für den Standort verantwortlich wo der Spiler sich gerade im Spiel befindet.
+     * Variable "playerPosition" is responsible for player's position in game .
      */
     String playerPosition = "Intro";
 
     /**
-     * @Game Titelbildschirm des Spieles
+     * @Game Titlescreen
      */
 
 
@@ -74,7 +74,7 @@ public class Game {
         }
 
         /**
-         * Dies ist der Hauptframe, auf dem alle anderen Frames hinzugefügt werden.
+         * Primary screen where all oher screens are displayed
          */
 
         frame = new JFrame();
@@ -86,7 +86,7 @@ public class Game {
         frame.setResizable(false);
 
         /**
-         * Dieses Panel ist für das anzeigen des Titels
+         * displays the title
          */
 
         titleNamePanel = new JPanel();
@@ -95,16 +95,16 @@ public class Game {
         frame.add(titleNamePanel);
 
         /**
-         * Dieses Label ist der Titel
+         * The title itself
          */
 
-        titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
+        titleNameLabel = new JLabel("Seidler's Legacy", SwingConstants.CENTER);
         titleNameLabel.setForeground(new Color(222, 158, 65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
 
         /**
-         * Dies Panel bietet Platz für die Buttons des Titelscreens
+         * This panel creates place for all buttons
          */
 
         startButtonPanel = new JPanel();
@@ -113,7 +113,7 @@ public class Game {
         startButtonPanel.setLayout(new GridLayout(4, 1));
 
         /**
-         * Dies ist für das Anzeigen des Start-Buttons us
+         * Displays the start button
          */
 
         startButton = new JButton("Start");
@@ -124,21 +124,33 @@ public class Game {
         startButton.setFocusPainted(false);
         startButtonPanel.add(startButton);
 
-        ladenButton = new JButton("Laden");
+        /**
+         * Displays the load button
+         */
+
+        ladenButton = new JButton("Load");
         ladenButton.setBackground(new Color(23, 32, 56));
         ladenButton.setForeground(new Color(222, 158, 65));
         ladenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(ladenButton);
 
-        einstellungenButton = new JButton("Einstellungen");
+        /**
+         * Displays the settings button
+         */
+
+        einstellungenButton = new JButton("Settings");
         einstellungenButton.setBackground(new Color(23, 32, 56));
         einstellungenButton.setForeground(new Color(222, 158, 65));
         einstellungenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(einstellungenButton);
 
-        verlassenButton = new JButton("Verlassen");
+        /**
+         * Displays the exit button
+         */
+
+        verlassenButton = new JButton("Exit");
         verlassenButton.setBackground(new Color(23, 32, 56));
         verlassenButton.setForeground(new Color(222, 158, 65));
         verlassenButton.setFont(startButtonFont);
@@ -146,7 +158,7 @@ public class Game {
         startButtonPanel.add(verlassenButton);
 
         /**
-         * Dies ist die Healtbar
+         * Dislpays the healthbar
          */
 
         healtbartextpanel = new JPanel();
@@ -171,8 +183,9 @@ public class Game {
         enemyHealtbartextpanel.add(enemyHealtbartext);
         enemyHealtbartext.setVisible(false);
 
+
         /**
-         * Dies ist die Waffenanzeige
+         * Displays the current weapon
          */
 
         waffentextpanel = new JPanel();
@@ -198,7 +211,7 @@ public class Game {
         waffentext2.setVisible(false);
 
         /**
-         * Dies ist die Position des Spielers
+         * Displays the current position of the player
          */
 
         playerPositionPanel = new JPanel();
