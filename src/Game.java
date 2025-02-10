@@ -21,11 +21,6 @@ public class Game {
 
     Sounds msc = new Sounds();
 
-    boolean ch1 = false;
-    boolean ch2 = false;
-    boolean ch3 = false;
-
-
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
     Inventory inf = new Inventory();
@@ -326,7 +321,7 @@ public class Game {
         mainTextPanel.add(mainTextArea);
 
         /**
-         * Dies Feld beinhaltet die Buttons
+         * All fields with buttons
          */
 
         choiceButtonPanel = new JPanel();
@@ -386,7 +381,7 @@ public class Game {
 
 
         /**
-         * Ruft die Orte aus der DB auf und setzt den Spieler auf diesen Standort zurück wenn er das Spiel verlässt und in das Spiler wieder reingeht.
+         * This swich-case read out of the database where the player was, and sets his last position in game
          */
 
         switch (playerPositionDB) {
@@ -1941,8 +1936,8 @@ public class Game {
 
     public void cp3ArriveAtCityFight()throws SQLException {
         position = "cp3ArriveAtCityFight";
-        Enemy enemy = new Enemy("EliteGuards");
-        createFightScreen(enemy,"SKELLETGUARD");
+        Enemy enemy = new Enemy("ELITEKNIGHTS");
+        createFightScreen(enemy,"ELITEKNIGHTS");
     }
 
     public void cp3ArriveAtCityFightScene()throws SQLException {
