@@ -16,7 +16,7 @@ public class Player {
     private final int baseMaxMana = 50;
 
     // Current Stats
-    private int health = 60;
+    private int health = 6000;
     private int attack = 30;
     private int magicAttack = 20;
     private int defense;
