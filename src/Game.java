@@ -468,6 +468,7 @@ public class Game {
                 healthAktualisieren(c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
+
                     try {
                         figthSceneManager();
                     } catch (SQLException ex) {

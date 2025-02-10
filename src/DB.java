@@ -18,6 +18,7 @@ public class DB {
     private ResultSet rs;
 
 
+
     // Constructor that connects to the database
     public DB() {
         try {

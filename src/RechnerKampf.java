@@ -18,6 +18,7 @@ public class RechnerKampf {
      * @param aktion Type of attack (Normal or Magic)
      * @param enemy  Enemy Object
      */
+
     public void fight(Player player, String aktion, Enemy enemy){
         if(aktion .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
             manaControll = 1;

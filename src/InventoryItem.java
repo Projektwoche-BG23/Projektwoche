@@ -14,6 +14,7 @@ public class InventoryItem
 
     public InventoryItem(String itemId, String itemName){
         _itemId = itemId;
+
         this.itemName = itemName;
     }
 }

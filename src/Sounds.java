@@ -15,6 +15,7 @@ public class Sounds {
 
     public Sounds() {
 
+
         try {
             File background1File = new File("Sounds/backgroundMusic1.wav");
             AudioInputStream background1Stream = AudioSystem.getAudioInputStream(background1File);

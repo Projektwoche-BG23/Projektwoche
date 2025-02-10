@@ -25,6 +25,7 @@ public class main {
         //System.out.println(db.getUser_ID("test", "123"));
         Player player = new Player();
 
+
         Inventory inv = new Inventory();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.openLoginWindow();
