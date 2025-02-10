@@ -556,7 +556,7 @@ public class Game {
         itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
-        setFightPictures(playerIDD,enemyType);
+        //setFightPictures(playerIDD,enemyType);
 
         //Fixt vielleicht das Problem das die Bilder nicht richtig angeziegt werden
         frame.revalidate(); // Refresh the layout
