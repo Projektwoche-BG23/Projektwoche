@@ -8,20 +8,20 @@ import java.util.Random;
  */
 public class RechnerKampf {
 
-    private int attackCooldown = 0;     // Counts the rounds after a special attack of an enemy is used
-    private int manaControll = 0;       // If the player does not have enough mana and wanst to use magic, the Round will not start
+    private int attackCooldown = 0;     //Counts the rounds after a special attack after it used on an enemy.
+    private int manaControll = 0;       //If the player does not have enough mana and wanst to use magic, the Round will not start.
     Random attackRNG = new Random();
     Inventory inventory = new Inventory();
     /**
-     * Calculates a complete round of Fighting
+     * Manages a complete round of Fighting
      * @param player Player Object
-     * @param aktion Type of attack (Normal oder Magic)
+     * @param aktion Type of attack (Normal or Magic)
      * @param enemy  Enemy Object
      */
     public void fight(Player player, String aktion, Enemy enemy){
         if(aktion .equalsIgnoreCase("Magic") && player.getMana()< player.getManaCost()){
             manaControll = 1;
-            System.err.println("Spieler hat nicht genuzg mana");
+            System.err.println("Player does not have enough mana!");
         }
         else {
             manaControll = 0;
@@ -66,10 +66,10 @@ public class RechnerKampf {
     }
 
     /**
-     * Wenn der spieler ein Item nutzt muss diese methode benutzt werden. Es wird eine runde ausgeführt
-     * @param itemID item das benutzt werden soll
-     * @param player character Objekt
-     * @param enemy enemy Objekt
+     * This methode runs when Player uses an item. It costs a round.
+     * @param itemID Item id that has been used.
+     * @param player Character bject
+     * @param enemy Enemy Object
      * @throws SQLException
      */
     public void itemConsumtion(String itemID, Player player, Enemy enemy) throws SQLException {
@@ -77,7 +77,7 @@ public class RechnerKampf {
         fight(player,"",enemy);
     }
     /**
-     * Determines what type of attack the Payer wants to use
+     * Determines what type of attack the player wants to use
      * @param player Player Object
      * @param attack Type of attack input from fight
      * @param enemy  Enemy Object
@@ -109,7 +109,7 @@ public class RechnerKampf {
     }
 
     /**
-     * Determines what attack the King will do. If the Special attack is on cooldown only normal attacks will work
+     * Determines what attack the King will do. If the Special attack is on cooldown only normal attacks will work.
      * @param player Player Object
      * @param enemy Enemy Object
      */
@@ -128,7 +128,7 @@ public class RechnerKampf {
     }
 
     /**
-     * When the fight is still ongoing this will say true
+     * While the fight is still ongoing this will say true
      * When one of the Opponents has 0 HP, The fight is over and this will say false
      * @param player Player Object
      * @param enemy Enemy Object
@@ -147,7 +147,7 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Player does to an Enemy with a Normal attack
      * and decreases the health of the enemy accordingly
-     * @param main Player Player
+     * @param main Player
      * @param typ enemy that is attacked
      */
 
@@ -171,7 +171,7 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Player does to an Enemy with a Magic attack
      * and decreases the health of the enemy accordingly
-     * @param main Player Player
+     * @param main Player
      * @param typ enemy that is attacked
      */
     private void playerMagicAttack(Player main, Enemy typ)
@@ -194,7 +194,7 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Enemy does to the Player with a Normal attack
      * and decreases the health of the Player accordingly
-     * @param main Player Player
+     * @param main Player
      * @param typ enemy that is attacking
      */
     private void enemyAttack(Player main, Enemy typ)
@@ -217,7 +217,7 @@ public class RechnerKampf {
     /**
      * Calculates the damage the Enemy does to the Player with a Magic attack
      * and decreases the health of the Player accordingly
-     * @param main Player Player
+     * @param main Player
      * @param typ enemy that is attacking
      */
     private void enemyMagicAttack(Player main, Enemy typ)
