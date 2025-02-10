@@ -279,12 +279,12 @@ public class Game {
     }
 
     /**
-     * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
+     * @createGameScreen Main-screen of the game between the fights
      */
 
     public void createGameScreen() throws SQLException {
         /**
-         * Löscht den Vorherigen Inhalt von der GUI also es macht es unsichbar
+         * All of the content from Title-screen will be removed and new is painted
          */
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
@@ -302,7 +302,7 @@ public class Game {
 
 
         /**
-         * Dies Panel beinhaltet das Dialog Feld
+         * Dialog block
          */
 
         mainTextPanel = new JPanel();
@@ -311,7 +311,7 @@ public class Game {
         frame.add(mainTextPanel);
 
         /**
-         * Hier wird der Dialog angezeigt
+         * Dialog content
          */
 
         mainTextArea = new JTextArea();
@@ -458,7 +458,7 @@ public class Game {
 
 
 
-    public void createFightScreen(Enemy enemy){
+    public void createFightScreen(Enemy enemy,String enemyType) throws SQLException {
         msc.playFight1();
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
