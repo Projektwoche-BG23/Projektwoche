@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * Class to access the Database. We will add more features in the future.
@@ -105,6 +106,12 @@ public class DB {
         stmt.setInt(1, user_ID);
         stmt.executeUpdate();
 
+        //Create new old_equipped_items line
+        sql = "INSERT INTO old_equipped_items (user_ID) VALUES (?)";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        stmt.executeUpdate();
+
         return true;
     }
 
@@ -174,10 +181,23 @@ public class DB {
 
     /**
      * Method to update the location of the player
+     * Saves the old equipped items
+     * @param user_ID: user_ID of the player
      * @param location: the new location to save.
      */
 
     public void updateLocation(int user_ID, String location) throws SQLException {
+        String[] equipped = getEquipped(user_ID);
+        sql = "UPDATE erst SET old_eqipped_item_1 = ?, old_eqipped_item_2 = ?, old_eqipped_item_3 = ?, old_eqipped_item_4 = ?, old_eqipped_item_5 = ? WHERE user_ID = ?";
+        stmt = con.prepareStatement(sql);
+        for (int i = 0; i < equipped.length; i++)
+        {
+            stmt.setInt(i+1, Integer.parseInt(equipped[i]));
+        }
+        stmt.setInt(6, user_ID);
+        stmt.executeUpdate();
+
+
         sql = "UPDATE gamefiles SET location = ? WHERE user_ID = ? ";
         stmt = con.prepareStatement(sql);
         stmt.setString(1, location);
@@ -271,7 +291,7 @@ public class DB {
 
     /**
      * Equip an item to a item slot
-     * @param user_ID: user_ID of teh palyer
+     * @param user_ID: user_ID of the palyer
      * @param equip_slot: which slot where to equip the item
      * @param item_ID: item_ID of the item that gets equipped
      */
@@ -285,4 +305,35 @@ public class DB {
         stmt.executeUpdate();
     }
 
+    /**
+     * Equips the items from the last save point
+     * @param user_ID: user_ID of the player
+     */
+    public void equipOldItems(int user_ID) throws SQLException
+    {
+        sql = "SELECT * FROM erst WHERE user_ID=?";
+        stmt = con.prepareStatement(sql);
+        stmt.setInt(1, user_ID);
+        rs = stmt.executeQuery();
+        String[] equippedOld = new String[6];
+        while (rs.next())
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                equippedOld[i] = rs.getString(i+1);
+            }
+        }
+
+        String[] oldEquipped = equippedOld;
+
+
+        sql = "UPDATE equipped_items SET slot_ID_1 = ?, slot_ID_2 = ?, slot_ID_3 = ?, slot_ID_4 = ?, slot_ID_5 = ? WHERE user_ID = ?";
+        stmt = con.prepareStatement(sql);
+        for (int i = 0; i < oldEquipped.length; i++)
+        {
+            stmt.setInt(i+1, Integer.parseInt(oldEquipped[i]));
+        }
+        stmt.setInt(6, user_ID);
+        stmt.executeUpdate();
+    }
 }
