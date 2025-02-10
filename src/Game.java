@@ -31,6 +31,7 @@ public class Game {
     Inventory inf = new Inventory();
 
 
+
     /**
      * Fonts for all text seen in game
      */
@@ -415,7 +416,7 @@ public class Game {
     public void setFightPictures(int playerID,String enemyType) throws SQLException {
         DB db = new DB();
         Object[] equip = db.getEquipped(playerID);
-        String weaponID = (String) equip[2];
+        String weaponID = (String) equip[3];
         Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
         String playerImmagePath = (String) weaponInfo[2];
         //Funktion zum Player bild in fight scene einfügen
@@ -452,6 +453,8 @@ public class Game {
                 enemyPicturePath = "Images/Characters/Gegner/Rahmen/KönigGegner.png";
                 break;
         }
+        System.out.println(playerImmagePath);
+        System.out.println(enemyPicturePath);
         changeImagePlayer(playerImmagePath);
         changeImageGegner(enemyPicturePath);
     }
