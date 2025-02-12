@@ -244,7 +244,7 @@ public class Game {
         imageLabel = new JLabel(imageIcon);
 
         ImagePanel = new JPanel();
-        ImagePanel.setBounds(300, 300, 988, 550);
+        ImagePanel.setBounds(450, 300, 988, 550);
         ImagePanel.add(imageLabel);
         frame.add(ImagePanel);
         ImagePanel.setVisible(false);
@@ -330,7 +330,7 @@ public class Game {
          */
 
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(50, 300, 200, 550);
+        choiceButtonPanel.setBounds(50, 300, 400, 550);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
         choiceButtonPanel.setLayout(new GridLayout(4, 1, 10, 10));
         frame.add(choiceButtonPanel);
@@ -1941,8 +1941,8 @@ public class Game {
 
     public void cp3ArriveAtCityFight()throws SQLException {
         position = "cp3ArriveAtCityFight";
-        Enemy enemy = new Enemy("EliteGuards");
-        createFightScreen(enemy,"SKELLETGUARD");
+        Enemy enemy = new Enemy("ELITEKNIGHTS");
+        createFightScreen(enemy,"ELITEKNIGHTS");
     }
 
     public void cp3ArriveAtCityFightScene()throws SQLException {
@@ -2492,8 +2492,13 @@ public class Game {
                 case "oldManAlley2":
                     if (yourChoice.equals("c1")) {
                         try {
-                            db.updateLocation(playerIDD, "cp1Finish"); // Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
-                            ch2followMap();
+                            try{
+                                db.updateLocation(playerIDD, "cp1Finish");// Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
+                            } catch (SQLException e) {
+                                ch2followMap();
+                                //throw new RuntimeException(e);
+                            }
+                            break;
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -2931,8 +2936,13 @@ public class Game {
                 case "cp2miniboss1TowerUnknown":
                     if(yourChoice.equals("c1")){
                         try {
-                            db.updateLocation(playerIDD, "cp2Finish"); // Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
-                            cp3TheEscape();
+                            try {
+                                db.updateLocation(playerIDD, "cp2Finish"); // Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
+                            } catch (SQLException e) {
+                                cp3TheEscape();
+                                //throw new RuntimeException(e);
+                            }
+                            break;
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -3217,8 +3227,14 @@ public class Game {
                 case "cp4towardsCastle":
                     if(yourChoice.equals("c1")){
                         try {
-                            db.updateLocation(playerIDD, "cp3Finish");
-                            cp4InsideCastle();
+                            try {
+                                db.updateLocation(playerIDD, "cp3Finish");
+                            }
+                            catch (SQLException e) {
+                                cp4InsideCastle();
+                                //throw new RuntimeException(e);
+                            }
+                            break;
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -3315,17 +3331,29 @@ public class Game {
                 case "cp4AfterBossFight2":
                     if(yourChoice.equals("c1")){
                         try {
-                            db.updateLocation(playerIDD, "cp4Finish");
-                            cp4AfterBossFightOption1();
+                            try {
+                                db.updateLocation(playerIDD, "cp4Finish");
+                            }
+                            catch (SQLException e) {
+                                cp4AfterBossFightOption1();
+                                //throw new RuntimeException(e);
+                            }
+                            break;
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
                     }
                     else if(yourChoice.equals("c2")){
                         try {
-                            db.updateLocation(playerIDD, "cp4Finish");
+                            try {
+                                db.updateLocation(playerIDD, "cp4Finish");
+                            }
+                            catch (SQLException e) {
+                                cp4AfterBossFightOption2();
+                                //throw new RuntimeException(e);
+                            }
 
-                            cp4AfterBossFightOption2();
+                            break;
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }

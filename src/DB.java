@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  */
 public class DB {
     // Login information of the Database
-    private static final String URL = "jdbc:mysql://192.168.102.30:3306/projektwoche-2025"; // IP may be changed later.
+    private static final String URL = "jdbc:mysql://192.168.102.38:3306/projektwoche-2025"; // IP may be changed later.
     private static final String USER = "everyone";
     private static final String PASSWORD = "";
 
@@ -107,7 +107,7 @@ public class DB {
         stmt.executeUpdate();
 
         //Create new old_equipped_items line
-        sql = "INSERT INTO old_equipped_items (user_ID) VALUES (?)";
+     //   sql = "INSERT INTO old_equipped_items (user_ID) VALUES (?)";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, user_ID);
         stmt.executeUpdate();
