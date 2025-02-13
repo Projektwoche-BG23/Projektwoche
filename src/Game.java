@@ -528,10 +528,8 @@ public class Game {
                 {
 
                     try {
-                        inv.startInventoryGUI();
-                       if(inv.inventoryGUIOpened =false){
+                            inv.startInventoryGUI();
                            figthSceneManager();
-                       }
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }

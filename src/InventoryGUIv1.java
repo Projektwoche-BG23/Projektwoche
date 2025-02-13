@@ -48,6 +48,10 @@ public class InventoryGUIv1 {
             }
         });
     }
+    public void setUserID(int userID){
+        this.userId = userID;
+    }
+
     public void startInventoryGUI() throws SQLException {
             inventoryGUIOpened = true;
             inventoryJFrame = new JFrame("Inventory GUI");
