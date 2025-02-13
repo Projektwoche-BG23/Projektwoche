@@ -41,7 +41,7 @@ public class Game {
     String position;
 
     /**
-     * Variable "waffe" is importnat for the current weapon equipped.
+     * Variable "waffe" is importnat for the current weapon equipped.n
      */
 
     String waffe = "Fists";
@@ -209,7 +209,7 @@ public class Game {
         waffentext2.setVisible(false);
 
         /**
-         * Displays the current position of the player
+         * Displays the current position of the player.
          */
 
         playerPositionPanel = new JPanel();
@@ -1982,9 +1982,9 @@ public class Game {
         position = "cp4towardsCastle";
         playerPosition = "Towards Castle";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*Inside the city, Princess Seidler and the Player continue\n" +
-                " towards the Castle located in the middle of Possehl.*\n" +
-                "*The player and Princess standing right before the castle´s door*");
+        mainTextArea.setText("*Inside the city, Princess Seidler and the player continue\n" +
+                " towards the castle located in the middle of Possehl.*\n" +
+                "*The player and princess standing right before the castle´s door*");
         choiceButton1.setText("Continue");
         choiceButton2.setText("");
         choiceButton3.setText("");
@@ -2001,7 +2001,7 @@ public class Game {
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Princess: How do you think we get in?\n" +
                 "Player: Just thru the main door. Princess, you will wait outside.\n" +
-                "Princess: Good luck Hero.");
+                "Princess: Good luck hero.");
         choiceButton1.setText("Continue");
         choiceButton2.setText("");
         choiceButton3.setText("");
@@ -2016,8 +2016,8 @@ public class Game {
         position = "cp4InsideCastleSkeletons";
         playerPosition = "Inside Castle Skeletons";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*The player enters the Castle undetected.*\n" +
-                "*Before the Player reaches the throne room 3 Skeleton Guards stand in his way*");
+        mainTextArea.setText("*The player enters the castle undetected.*\n" +
+                "*Before the player reaches the throne room 3 Skeleton guards stand in his way*");
         choiceButton1.setText("Continue");
         choiceButton2.setText("");
         choiceButton3.setText("");
@@ -2032,7 +2032,7 @@ public class Game {
         position = "cp4InsideCastleSkeletonsFight";
         playerPosition = "Inside Castle Fight";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Skeleton/Guards: Stop u have no right to enter this room! \n" +
+        mainTextArea.setText("Skeleton/Guards: Stop you have no right to enter this room! \n" +
                 "If you don’t stop we will attack you! \n" +
                 "Player: Try to stop me!");
         choiceButton1.setText("Fight");
@@ -2056,12 +2056,12 @@ public class Game {
         position = "cp4AfterFight";
         playerPosition = "Inside Castle";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("King Heuer: How did u come in?! Guards!! Guards!! \n" +
-                "Player: Give up the throne! u have no right to be a King. \n" +
+        mainTextArea.setText("King Heuer: How did you come in?! Guards!! Guards!! \n" +
+                "Player: Give up the throne! You have no right to be a King. \n" +
                 "I will free this land!\n" +
                 "King Heuer: YOU WILL NEVER WIN!? ");
         choiceButton1.setText("FIGHT KING HEUER");
-        choiceButton2.setText("Shit in Pants");
+        choiceButton2.setText("Shit in pants");
         choiceButton3.setText("");
         choiceButton4.setText("");
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
@@ -2080,7 +2080,7 @@ public class Game {
         position = "cp4AfterBossFight";
         playerPosition = "After Boss Fight";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("King Heuer : How did I… How did u… \n" +
+        mainTextArea.setText("King Heuer : How did I… How did you… \n" +
                 " HOW CAN I LOOSE!!!! \n" +
                 " …\n" +
                 "Player: Now the real one will rule the land.");
@@ -2113,10 +2113,10 @@ public class Game {
         playerPosition = "After Boss Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Princess: Guards throw him into a cell.\n" +
-                "Princess: Thank you adventurer u freed the land of Possehl. \n" +
+                "Princess: Thank you adventurer you freed the land of Possehl. \n" +
                 "I have one last question, Adventurer. \n" +
-                "Will u be the King on my side?");
-        choiceButton1.setText("Become the new King");
+                "Will you be the King on my side?");
+        choiceButton1.setText("Become the new king");
         choiceButton2.setText("Decline");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -2128,11 +2128,11 @@ public class Game {
 
     public void cp4AfterBossFightOption1()throws SQLException {
         position = "cp4AfterBossFightOption1";
-        playerPosition = "Become King";
+        playerPosition = "Become king";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player: I will stand at ur side as long as I live.\n" +
+        mainTextArea.setText("Player: I will stand at your side as long as I live.\n" +
                 "*The end* *You married the princess and became the king of Possehl \n" +
-                "u ruled over the Land for 58years*\n");
+                "You ruled over the land for 58 years*\n");
         choiceButton1.setVisible(false);
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
@@ -2148,7 +2148,7 @@ public class Game {
         playerPosition = "Decline";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The End*\n You decline and ride off proudly\n" +
-                "23 Minutes later: carriage 1 you 0\n The next princess? Has long saved " +
+                "23 minutes later: carriage 1 you 0\n The next princess? Has long saved " +
                 "herself.Your epic legend?\n Nerver existed. Wow. Great movie, champion. ");
         choiceButton1.setVisible(false);
         choiceButton2.setVisible(false);
@@ -2169,7 +2169,7 @@ public class Game {
         playerPosition = "";
         waffentext2.setText("");
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*Player Shits in Pants and Leaves the Castel!*");
+        mainTextArea.setText("*Player shits in pants and leaves the castle!*");
         choiceButton1.setVisible(false);;
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
