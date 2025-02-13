@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  */
 public class DB {
     // Login information of the Database
-    private static final String URL = "jdbc:mysql://192.168.102.30:3306/projektwoche-2025"; // IP may be changed later.
+    private static final String URL = "jdbc:mysql://192.168.102.39:3306/projektwoche-2025"; // IP may be changed later.
     private static final String USER = "everyone";
     private static final String PASSWORD = "";
 
@@ -107,7 +107,7 @@ public class DB {
         stmt.executeUpdate();
 
         //Create new old_equipped_items line
-        sql = "INSERT INTO old_equipped_items (user_ID) VALUES (?)";
+     //   sql = "INSERT INTO old_equipped_items (user_ID) VALUES (?)";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, user_ID);
         stmt.executeUpdate();
@@ -189,11 +189,14 @@ public class DB {
     public void updateLocation(int user_ID, String location) throws SQLException {
         String[] equipped = getEquipped(user_ID);
         sql = "UPDATE erst SET old_eqipped_item_1 = ?, old_eqipped_item_2 = ?, old_eqipped_item_3 = ?, old_eqipped_item_4 = ?, old_eqipped_item_5 = ? WHERE user_ID = ?";
+
+
         stmt = con.prepareStatement(sql);
         for (int i = 0; i < equipped.length; i++)
         {
             stmt.setInt(i+1, Integer.parseInt(equipped[i]));
         }
+
         stmt.setInt(6, user_ID);
         stmt.executeUpdate();
 
