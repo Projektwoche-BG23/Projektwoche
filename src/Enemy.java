@@ -16,6 +16,7 @@ public class Enemy {
     // 1 for Normal, 2 for Magic and 0 for both
 
     /**
+     *
      * Creates a new Enemy unit based on the given type.
      * @param enemyName Determines the enemy type. Available: SKELETON, GOBLIN, GHOST, KING
      */
@@ -75,7 +76,7 @@ public class Enemy {
                 attackTyp =1;
                 break;
             case "ELITEKNIGHTS": //2
-                health =65;
+                health =70;
                 defense =15;
                 magicDefense =15;
                 attack =25;

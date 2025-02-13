@@ -34,6 +34,7 @@ public class Inventory {
 
     }
 
+
     public void equipItem(String name) throws SQLException {
 
         int itemID = nameToID(name);

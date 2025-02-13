@@ -8,7 +8,7 @@ public class Game {
     public JFrame frame;
     JPanel potionScreenButtonPanel,enemyHealtbartextpanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, healtbartextpanel, waffentextpanel, playerPositionPanel, playerPositionPanel2, waffentextpanel2, imagePanelFightScreenGegner,imagePanelFightScreenPlayer;
     JLabel enemyHealtbartext, titleNameLabel, healtbartext, waffentext, playerPositiontext, playerPositiontext2, waffentext2, playerHealthTExt;
-    public JButton strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
+    public JButton exitButton,strengthPotionButton ,manaPotionButton, healthPotionButton, startButton, ladenButton, einstellungenButton, verlassenButton, attackButton, magicButton,itemButton;
     public JButton choiceButton1, choiceButton2, choiceButton3, choiceButton4;
     JPanel ImagePanel,fightScreenButtonPanel;
     public JLabel imageLabel, imageLabelGegner , imageLabelPlayer;
@@ -17,18 +17,17 @@ public class Game {
     public ChoiceHandler choiceHandler = new ChoiceHandler();
     int playerIDD;
     String playerPositionDB;
-
-    boolean ch1 = false;
-    boolean ch2 = false;
-    boolean ch3 = false;
-
+    public String ch3Help = "nothelp";
     InventoryGUIv1 inv = new InventoryGUIv1();
+
+    Sounds msc = new Sounds();
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
+    Inventory inf = new Inventory();
 
 
     /**
-     * Dies sind die Schriftarten. Nach belieben ändern.
+     * Fonts for all text seen in game
      */
 
     public Font titleFont = new Font("Times New Roman", Font.PLAIN, 170);
@@ -36,36 +35,36 @@ public class Game {
     public Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 50);
 
     /**
-     * Dies gibt die Position in der Story ein. Wichtig für ChoiceHandler.
+     * This gives the position of the story. Imoportant for ChoiceHandler.
      */
 
     String position;
 
     /**
-     * Die Variable waffe ist für die ausgewählte Waffe verantwortlich.
+     * Variable "waffe" is importnat for the current weapon equipped.n
      */
 
     String waffe = "Fists";
 
     /**
-     * Die Variable health ist für die Leben die der Spieler hat verantwortlich,.
+     * Variable "health" is responsible for Players health.
      */
 
     int health = c.getHealth();
 
     /**
-     * Die Variable playerPosition ist für den Standort verantwortlich wo der Spiler sich gerade im Spiel befindet.
+     * Variable "playerPosition" is responsible for player's position in game .
      */
     String playerPosition = "Intro";
 
     /**
-     * @Game Titelbildschirm des Spieles
+     * @Game Titlescreen
      */
 
 
     public Game(int playerID) {
         playerIDD = playerID;
-
+        inf.setUserID(playerID);
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
@@ -73,7 +72,7 @@ public class Game {
         }
 
         /**
-         * Dies ist der Hauptframe, auf dem alle anderen Frames hinzugefügt werden.
+         * Primary screen where all oher screens are displayed
          */
 
         frame = new JFrame();
@@ -85,7 +84,7 @@ public class Game {
         frame.setResizable(false);
 
         /**
-         * Dieses Panel ist für das anzeigen des Titels
+         * displays the title
          */
 
         titleNamePanel = new JPanel();
@@ -94,16 +93,16 @@ public class Game {
         frame.add(titleNamePanel);
 
         /**
-         * Dieses Label ist der Titel
+         * The title itself
          */
 
-        titleNameLabel = new JLabel("(Spiel Name)", SwingConstants.CENTER);
+        titleNameLabel = new JLabel("Seidler's Legacy", SwingConstants.CENTER);
         titleNameLabel.setForeground(new Color(222, 158, 65));
         titleNameLabel.setFont(titleFont);
         titleNamePanel.add(titleNameLabel);
 
         /**
-         * Dies Panel bietet Platz für die Buttons des Titelscreens
+         * This panel creates place for all buttons
          */
 
         startButtonPanel = new JPanel();
@@ -112,7 +111,7 @@ public class Game {
         startButtonPanel.setLayout(new GridLayout(4, 1));
 
         /**
-         * Dies ist für das Anzeigen des Start-Buttons us
+         * Displays the start button
          */
 
         startButton = new JButton("Start");
@@ -123,21 +122,33 @@ public class Game {
         startButton.setFocusPainted(false);
         startButtonPanel.add(startButton);
 
-        ladenButton = new JButton("Laden");
+        /**
+         * Displays the load button
+         */
+
+        ladenButton = new JButton("Load");
         ladenButton.setBackground(new Color(23, 32, 56));
         ladenButton.setForeground(new Color(222, 158, 65));
         ladenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(ladenButton);
 
-        einstellungenButton = new JButton("Einstellungen");
+        /**
+         * Displays the settings button
+         */
+
+        einstellungenButton = new JButton("Settings");
         einstellungenButton.setBackground(new Color(23, 32, 56));
         einstellungenButton.setForeground(new Color(222, 158, 65));
         einstellungenButton.setFont(startButtonFont);
         //Action Listener hinzufügen für Funktion
         startButtonPanel.add(einstellungenButton);
 
-        verlassenButton = new JButton("Verlassen");
+        /**
+         * Displays the exit button
+         */
+
+        verlassenButton = new JButton("Exit");
         verlassenButton.setBackground(new Color(23, 32, 56));
         verlassenButton.setForeground(new Color(222, 158, 65));
         verlassenButton.setFont(startButtonFont);
@@ -145,7 +156,7 @@ public class Game {
         startButtonPanel.add(verlassenButton);
 
         /**
-         * Dies ist die Healtbar
+         * Dislpays the healthbar
          */
 
         healtbartextpanel = new JPanel();
@@ -170,8 +181,9 @@ public class Game {
         enemyHealtbartextpanel.add(enemyHealtbartext);
         enemyHealtbartext.setVisible(false);
 
+
         /**
-         * Dies ist die Waffenanzeige
+         * Displays the current weapon
          */
 
         waffentextpanel = new JPanel();
@@ -197,7 +209,7 @@ public class Game {
         waffentext2.setVisible(false);
 
         /**
-         * Dies ist die Position des Spielers
+         * Displays the current position of the player.
          */
 
         playerPositionPanel = new JPanel();
@@ -222,52 +234,52 @@ public class Game {
         playerPositionPanel2.add(playerPositiontext2);
         playerPositiontext2.setVisible(false);
 
-        ImagePanel = new JPanel();
-        ImagePanel.setBounds(300, 300, 988, 550);
-
-        imagePanelFightScreenGegner = new JPanel();
-        imagePanelFightScreenGegner.setBounds(1160,300,340,590);
-
-        imagePanelFightScreenPlayer = new JPanel();
-        imagePanelFightScreenPlayer.setBounds(480,300,340,590);
 
         ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
         imageLabel = new JLabel(imageIcon);
+
+        ImagePanel = new JPanel();
+        ImagePanel.setBounds(300, 300, 988, 550);
         ImagePanel.add(imageLabel);
+        frame.add(ImagePanel);
+        ImagePanel.setVisible(false);
+
 
         ImageIcon imageIconGegner = new ImageIcon("Images/Characters/Gegner/Rahmen/3KopfHund 2.png");
         imageLabelGegner = new JLabel(imageIconGegner);
+
+        imagePanelFightScreenGegner = new JPanel();
+        imagePanelFightScreenGegner.setBounds(1160,300,340,590);
         imagePanelFightScreenGegner.add(imageLabelGegner);
-
-        ImageIcon imageIconPlayer = new ImageIcon("Images/Characters/Gegner/Rahmen/3KopfHund 2.png");
-        imageLabelPlayer = new JLabel(imageIconPlayer);
-        imagePanelFightScreenPlayer.add(imageLabelPlayer);
-
         frame.add(imagePanelFightScreenGegner);
-        frame.add(imagePanelFightScreenPlayer);
-        frame.add(imageLabelGegner);
-        frame.add(imageLabelPlayer);
+        imagePanelFightScreenGegner.setVisible(false);
+        imageLabelGegner.setVisible(true);
 
-        frame.add(ImagePanel);
+
+        ImageIcon imageIconPlayer = new ImageIcon("Images/Characters/Player/MitRahmen/PlayerRüstungRahmenOhneWaffe.png");
+        imageLabelPlayer = new JLabel(imageIconPlayer);
+
+        imagePanelFightScreenPlayer = new JPanel();
+        imagePanelFightScreenPlayer.setBounds(480,300,340,590);
+        imagePanelFightScreenPlayer.add(imageLabelPlayer);
+        imagePanelFightScreenPlayer.setVisible(false);
+        imageLabelPlayer.setVisible(false);
+        frame.add(imagePanelFightScreenPlayer);
+
+
         frame.add(titleNamePanel);
         frame.add(startButtonPanel);
         frame.setVisible(true);
 
-        ImagePanel.setVisible(false);
-        imageLabel.setVisible(false);
-        imagePanelFightScreenGegner.setVisible(false);
-        imageLabelGegner.setVisible(false);
-        imagePanelFightScreenPlayer.setVisible(false);
-        imageLabelPlayer.setVisible(false);
     }
 
     /**
-     * @createGameScreen Hauptbildschirm des Spieles, wo der Spieler seine Optionen auswählt
+     * @createGameScreen Main-screen of the game between the fights
      */
 
     public void createGameScreen() throws SQLException {
         /**
-         * Löscht den Vorherigen Inhalt von der GUI also es macht es unsichbar
+         * All of the content from Title-screen will be removed and new is painted
          */
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
@@ -285,7 +297,7 @@ public class Game {
 
 
         /**
-         * Dies Panel beinhaltet das Dialog Feld
+         * Dialog block
          */
 
         mainTextPanel = new JPanel();
@@ -294,7 +306,7 @@ public class Game {
         frame.add(mainTextPanel);
 
         /**
-         * Hier wird der Dialog angezeigt
+         * Dialog content
          */
 
         mainTextArea = new JTextArea();
@@ -309,7 +321,7 @@ public class Game {
         mainTextPanel.add(mainTextArea);
 
         /**
-         * Dies Feld beinhaltet die Buttons
+         * All fields with buttons
          */
 
         choiceButtonPanel = new JPanel();
@@ -325,6 +337,8 @@ public class Game {
         choiceButton1.setActionCommand("c1");
         choiceButton1.addActionListener(choiceHandler);
         choiceButton1.setFocusPainted(false);
+        choiceButton1.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton1.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton1);
 
         choiceButton2 = new JButton();
@@ -334,6 +348,8 @@ public class Game {
         choiceButton2.setActionCommand("c2");
         choiceButton2.addActionListener(choiceHandler);
         choiceButton2.setFocusPainted(false);
+        choiceButton2.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton2.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton2);
 
         choiceButton3 = new JButton();
@@ -343,6 +359,8 @@ public class Game {
         choiceButton3.setActionCommand("c3");
         choiceButton3.addActionListener(choiceHandler);
         choiceButton3.setFocusPainted(false);
+        choiceButton3.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton3.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton3);
 
         choiceButton4 = new JButton();
@@ -352,6 +370,8 @@ public class Game {
         choiceButton4.setActionCommand("c4");
         choiceButton4.addActionListener(choiceHandler);
         choiceButton4.setFocusPainted(false);
+        choiceButton4.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton4.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton4);
 
         ImagePanel.setVisible(true);
@@ -369,23 +389,26 @@ public class Game {
 
 
         /**
-         * Ruft die Orte aus der DB auf und setzt den Spieler auf diesen Standort zurück wenn er das Spiel verlässt und in das Spiler wieder reingeht.
+         * This swich-case read out of the database where the player was, and sets his last position in game
          */
 
         switch (playerPositionDB) {
-             case "cp1Finish":
-                 ch2followMap();
-                 break;
-             case "cp2Finish":
-                 cp3TheEscape();
-                 break;
-             case "cp3Finish":
-                 cp4towardsCastle();
-                 break;
-         default:
-             startGame();
-         break;
-         }
+            case "cp1Finish":
+                ch2followMap();
+                break;
+            case "cp2Finish":
+                cp3TheEscape();
+                break;
+            case "cp3Finish":
+                cp4towardsCastle();
+                break;
+            case "cp4Finish":
+                startGame();
+
+            default:
+                startGame();
+                break;
+        }
 
     }
 
@@ -393,13 +416,7 @@ public class Game {
         healtbartext.setText("Player Health: " + health);
     }
     public void setFightPictures(int playerID,String enemyType) throws SQLException {
-        DB db = null;
-        Object[] equip = db.getEquipped(playerID);
-        String weaponID = (String) equip[2];
-        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
-        String playerImmage = (String) weaponInfo[2];
-        //Funktion zum Player bild in fight scene einfügen
-        String enemyPicturePath;
+        String enemyPicturePath="";
         switch (enemyType) {
             case "DRUNKENKNIGHT":
                 enemyPicturePath = "Images/Characters/Gegner/Rahmen/BetrunkenerRitter.png";
@@ -432,10 +449,21 @@ public class Game {
                 enemyPicturePath = "Images/Characters/Gegner/Rahmen/KönigGegner.png";
                 break;
         }
+        changeImageGegner(enemyPicturePath);
+
+        DB db = new DB();
+        Object[] equip = db.getEquipped(playerID);
+        String weaponID = (String) equip[3];
+        Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
+        String playerImmagePath = (String) weaponInfo[2];
+        //Funktion zum Player bild in fight scene einfügen
+        changeImagePlayer(playerImmagePath);
     }
 
 
-    public void createFightScreen(Enemy enemy){
+
+    public void createFightScreen(Enemy enemy,String enemyType) throws SQLException {
+        msc.playFight1();
         ImagePanel.setVisible(false);
         imageLabel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -445,7 +473,6 @@ public class Game {
         imageLabelGegner.setVisible(true);
         imageLabelPlayer.setVisible(true);
         ImagePanel.setBounds(500,300,900,500);
-
 
         fightScreenButtonPanel = new JPanel();
         fightScreenButtonPanel.setBounds(100,300,380,550);
@@ -462,8 +489,10 @@ public class Game {
                 rk.fight(c,"normal",enemy);
                 System.out.println("Leben: " + enemy.getHealth());
                 System.out.println("Leben1: " +c.getHealth());
+                healthAktualisieren(c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
+
                     try {
                         figthSceneManager();
                     } catch (SQLException ex) {
@@ -471,15 +500,15 @@ public class Game {
                     }
 
                 }
-              if(c.getHealth() == 0)
-              {
-                fightScreenButtonPanel.setVisible(false);
-                  try {
-                      createGameScreen();
-                  } catch (SQLException ex) {
-                      throw new RuntimeException(ex);
-                  }
-              }
+                if(c.getHealth() == 0)
+                {
+                    fightScreenButtonPanel.setVisible(false);
+                    try {
+                        createGameScreen();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
         });
         attackButton.setBackground(new Color(23, 32, 56));
@@ -494,6 +523,7 @@ public class Game {
                 rk.fight(c,"magic",enemy);
                 System.out.println("Leben: " + enemy.getHealth());
                 System.out.println("Leben1: " +c.getHealth());
+                healthAktualisieren(c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
 
@@ -506,16 +536,16 @@ public class Game {
                         throw new RuntimeException(ex);
                     }
                 }
-              if(c.getHealth() == 0)
-              {
-                fightScreenButtonPanel.setVisible(false);
-                  try {
-                      createGameScreen();
-                  } catch (SQLException ex) {
-                      throw new RuntimeException(ex);
-                  }
-              }
-         }
+                if(c.getHealth() == 0)
+                {
+                    fightScreenButtonPanel.setVisible(false);
+                    try {
+                        createGameScreen();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
         });
         magicButton.setBackground(new Color(23, 32, 56));
         magicButton.setForeground(new Color(222, 158,65));
@@ -534,13 +564,14 @@ public class Game {
         itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
+        //setFightPictures(playerIDD,enemyType);
 
         //Fixt vielleicht das Problem das die Bilder nicht richtig angeziegt werden
         frame.revalidate(); // Refresh the layout
         frame.repaint();
     }
 
-     public void createPotionSceene()
+    public void createPotionSceene()
     {
         fightScreenButtonPanel.setVisible(false);
         mainTextPanel.setVisible(false);
@@ -550,26 +581,70 @@ public class Game {
         potionScreenButtonPanel = new JPanel();
         potionScreenButtonPanel.setBounds(100,300,380,550);
         potionScreenButtonPanel.setBackground(new Color(23, 32, 56));
-        potionScreenButtonPanel.setLayout(new GridLayout(3, 1));
+        potionScreenButtonPanel.setLayout(new GridLayout(3, 2));
         frame.add(potionScreenButtonPanel);
 
         healthPotionButton = new JButton();
+        healthPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.usePotion("26");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         healthPotionButton.setText("Health Potion");
         healthPotionButton.setBackground(new Color(23,32,56));
         healthPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(healthPotionButton);
 
         manaPotionButton = new JButton();
+        manaPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.usePotion("27");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         manaPotionButton.setText("Mana Potion");
         manaPotionButton.setBackground(new Color(23, 32, 56));
         manaPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(manaPotionButton);
 
         strengthPotionButton = new JButton();
+        strengthPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    inf.consum("29",c);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         strengthPotionButton.setText("Strength Potion");
         strengthPotionButton.setBackground(new Color(23, 32, 56));
         strengthPotionButton.setForeground(new Color(222, 158,65));
         potionScreenButtonPanel.add(strengthPotionButton);
+
+        exitButton = new JButton();
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fightScreenButtonPanel.setVisible(true);
+                potionScreenButtonPanel.setVisible(false);
+
+            }
+        });
+        exitButton.setText("Exit");
+        exitButton.setBackground(new Color(23, 32, 56));
+        exitButton.setForeground(new Color(222, 158,65));
+        potionScreenButtonPanel.add(exitButton);
 
     }
 
@@ -592,11 +667,6 @@ public class Game {
         imageLabelPlayer.repaint();    // Force UI redraw
     }
 
-
-
-
-
-
     /**
      * Cheapter 1
      */
@@ -604,6 +674,7 @@ public class Game {
     DB db = new DB();
 
     public void startGame() throws SQLException {
+        msc.playBackground1();
         position = "anfangsSzene1";
         playerPosition = "Intro";
         playerPositiontext2.setText(playerPosition);
@@ -653,7 +724,7 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void tavernSzene2() throws SQLException {
@@ -668,18 +739,19 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
 
     public void tavernFight() throws SQLException {
         position = "tavernFight";
         Enemy enemy = new Enemy("DRUNKENKNIGHT");
-        createFightScreen(enemy);
-        
+        createFightScreen(enemy,"DRUNKENKNIGHT");
+
     }
 
     public void afterFight() throws SQLException {
+
         position = "afterFight";
         playerPosition = "Tavern Center";
         playerPositiontext2.setText(playerPosition);
@@ -693,7 +765,7 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void prisonScene() throws SQLException {
@@ -712,7 +784,7 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void queenOffer() throws SQLException {
@@ -732,7 +804,7 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void queenYes() throws SQLException {
@@ -750,7 +822,7 @@ public class Game {
         changeImage("Images/Hintergründe/WaffenkammerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void queenNo() throws SQLException {
@@ -767,7 +839,7 @@ public class Game {
         changeImage("Images/Hintergründe/KerkerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void weaponChamber() throws SQLException {
@@ -783,7 +855,7 @@ public class Game {
         changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void tavernRevisited() throws SQLException {
@@ -799,7 +871,7 @@ public class Game {
         changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void goToMarketplace() throws SQLException {
@@ -816,7 +888,7 @@ public class Game {
         changeImage("Images/Hintergründe/TaverneHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void marketplace() throws SQLException {
@@ -833,7 +905,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void appleSeller()throws SQLException {
@@ -848,7 +920,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
 
     }
 
@@ -864,7 +936,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
     public void appleSellerABuy()throws SQLException {
         position = "appleSeller2";
@@ -879,7 +951,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void appleSellerABuy1()throws SQLException {
@@ -897,7 +969,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void appleSellerAReject()throws SQLException {
@@ -913,7 +985,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void appleSellerAReject1()throws SQLException {
@@ -928,7 +1000,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
 
@@ -946,7 +1018,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void blacksmith1()throws SQLException {
@@ -961,7 +1033,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void blacksmith2()throws SQLException {
@@ -978,7 +1050,7 @@ public class Game {
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void blacksmith3()throws SQLException {
@@ -994,7 +1066,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void oldManAlley()throws SQLException {
@@ -1012,7 +1084,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void oldManAlley1()throws SQLException {
@@ -1029,7 +1101,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void oldManAlley2()throws SQLException {
@@ -1045,7 +1117,7 @@ public class Game {
         changeImage("Images/Hintergründe/GasseVorStadttorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
 
@@ -1054,8 +1126,9 @@ public class Game {
      */
 
     public void ch2followMap()throws SQLException {
+        msc.playBackground2();
         position = "ch2followMap";
-        playerPosition = "CP2 - Intro";
+        playerPosition = "Intro";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player follows the instructions.* \n" +
                 "*This leads him out of the city, through dark forests, and to a ruined castle. Loud noises emanate from the\n" +
@@ -1067,12 +1140,12 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void ch2fwolves()throws SQLException {
         position = "ch2wolves1";
-        playerPosition = "CP2 - Ruined Castle";
+        playerPosition = "Ruined Castle";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Three hungry wolves circle the player* \n" +
                 "*Their teeth flashing in the moonlight.*");
@@ -1083,19 +1156,18 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void ch2fwolvescp2afterwolvesScene()  throws SQLException  {
         position = "ch2fwolvescp2afterwolvesScene";
-        Enemy enemy = new Enemy("Wolves");
-        createFightScreen(enemy);
-        
+        Enemy enemy = new Enemy("WOLVES");
+        createFightScreen(enemy,"WOLVES");
     }
 
     public void cp2afterwolvesFight()throws SQLException {
         position = "ch2afterwolvesFight";
-        playerPosition = "CP2 - Ruined Castle";
+        playerPosition = "Ruined Castle";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*After the fight, the Player looks at his map and discovers a secret entrance.*\n" +
                 "*A stone staircase that leads deep into the earth.* \n" +
@@ -1107,12 +1179,12 @@ public class Game {
         changeImage("Images/Hintergründe/WaldRuinenHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2afterwolvesFlee()throws SQLException {
         position = "ch2afterwolvesFlee";
-        playerPosition = "CP2 - Ruined Castle";
+        playerPosition = "Ruined Castle";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The Player fleed and looks at his map and discovers a secret entrance.*\n" +
                 "*A stone staircase that leads deep into the earth.* \n" +
@@ -1124,12 +1196,12 @@ public class Game {
         changeImage("Images/Hintergründe/WaldHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2dungeon1()throws SQLException {
         position = "cp2dungeon1";
-        playerPosition = "CP2 - Dungeon";
+        playerPosition = "Dungeon";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player reaches the bottom of the stairs, \n" +
                 "realizing that he is in an old, labyrinthine dungeon.*\n" +
@@ -1142,12 +1214,12 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2dungeonFight()throws SQLException {
         position = "cp2dungeonFight";
-        playerPosition = "CP2 - Dungeon Fight";
+        playerPosition = "Dungeon Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Two armored skeletons rise from the dust, their rusty swords drawn.*\n");
         choiceButton1.setText("Fight");
@@ -1157,18 +1229,18 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2dungeonFightScene()throws SQLException {
         position = "cp2dungeonFightScene";
         Enemy enemy = new Enemy("SKELLETGUARD");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"SKELLETGUARD");
     }
 
     public void cp2dungeonAfterFight()throws SQLException {
         position = "cp2dungeonAfterFight";
-        playerPosition = "CP2 - Dungeon Room";
+        playerPosition = "Dungeon Room";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*After the victory, the player searches the room and finds an old chest. \n" +
                 "Inside lies a magic spell you found a random spell)*\n" +
@@ -1180,12 +1252,12 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2dungeonlabyrinth()throws SQLException {
         position = "cp2dungeonlabyrinth";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player enters a long corridor that splits into many directions after a few meters.*\n");
         choiceButton1.setText("Continue");
@@ -1195,12 +1267,12 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2dungeonlabyrinthChoose()throws SQLException {
         position = "cp2dungeonlabyrinthChoose";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player sees Three paths*\n");
         choiceButton1.setText("Left path *hears subtle noises.*");
@@ -1210,12 +1282,12 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon3GängeHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2LeftPath()throws SQLException {
         position = "cp2dungeonlabyrinthleft";
-        playerPosition = "CP2 - Dungeon Labyrinth Left";
+        playerPosition = "Dungeon Labyrinth Left";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player encounters a trap*\n");
         choiceButton1.setText("*Continue*");
@@ -1225,12 +1297,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonLinkerPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2TheMiddlePath()throws SQLException {
         position = "cp2dungeonlabyrinthmiddle";
-        playerPosition = "CP2 - Dungeon Labyrinth Middle";
+        playerPosition = "Dungeon Labyrinth Middle";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player briefly loses his orientation(room switch?) \n" +
                 "but can discovers three secret weapons. *\n");
@@ -1241,12 +1313,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonWaffenkammerHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2TheRightHandPath()throws SQLException {
         position = "cp2dungeonlabyrinthright";
-        playerPosition = "CP2 - Dungeon Labyrinth Right";
+        playerPosition = "Dungeon Labyrinth Right";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Here lurks a powerful spirit warrior guarding a rare weapon*\n");
         choiceButton1.setText("Fight");
@@ -1256,19 +1328,18 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2TheRightHandPathScene()throws SQLException {
         position = "cp2dungeonlabyrinthrightScene";
         Enemy enemy = new Enemy("SHADOWGUARDS");
-        createFightScreen(enemy);
-        
+        createFightScreen(enemy,"SHADOWGUARDS");
     }
 
     public void cp2TheRightHandPathFight()throws SQLException {
         position = "cp2dungeonlabyrinthrighFightt";
-        playerPosition = "CP2 - Dungeon Labyrinth Right";
+        playerPosition = "Dungeon Labyrinth Right";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Spirit warrior guarding a rare weapon*\n");
         choiceButton1.setText("Continue");
@@ -1278,12 +1349,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRechterGangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncounterInLabyrinth()throws SQLException {
         position = "cp2EncounterInLabyrinth";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*As the player moves through the dark corridor*\n" +
                 "*He notices a figure in the shadows appears.*\n" +
@@ -1295,12 +1366,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncounterOldMen()throws SQLException {
         position = "cp2EncounterOldMen";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Old Man: Ah, a traveler... traveler... Are you looking for the Princess?\n");
         choiceButton1.setText("Yes, where is she?");
@@ -1310,12 +1381,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncounterOldMenYes()throws SQLException {
         position = "cp2EncounterOldMenYes";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Old Man: Stick to the right and use the first door u see\n");
         choiceButton1.setText("Thanks, the player moves on");
@@ -1325,12 +1396,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncounterOldMenNo()throws SQLException {
         position = "cp2EncounterOldMenNo";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The Player Continues*");
         choiceButton1.setText("...");
@@ -1340,12 +1411,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncounterAdventurer()throws SQLException {
         position = "cp2EncounterAdventurer";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Player found a captured adventurer in a cell\n" +
                 "Adventurer: Please, save me!\n" +
@@ -1358,12 +1429,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncounterAdventurerFree()throws SQLException {
         position = "cp2EncounterAdventurerFree";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player opens the cage and gives the adventurer a healing potion*" +
                 "*Adventurer gives Player 2+ Strength potions*\n");
@@ -1374,12 +1445,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncounterAdventurerMoveOn()throws SQLException {
         position = "cp2EncounterAdventurerFree1";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The Player moves on*\n" +
                 "*The player hears a quiet voice as he goes nearer a \n" +
@@ -1391,12 +1462,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonZelleHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2Encountershadowysilhouette()throws SQLException {
         position = "cp2Encountershadowysilhouette";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("A shadowy silhouette: I can speak without having a mouth.\n" +
                 " I can hear without having ears. \n" +
@@ -1409,12 +1480,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2Encountershadowysilhouetteture()throws SQLException {
         position = "cp2Encountershadowysilhouettetrue";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Shadowy Silhouette: You are right its the echo you can now go\n");
         choiceButton1.setText("Move on");
@@ -1424,12 +1495,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2Encountershadowysilhouetteturefalse()throws SQLException {
         position = "cp2Encountershadowysilhouettefalse";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("shadowy silhouette: Wrong Awnser! ");
         choiceButton1.setText("Try again");
@@ -1439,12 +1510,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMittlererPfadHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2EncountershadowysilhouetteMoveOn()throws SQLException {
         position = "cp2EncountershadowysilhouetteMoveOn";
-        playerPosition = "CP2 - Dungeon Labyrinth";
+        playerPosition = "Dungeon Labyrinth";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*After the Player discovers a door decorated with runes.*\n" +
                 "*The player uses the key he has found and enters*\n" +
@@ -1457,12 +1528,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonRunentürHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2miniboss()throws SQLException {
         position = "cp2miniboss1";
-        playerPosition = "CP2 - Huge Chamber";
+        playerPosition = "Huge Chamber";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*In burning lava stands a creature*\n" +
                 "Its... the Dark Titan, Azroth!.");
@@ -1473,12 +1544,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2miniboss1()throws SQLException {
         position = "cp2miniboss2";
-        playerPosition = "CP2 - Huge Chamber";
+        playerPosition = "Huge Chamber";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Azroth: Mortal, you have desecrated my halls.\n" +
                 "Your life ends here!");
@@ -1489,18 +1560,18 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMinibossKampfraumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2miniboss1fight()throws SQLException {
         position = "cp2miniboss2fight";
-        Enemy enemy = new Enemy("DARKTITANAZROTH");
-        createFightScreen(enemy);
+        Enemy enemy = new Enemy("AZROTH");
+        createFightScreen(enemy,"AZROTH");
     }
 
     public void cp2miniboss1Win()throws SQLException {
         position = "cp2miniboss2fightWin";
-        playerPosition = "CP2 - Huge Chamber Won";
+        playerPosition = "Huge Chamber Won";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Azroth falls to the ground.*\n" +
                 "*The path to the Princess is now free*");
@@ -1511,12 +1582,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2miniboss1Rescue()throws SQLException {
         position = "cp2miniboss1Rescue";
-        playerPosition = "CP2 - Tower";
+        playerPosition = "Tower";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player moves up the stairs to the tower.* \n" +
                 "Right before the princess’s door, two Guardians appear.*\n" +
@@ -1528,19 +1599,18 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppezumTurmHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2miniboss1TowerFightScene()throws SQLException {
         position = "cp2miniboss1RescueWonScene";
         Enemy enemy = new Enemy("ELITEKNIGHTS");
-        createFightScreen(enemy);
-        
+        createFightScreen(enemy,"ELITEKNIGHTS");
     }
 
     public void cp2miniboss1TowerFight()throws SQLException {
         position = "cp2miniboss1RescueWon";
-        playerPosition = "CP2 - Tower";
+        playerPosition = "Tower";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*You defeated the Elite Knights* \n" +
                 "*You got a Royal Key*");
@@ -1551,12 +1621,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp2miniboss1TowerFightWon()throws SQLException {
         position = "cp2miniboss1RescueWon1";
-        playerPosition = "CP2 - Tower Princess";
+        playerPosition = "Tower Princess";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player uses the key to open the Princess's room.*\n" +
                 "Princess: “Finally! You've come... We must leave quickly before Cerberus\n" +
@@ -1569,11 +1639,11 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
     public void cp2miniboss1TowerUnknown()throws SQLException {
         position = "cp2miniboss1TowerUnknown";
-        playerPosition = "CP2 - Tower Princess";
+        playerPosition = "Tower Princess";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Unknown: Grrr!!!\n" +
                 "*A huge 3-headed dog appears behind the player and attacks him.*");
@@ -1584,7 +1654,7 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     /**
@@ -1592,8 +1662,9 @@ public class Game {
      */
 
     public void cp3TheEscape()throws SQLException {
+        msc.playBackground3();
         position = "cp3TheEscape";
-        playerPosition = "CP3 - Tower Princess";
+        playerPosition = "Tower Princess";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("The three-headed dog bares its teeth, \n" +
                 "its deep growl echoes through the tower.\n" +
@@ -1605,18 +1676,18 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3TheEscapeOption1()throws SQLException {
         position = "cp3TheEscapeOption1";
-        Enemy enemy = new Enemy("THREEHEADDOG");
-        createFightScreen(enemy);
+        Enemy enemy = new Enemy("CERBERUS");
+        createFightScreen(enemy,"CERBERUS");
     }
 
     public void cp3TheEscapeOption2()throws SQLException {
         position = "cp3TheEscapeOption2";
-        playerPosition = "CP3 - Tower Princess Distraction";
+        playerPosition = "Tower Princess Distraction";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player uses a stone that has fallen out of a crumbling wall*\n" +
                 "*and throws it at a chandelier behind the dog to distract him.*\n" +
@@ -1628,12 +1699,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3TheEscapeFightWon()throws SQLException {
         position = "cp3TheEscapeFightWon";
-        playerPosition = "CP3 - Tower Princess Fight";
+        playerPosition = "Tower Princess Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Player has won the Fight against the three-headed dog*");
         choiceButton1.setText("Continue");
@@ -1643,12 +1714,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3TheEscapeFightDistraction()throws SQLException {
         position = "cp3TheEscapeFightDistraction";
-        playerPosition = "CP3 - Tower Princess Distraction";
+        playerPosition = "Tower Princess Distraction";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Player has successful distracted the the three-headed dog*");
         choiceButton1.setText("Continue");
@@ -1658,12 +1729,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3TheEscapeAfterFight()throws SQLException {
         position = "cp3TheEscapeAfterFight";
-        playerPosition = "CP3 - Tower Princess Fight";
+        playerPosition = "Tower Princess Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*After the fight, the player moves through \n" +
                 "the dark corridors of the dungeon with the princess following.*\n" +
@@ -1675,12 +1746,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonPrinzessinenTurmRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3TheEscapeAfterDistraction()throws SQLException {
         position = "cp3TheEscapeAfterDistraction";
-        playerPosition = "CP3 - Tower Princess Fight";
+        playerPosition = "Tower Princess Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player moves through the dark corridors of the dungeon\n" +
                 "with the princess following.\n" +
@@ -1692,12 +1763,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonMassiveTürvorPrizessinRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3Guard()throws SQLException {
         position = "cp3Guard";
-        playerPosition = "CP3 - Dark Corridors";
+        playerPosition = "Dark Corridors";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Guard: Stop right there!");
         choiceButton1.setText("Ignore");
@@ -1707,12 +1778,12 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonTreppeRichtungTurmHintergrundverbarikadiert.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3GuardIgnore()throws SQLException {
         position = "cp3GuardIgnore";
-        playerPosition = "CP3 - Dark Corridors";
+        playerPosition = "Dark Corridors";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Player Ignores the Guard and Flees with the princess*");
         choiceButton1.setText("Continue");
@@ -1722,18 +1793,18 @@ public class Game {
         changeImage("Images/Hintergründe/DungeonHintergrundDunkleKorridorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3GuardAttack()throws SQLException {
         position = "cp3GuardAttack";
-        Enemy enemy = new Enemy("ELITEGUARDS");
-        createFightScreen(enemy);
+        Enemy enemy = new Enemy("PRINCESSGUARD");
+        createFightScreen(enemy,"PRINCESSGUARD");
     }
 
     public void cp3GuardAfter()throws SQLException {
         position = "cp3GuardAfter";
-        playerPosition = "CP3 - Surface";
+        playerPosition = "Surface";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The escape continues as the player leads the \n" +
                 "princess through the labyrinthine corridors back to the surface. *");
@@ -1744,12 +1815,12 @@ public class Game {
         changeImage("Images/Hintergründe/Dungeon1Hintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3surface()throws SQLException {
         position = "cp3surface";
-        playerPosition = "CP3 - Surface";
+        playerPosition = "Surface";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Princess: We are out!\n" +
                 " I am finally free! \n" +
@@ -1762,12 +1833,12 @@ public class Game {
         changeImage("Images/Hintergründe/WaldRuinenNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3Goblins()throws SQLException {
         position = "cp3Goblins";
-        playerPosition = "CP3 - Surface";
+        playerPosition = "Surface";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*As The Player and Princess wanted to head in the Castles direction.*\n" +
                 "*they get interrupted by a group of goblins.*");
@@ -1778,12 +1849,12 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3GoblinsFight()throws SQLException {
         position = "cp3GoblinsFight";
-        playerPosition = "CP3 - Surface Fight";
+        playerPosition = "Surface Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Three goblins block the dirt road.* \n" +
                 "*The player has no choice but to defend the princess* \n" +
@@ -1795,19 +1866,18 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3GoblinsFightScene()throws SQLException {
         position = "cp3GoblinsFightScene";
-        Enemy enemy =new Enemy("Goblins");
-        
-        createFightScreen(enemy);
+        Enemy enemy =new Enemy("GOBLIN");
+        createFightScreen(enemy,"GOBLIN");
     }
 
     public void cp3Night()throws SQLException {
         position = "cp3Night";
-        playerPosition = "CP3 - Surface Night";
+        playerPosition = "Surface Night";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player and Princess continue their journey.\n" +
                 "Night arises.*'");
@@ -1818,12 +1888,12 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3NightQuest()throws SQLException {
         position = "cp3NightQuest";
-        playerPosition = "CP3 - Surface Night Quest";
+        playerPosition = "Surface Night Quest";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Suddenly they hear a loud cry for help from the road ahead.*\n" +
                 "*A trader is being attacked by Skeletons.*");
@@ -1834,19 +1904,18 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3NightQuestFight()throws SQLException {
         position = "cp3NightQuestFight";
-        Enemy enemy = new Enemy("Bandit");
-        
-        createFightScreen(enemy);
+        Enemy enemy = new Enemy("SKELETON");
+        createFightScreen(enemy,"SKELETON");
     }
 
     public void cp3NightQuestAfterFight()throws SQLException {
         position = "cp3NightQuestAfterFight";
-        playerPosition = "CP3 - Surface Night Quest";
+        playerPosition = "Surface Night Quest";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player defends the trader by attacking the monsters*\n" +
                 "*Trader gives him information about a secret tunnel into the city.*");
@@ -1857,12 +1926,12 @@ public class Game {
         changeImage("Images/Hintergründe/WaldNachtHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3ArriveAtCity()throws SQLException {
         position = "cp3ArriveAtCity";
-        playerPosition = "CP3 - City";
+        playerPosition = "City";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Arrival at the city*\n" +
                 "*The city lies before them, but the city gates are heavily\n" +
@@ -1874,19 +1943,18 @@ public class Game {
         changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp3ArriveAtCityFight()throws SQLException {
         position = "cp3ArriveAtCityFight";
-        Enemy enemy = new Enemy("EliteGuards");
-        
-        createFightScreen(enemy);
+        Enemy enemy = new Enemy("ELITEKNIGHTS");
+        createFightScreen(enemy,"ELITEKNIGHTS");
     }
 
     public void cp3ArriveAtCityFightScene()throws SQLException {
         position = "cp3ArriveAtCityFightScene";
-        playerPosition = "CP3 - City Fight ";
+        playerPosition = "City Fight ";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player must defeat the guards to get through the gate. *");
         choiceButton1.setText("Fight");
@@ -1896,13 +1964,13 @@ public class Game {
         changeImage("Images/Hintergründe/WaldvorStadttorHintergrundNacht.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
 
     }
 
     public void cp3ArriveAtCityOtherRoute()throws SQLException {
         position = "cp3ArriveAtCityOtherRoute";
-        playerPosition = "CP3 - City Tunnel ";
+        playerPosition = "City Tunnel ";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*The player uses the information from the trader about \n" +
                 "the tunnel that leads into the city*");
@@ -1913,7 +1981,7 @@ public class Game {
         changeImage("Images/Hintergründe/GeheimgangHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     /**
@@ -1922,12 +1990,13 @@ public class Game {
 
 
     public void cp4towardsCastle()throws SQLException {
+        msc.playBackground4();
         position = "cp4towardsCastle";
-        playerPosition = "CP4 - Towards Castle";
+        playerPosition = "Towards Castle";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*Inside the city, Princess Seidler and the Player continue\n" +
-                " towards the Castle located in the middle of Possehl.*\n" +
-                "*The player and Princess standing right before the castle´s door*");
+        mainTextArea.setText("*Inside the city, Princess Seidler and the player continue\n" +
+                " towards the castle located in the middle of Possehl.*\n" +
+                "*The player and princess standing right before the castle´s door*");
         choiceButton1.setText("Continue");
         choiceButton2.setText("");
         choiceButton3.setText("");
@@ -1935,16 +2004,16 @@ public class Game {
         changeImage("Images/Hintergründe/SchlossvonStraßeausHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4InsideCastle()throws SQLException {
         position = "cp4InsideCastle";
-        playerPosition = "CP4 - Inside Castle";
+        playerPosition = "Inside Castle";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Princess: How do you think we get in?\n" +
                 "Player: Just thru the main door. Princess, you will wait outside.\n" +
-                "Princess: Good luck Hero.");
+                "Princess: Good luck hero.");
         choiceButton1.setText("Continue");
         choiceButton2.setText("");
         choiceButton3.setText("");
@@ -1952,15 +2021,15 @@ public class Game {
         changeImage("Images/Hintergründe/SchlosstorHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4InsideCastleSkeletons()throws SQLException {
         position = "cp4InsideCastleSkeletons";
-        playerPosition = "CP4 - Inside Castle Skeletons";
+        playerPosition = "Inside Castle Skeletons";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*The player enters the Castle undetected.*\n" +
-                "*Before the Player reaches the throne room 3 Skeleton Guards stand in his way*");
+        mainTextArea.setText("*The player enters the castle undetected.*\n" +
+                "*Before the player reaches the throne room 3 Skeleton guards stand in his way*");
         choiceButton1.setText("Continue");
         choiceButton2.setText("");
         choiceButton3.setText("");
@@ -1968,14 +2037,14 @@ public class Game {
         changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4InsideCastleSkeletonsFight()throws SQLException {
         position = "cp4InsideCastleSkeletonsFight";
-        playerPosition = "CP4 - Inside Castle Fight";
+        playerPosition = "Inside Castle Fight";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Skeleton/Guards: Stop u have no right to enter this room! \n" +
+        mainTextArea.setText("Skeleton/Guards: Stop you have no right to enter this room! \n" +
                 "If you don’t stop we will attack you! \n" +
                 "Player: Try to stop me!");
         choiceButton1.setText("Fight");
@@ -1985,46 +2054,45 @@ public class Game {
         changeImage("Images/Hintergründe/RaumVorTrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4InsideCastleSkeletonsFightScene()throws SQLException {
         position = "cp4InsideCastleSkeletonsFightScene";
-        
+
         Enemy enemy = new Enemy("SKELLETGUARD");
-        createFightScreen(enemy);
+        createFightScreen(enemy,"SKELLETGUARD");
     }
 
     public void cp4AfterFight()throws SQLException {
         position = "cp4AfterFight";
-        playerPosition = "CP4 - Inside Castle";
+        playerPosition = "Inside Castle";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("King Heuer: How did u come in?! Guards!! Guards!! \n" +
-                "Player: Give up the throne! u have no right to be a King. \n" +
+        mainTextArea.setText("King Heuer: How did you come in?! Guards!! Guards!! \n" +
+                "Player: Give up the throne! You have no right to be a King. \n" +
                 "I will free this land!\n" +
                 "King Heuer: YOU WILL NEVER WIN!? ");
         choiceButton1.setText("FIGHT KING HEUER");
-        choiceButton2.setText("Shit in Pants");
+        choiceButton2.setText("Shit in pants");
         choiceButton3.setText("");
         choiceButton4.setText("");
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4BossFight()throws SQLException {
         position = "cp4BossFight";
         Enemy enemy = new Enemy("KING");
-        
-        createFightScreen(enemy);
+        createFightScreen(enemy,"KING");
     }
 
     public void cp4AfterBossFight()throws SQLException {
         position = "cp4AfterBossFight";
-        playerPosition = "CP4 - After Boss Fight";
+        playerPosition = "After Boss Fight";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("King Heuer : How did I… How did u… \n" +
+        mainTextArea.setText("King Heuer : How did I… How did you… \n" +
                 " HOW CAN I LOOSE!!!! \n" +
                 " …\n" +
                 "Player: Now the real one will rule the land.");
@@ -2035,12 +2103,12 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4AfterBossFight1()throws SQLException {
         position = "cp4AfterBossFight1";
-        playerPosition = "CP4 - After Boss Fight";
+        playerPosition = "After Boss Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Princess gets into the throne room*");
         choiceButton1.setText("Continue");
@@ -2050,58 +2118,58 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
     public void cp4AfterBossFight2() throws SQLException{
         position = "cp4AfterBossFight2";
-        playerPosition = "CP4 - After Boss Fight";
+        playerPosition = "After Boss Fight";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Princess: Guards throw him into a cell.\n" +
-                "Princess: Thank you adventurer u freed the land of Possehl. \n" +
+                "Princess: Thank you adventurer you freed the land of Possehl. \n" +
                 "I have one last question, Adventurer. \n" +
-                "Will u be the King on my side?");
-        choiceButton1.setText("Become the new King");
+                "Will you be the King on my side?");
+        choiceButton1.setText("Become the new king");
         choiceButton2.setText("Decline");
         choiceButton3.setText("");
         choiceButton4.setText("");
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4AfterBossFightOption1()throws SQLException {
         position = "cp4AfterBossFightOption1";
-        playerPosition = "CP4 - Become King";
+        playerPosition = "Become king";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player: I will stand at ur side as long as I live.\n" +
+        mainTextArea.setText("Player: I will stand at your side as long as I live.\n" +
                 "*The end* *You married the princess and became the king of Possehl \n" +
-                "u ruled over the Land for 58years*\n");
+                "You ruled over the land for 58 years*\n");
         choiceButton1.setVisible(false);
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
-        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        changeImage("Images/Hintergründe/PlayerKönigGewordenHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     public void cp4AfterBossFightOption2()throws SQLException {
         position = "cp4AfterBossFightOption2";
-        playerPosition = "CP4 - Decline";
+        playerPosition = "Decline";
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("Player: I can´t there are more kingdoms to be rescued.\n" +
-                "*The end* *you rescued two more princesses and got more adventures\n" +
-                "than u thought would ever get. After 58years you get into retirement*");
+        mainTextArea.setText("*The End*\n You decline and ride off proudly\n" +
+                "23 minutes later: carriage 1 you 0\n The next princess? Has long saved " +
+                "herself.Your epic legend?\n Nerver existed. Wow. Great movie, champion. ");
         choiceButton1.setVisible(false);
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
         choiceButton4.setVisible(false);
-        changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
+        changeImage("Images/Hintergründe/PlayerTotDurchKutscheHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
 
@@ -2113,7 +2181,7 @@ public class Game {
         playerPosition = "";
         waffentext2.setText("");
         playerPositiontext2.setText(playerPosition);
-        mainTextArea.setText("*Player Shits in Pants and Leaves the Castel!*");
+        mainTextArea.setText("*Player shits in pants and leaves the castle!*");
         choiceButton1.setVisible(false);;
         choiceButton2.setVisible(false);
         choiceButton3.setVisible(false);
@@ -2121,7 +2189,7 @@ public class Game {
         changeImage("Images/Hintergründe/TrohnRaumHintergrund.png");
         ImagePanel.setVisible(true);
         imageLabel.setVisible(true);
-        
+
     }
 
     private class ChoiceHandler implements ActionListener {
@@ -2138,7 +2206,6 @@ public class Game {
                         }
                     }
                     break;
-
                 case "anfangsSzene2":
                     if (yourChoice.equals("c1")) {
                         try {
@@ -3054,9 +3121,12 @@ public class Game {
                     }
                     break;
 
+
+
                 case "cp3NightQuest":
                     if(yourChoice.equals("c1")){
                         try {
+                            ch3Help = "help";
                             cp3NightQuestFight(); //Hier muss die Methode für den Kampf gegen die Skelete eingefügt werden
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3092,18 +3162,30 @@ public class Game {
                     break;
 
                 case "cp3ArriveAtCity":
-                    if(yourChoice.equals("c1")){
-                        try {
-                            cp3ArriveAtCityFight();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
+                    if(ch3Help.equals("nothelp")) {
+                        choiceButton2.setVisible(false);
+                        choiceButton3.setVisible(false);
+                        choiceButton4.setVisible(false);
+                        if(yourChoice.equals("c1")){
+                            try {
+                                cp3ArriveAtCityFight();
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
-                    }
-                    else if(yourChoice.equals("c2")){
-                        try {
-                            cp3ArriveAtCityOtherRoute();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
+                    } else if (ch3Help.equals("help")) {
+                        if(yourChoice.equals("c1")){
+                            try {
+                                cp3ArriveAtCityFight();
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else if (yourChoice.equals("c2")) {
+                            try {
+                                cp3ArriveAtCityOtherRoute();
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                     break;
@@ -3131,8 +3213,7 @@ public class Game {
 
                 case "cp3ArriveAtCityOtherRoute":
                     if(yourChoice.equals("c1")){
-                        try {
-                            db.updateLocation(playerIDD, "cp3Finish"); // Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
+                        try {// Updatet die Datenbank um den Speicherort in die DB zu speichern und das Spiel an diesen Ort wieder laden zukönnen
                             cp4towardsCastle();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3143,6 +3224,7 @@ public class Game {
                 case "cp4towardsCastle":
                     if(yourChoice.equals("c1")){
                         try {
+                            db.updateLocation(playerIDD, "cp3Finish");
                             cp4InsideCastle();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3240,6 +3322,7 @@ public class Game {
                 case "cp4AfterBossFight2":
                     if(yourChoice.equals("c1")){
                         try {
+                            db.updateLocation(playerIDD, "cp4Finish");
                             cp4AfterBossFightOption1();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3247,6 +3330,8 @@ public class Game {
                     }
                     else if(yourChoice.equals("c2")){
                         try {
+                            db.updateLocation(playerIDD, "cp4Finish");
+
                             cp4AfterBossFightOption2();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
@@ -3305,11 +3390,15 @@ public class Game {
                 createGameScreen();
                 cp3NightQuestAfterFight();
                 break;
+            case "cp3ArriveAtCityFight":
+                createGameScreen();
+                cp4towardsCastle();
             case "cp4InsideCastleSkeletonsFightScene":
                 createGameScreen();
                 cp4AfterFight();
                 break;
             case "cp4BossFight":
+                msc.playBossFight();
                 createGameScreen();
                 cp4AfterBossFight();
                 break;
