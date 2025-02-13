@@ -188,7 +188,7 @@ public class DB {
 
     public void updateLocation(int user_ID, String location) throws SQLException {
         String[] equipped = getEquipped(user_ID);
-        sql = "UPDATE erst SET old_eqipped_item_1 = ?, old_eqipped_item_2 = ?, old_eqipped_item_3 = ?, old_eqipped_item_4 = ?, old_eqipped_item_5 = ? WHERE user_ID = ?";
+        sql = "UPDATE old_equipped_items SET old_eqipped_item_1 = ?, old_eqipped_item_2 = ?, old_eqipped_item_3 = ?, old_eqipped_item_4 = ?, old_eqipped_item_5 = ? WHERE user_ID = ?";
 
 
         stmt = con.prepareStatement(sql);
@@ -314,7 +314,7 @@ public class DB {
      */
     public void equipOldItems(int user_ID) throws SQLException
     {
-        sql = "SELECT * FROM erst WHERE user_ID=?";
+        sql = "SELECT * FROM old_equipped_items WHERE user_ID=?";
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, user_ID);
         rs = stmt.executeQuery();
