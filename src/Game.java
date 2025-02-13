@@ -239,7 +239,7 @@ public class Game {
         imageLabel = new JLabel(imageIcon);
 
         ImagePanel = new JPanel();
-        ImagePanel.setBounds(300, 300, 988, 550);
+        ImagePanel.setBounds(500, 300, 988, 550);
         ImagePanel.add(imageLabel);
         frame.add(ImagePanel);
         ImagePanel.setVisible(false);
@@ -325,7 +325,7 @@ public class Game {
          */
 
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(50, 300, 200, 550);
+        choiceButtonPanel.setBounds(50, 300, 400, 550);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
         choiceButtonPanel.setLayout(new GridLayout(4, 1, 10, 10));
         frame.add(choiceButtonPanel);
