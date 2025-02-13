@@ -15,6 +15,7 @@ public class InventoryGUIv1 {
     private String oldItem = "none";
     private String newItem;
     public boolean inventoryGUIOpened = false;
+    private int userId = 10;
 
     Inventory inv = new Inventory();
     DB db = new DB();
@@ -56,12 +57,10 @@ public class InventoryGUIv1 {
             inventoryJFrame.setLocationRelativeTo(null);
             inventoryJFrame.setResizable(false);
             inventoryJFrame.addWindowListener(new WindowAdapter() {
-                                                  public void windowClosing(WindowEvent e) {
-            inventoryGUIOpened = false;
-
-                                                  }
+                public void windowClosing(WindowEvent e) {
+            inventoryGUIOpened = false;}
                                               });
-            inv.setUserID(10);
+            inv.setUserID(userId);
 
         try {
             newItem = inv.addRandom("chapter1");
@@ -69,9 +68,26 @@ public class InventoryGUIv1 {
             throw new RuntimeException(e);
         }
 
+
         int newItemId = inv.nameToID(newItem);
         Object[] newItemAttributes = db.itemInfo(newItemId);
-        String newItemSlot = newItemAttributes[3].toString();
+        int newItemSlot = Integer.parseInt((String) newItemAttributes[3]);
+
+        String[] equippedItems = db.getEquipped(userId);
+
+        System.out.println(newItemSlot);
+
+        for (int i = 0; i < equippedItems.length; i++) {
+
+            if (newItemSlot == i) {
+                oldItem = equippedItems[i];
+            }
+
+        }
+
+        Object[] oldItemAttributes = db.itemInfo(Integer.parseInt(oldItem));
+        String oldItemName = (String) oldItemAttributes[1];
+        oldItemJLabel.setText(oldItemName);
 
         newItemJLabel.setText(newItem);
 
