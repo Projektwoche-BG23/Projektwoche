@@ -235,11 +235,11 @@ public class Game {
         playerPositiontext2.setVisible(false);
 
 
-        ImageIcon imageIcon = new ImageIcon("Images/KerkerHintergrund.png");
+        ImageIcon imageIcon = new ImageIcon("");
         imageLabel = new JLabel(imageIcon);
 
         ImagePanel = new JPanel();
-        ImagePanel.setBounds(300, 300, 988, 550);
+        ImagePanel.setBounds(500, 300, 988, 550);
         ImagePanel.add(imageLabel);
         frame.add(ImagePanel);
         ImagePanel.setVisible(false);
@@ -325,7 +325,7 @@ public class Game {
          */
 
         choiceButtonPanel = new JPanel();
-        choiceButtonPanel.setBounds(50, 300, 200, 550);
+        choiceButtonPanel.setBounds(50, 300, 400, 550);
         choiceButtonPanel.setBackground(new Color(23, 32, 56));
         choiceButtonPanel.setLayout(new GridLayout(4, 1, 10, 10));
         frame.add(choiceButtonPanel);
@@ -865,7 +865,7 @@ public class Game {
         mainTextArea.setText("\n*Two guards stand in front of the door.*\n" +
                 "Guard: Get out, you are not welcome here!");
         choiceButton1.setText("... Go to \nMarketplce");
-        choiceButton2.setText("I'm looking for the princess.");
+        choiceButton2.setText("I'm looking for\n the princess.");
         choiceButton3.setText("");
         choiceButton4.setText("");
         changeImage("Images/Hintergründe/StraßeDesKönigreichsHintergrund.png");
@@ -898,8 +898,8 @@ public class Game {
         mainTextArea.setText("*You arrive at the marketplace.*\n" +
                 "Apple Seller: FRESH APPLES!! COME BY!! BEST PRICES!!\n" +
                 "Blacksmith: GET HERE!! YOUR NEXT WEAPON IS WAITING!! BUY FROM ME AND SAVE YOUR GOLD!!");
-        choiceButton1.setText("Talk to Apple Seller");
-        choiceButton2.setText("Talk to Blacksmith");
+        choiceButton1.setText("Talk to \nApple Seller");
+        choiceButton2.setText("Talk to \nBlacksmith");
         choiceButton3.setText("");
         choiceButton4.setText("");
         changeImage("Images/Hintergründe/MarktplatzHintergrund.png");
@@ -913,7 +913,7 @@ public class Game {
         playerPosition = "Marketplace - Apple Seller";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("...");
-        choiceButton1.setText("I'm looking for the princess.");
+        choiceButton1.setText("I'm looking \nfor the \nprincess.");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -944,7 +944,7 @@ public class Game {
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("Player: An apple please. \n" +
                 "Owner: Here choose one, and then ask your question");
-        choiceButton1.setText("Take an Apple");
+        choiceButton1.setText("Take an \nApple");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -962,7 +962,7 @@ public class Game {
                 "Owner: Very well, I will help you. \n" +
                 "Find an Old Man in the alley outside the city gate. \n" +
                 "Maybe he can help you.\n");
-        choiceButton1.setText("Search for the Old Man");
+        choiceButton1.setText("Search for \nthe Old Man");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -993,7 +993,7 @@ public class Game {
         playerPosition = "Alley";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Player walks and is approached by an old man in an alley*\n");
-        choiceButton1.setText("Talk to the Old man");
+        choiceButton1.setText("Talk to \n the Old man");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -1011,7 +1011,7 @@ public class Game {
         playerPosition = "Marketplace - Blacksmith";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("...");
-        choiceButton1.setText("I'm looking for the princess.\n");
+        choiceButton1.setText("I'm looking \nfor the princess.");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -1026,7 +1026,7 @@ public class Game {
         playerPosition = "Marketplace - Blacksmith";
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("...");
-        choiceButton1.setText("I'm looking for the outcast princess!");
+        choiceButton1.setText("I'm looking \nfor the \noutcast princess!");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -1043,7 +1043,7 @@ public class Game {
         mainTextArea.setText("Very well, I will try to help you. \n" +
                 " Find the old man in the alley outside the city gate. \n" +
                 " Maybe he can help you.\n");
-        choiceButton1.setText("Search for the Old Man");
+        choiceButton1.setText("Search for \nthe Old Man");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
@@ -1110,7 +1110,7 @@ public class Game {
         playerPositiontext2.setText(playerPosition);
         mainTextArea.setText("*Player receives map from the old man\n" +
                 "And sets off on the journey*");
-        choiceButton1.setText("Start the journey");
+        choiceButton1.setText("Start the \njourney");
         choiceButton2.setText("");
         choiceButton3.setText("");
         choiceButton4.setText("");
