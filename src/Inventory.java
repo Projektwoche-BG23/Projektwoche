@@ -6,6 +6,7 @@ public class Inventory {
 
     DB db = new DB();
     RNG rng = new RNG();
+    public String drop = "";
     private String[] itemSlots = new String[6];
 
     int userID;
@@ -14,19 +15,18 @@ public class Inventory {
         userID = id;
     }
 
-    private int nameToID(String name) throws SQLException {
+    public int nameToID(String name) throws SQLException {
 
-        for (int i = 0; i < itemSlots.length; i++) {
+        for (int i = 0; i < 40; i++) {
 
-            String equipedID = itemSlots[i];
-            Object[] attributes = db.itemInfo(Integer.parseInt(equipedID));
-            String equipedName = (String) attributes[1];
+            Object[] attribute = db.itemInfo(i);
 
-            if (equipedName.equals(name)) {
+            if (name.equals(attribute[1])) {
 
-                return (int) attributes[0];
+                return i;
 
             }
+
 
         }
 
@@ -39,10 +39,12 @@ public class Inventory {
 
         int itemID = nameToID(name);
 
+        System.out.println(itemID);
+
         Object[] itemAttributes = db.itemInfo(itemID); //item Id
         int slotID = Integer.parseInt((String) itemAttributes[3]); //equip slot
         db.equipToItemSlot(userID, slotID, itemID);
-        itemSlots[slotID] = (String) itemAttributes[0];
+        System.out.println("gespeichert");
 
     }
 
@@ -67,13 +69,11 @@ public class Inventory {
 
         String[] itemsList = db.getInventory(userID);
 
-        int count = Integer.parseInt(itemsList[Integer.parseInt(itemID)]) ;
+        int count = Integer.parseInt(itemsList[Integer.parseInt(itemID)]);
 
-        if (count > 0)
-        {
+        if (count > 0) {
             return true;
-        }else
-        {
+        } else {
             return false;
         }
 
@@ -83,13 +83,12 @@ public class Inventory {
     public boolean consum(String itemID, Player player) throws SQLException {
         Object[] itemAttributes = db.itemInfo(Integer.parseInt(itemID)); //Gets item attributes
 
-        if (hasItem(itemID))
-        {
+        if (hasItem(itemID)) {
             db.addItem(userID, Integer.parseInt(itemID), -1);
             //player.usePotion(itemID);
             System.out.println("consumed successfully");
             return true;
-        }else{
+        } else {
             return false;
         }
 
@@ -97,7 +96,7 @@ public class Inventory {
 
     public List<String> addPotions() throws SQLException {
         String[] potions = rng.potionDrop();
-        List<String> items= List.of(potions);
+        List<String> items = List.of(potions);
 
         for (String item : items) {
 
@@ -113,9 +112,6 @@ public class Inventory {
 
     public String addRandom(String chapterName) throws SQLException {
         String drop = rng.randomDrop(chapterName);
-
-        db.addItem(userID, Integer.parseInt(drop), 1);
-
         Object[] attributes = db.itemInfo(Integer.parseInt(drop));
         drop = (String) attributes[1];
 

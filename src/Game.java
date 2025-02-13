@@ -18,9 +18,9 @@ public class Game {
     int playerIDD;
     String playerPositionDB;
     public String ch3Help = "nothelp";
+    InventoryGUIv1 inv = new InventoryGUIv1();
 
     Sounds msc = new Sounds();
-
     Player c = new Player();
     RechnerKampf rk = new RechnerKampf();
     Inventory inf = new Inventory();
@@ -526,8 +526,12 @@ public class Game {
                 healthAktualisieren(c.getHealth());
                 if(enemy.getHealth() == 0)
                 {
+
                     try {
-                        figthSceneManager();
+                        inv.startInventoryGUI();
+                       if(inv.inventoryGUIOpened =false){
+                           figthSceneManager();
+                       }
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
