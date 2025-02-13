@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  */
 public class DB {
     // Login information of the Database
-    private static final String URL = "jdbc:mysql://192.168.102.30:3306/projektwoche-2025"; // IP may be changed later.
+    private static final String URL = "jdbc:mysql://192.168.102.39:3306/projektwoche-2025"; // IP may be changed later.
     private static final String USER = "everyone";
     private static final String PASSWORD = "";
 

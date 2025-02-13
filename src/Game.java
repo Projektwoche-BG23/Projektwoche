@@ -261,7 +261,7 @@ public class Game {
         imageLabelGegner.setVisible(true);
 
 
-        ImageIcon imageIconPlayer = new ImageIcon("Images/Characters/Gegner/Rahmen/3KopfHund 2.png");
+        ImageIcon imageIconPlayer = new ImageIcon("Images/Characters/Player/MitRahmen/PlayerRüstungRahmenOhneWaffe.png");
         imageLabelPlayer = new JLabel(imageIconPlayer);
 
         imagePanelFightScreenPlayer = new JPanel();
@@ -342,6 +342,8 @@ public class Game {
         choiceButton1.setActionCommand("c1");
         choiceButton1.addActionListener(choiceHandler);
         choiceButton1.setFocusPainted(false);
+        choiceButton1.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton1.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton1);
 
         choiceButton2 = new JButton();
@@ -351,6 +353,8 @@ public class Game {
         choiceButton2.setActionCommand("c2");
         choiceButton2.addActionListener(choiceHandler);
         choiceButton2.setFocusPainted(false);
+        choiceButton2.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton2.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton2);
 
         choiceButton3 = new JButton();
@@ -360,6 +364,8 @@ public class Game {
         choiceButton3.setActionCommand("c3");
         choiceButton3.addActionListener(choiceHandler);
         choiceButton3.setFocusPainted(false);
+        choiceButton3.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton3.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton3);
 
         choiceButton4 = new JButton();
@@ -369,6 +375,8 @@ public class Game {
         choiceButton4.setActionCommand("c4");
         choiceButton4.addActionListener(choiceHandler);
         choiceButton4.setFocusPainted(false);
+        choiceButton4.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton4.setHorizontalAlignment(SwingConstants.LEFT);
         choiceButtonPanel.add(choiceButton4);
 
         ImagePanel.setVisible(true);
