@@ -456,8 +456,16 @@ public class Game {
         String weaponID = (String) equip[3];
         Object[] weaponInfo = db.itemInfo(Integer.parseInt(weaponID));
         String playerImmagePath = (String) weaponInfo[2];
+        System.out.println(playerImmagePath);
         //Funktion zum Player bild in fight scene einfügen
-        changeImagePlayer(playerImmagePath);
+        if(playerImmagePath .equals("null")){
+            System.err.println("Spieler bild nicht gefunden");
+        }
+        else {
+            changeImagePlayer(playerImmagePath);
+        }
+        System.out.println(enemyPicturePath);
+        System.out.println(playerImmagePath);
     }
 
 
@@ -479,7 +487,6 @@ public class Game {
         fightScreenButtonPanel.setBackground(new Color(23, 32, 56));
         fightScreenButtonPanel.setLayout(new GridLayout(3, 1));
         frame.add(fightScreenButtonPanel);
-
 
 
         attackButton = new JButton();
@@ -564,7 +571,7 @@ public class Game {
         itemButton.setForeground(new Color(222,158,65));
         itemButton.setText("Item");
         fightScreenButtonPanel.add(itemButton);
-        //setFightPictures(playerIDD,enemyType);
+        setFightPictures(playerIDD,enemyType);
 
         //Fixt vielleicht das Problem das die Bilder nicht richtig angeziegt werden
         frame.revalidate(); // Refresh the layout
