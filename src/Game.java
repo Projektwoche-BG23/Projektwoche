@@ -161,7 +161,7 @@ public class Game {
 
         healtbartextpanel = new JPanel();
         healtbartextpanel.setBackground(new Color(23, 32, 56));
-        healtbartextpanel.setBounds(0, 10, 250, 100);
+        healtbartextpanel.setBounds(0, 0, 250, 100);
         frame.add(healtbartextpanel);
 
         healtbartext = new JLabel("Player Health: " + health, SwingConstants.CENTER);
@@ -337,8 +337,8 @@ public class Game {
         choiceButton1.setActionCommand("c1");
         choiceButton1.addActionListener(choiceHandler);
         choiceButton1.setFocusPainted(false);
-        choiceButton1.setVerticalAlignment(SwingConstants.TOP);
-        choiceButton1.setHorizontalAlignment(SwingConstants.LEFT);
+        //choiceButton1.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton1.setHorizontalAlignment(SwingConstants.CENTER);
         choiceButtonPanel.add(choiceButton1);
 
         choiceButton2 = new JButton();
@@ -348,8 +348,8 @@ public class Game {
         choiceButton2.setActionCommand("c2");
         choiceButton2.addActionListener(choiceHandler);
         choiceButton2.setFocusPainted(false);
-        choiceButton2.setVerticalAlignment(SwingConstants.TOP);
-        choiceButton2.setHorizontalAlignment(SwingConstants.LEFT);
+        //choiceButton2.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton2.setHorizontalAlignment(SwingConstants.CENTER);
         choiceButtonPanel.add(choiceButton2);
 
         choiceButton3 = new JButton();
@@ -359,8 +359,8 @@ public class Game {
         choiceButton3.setActionCommand("c3");
         choiceButton3.addActionListener(choiceHandler);
         choiceButton3.setFocusPainted(false);
-        choiceButton3.setVerticalAlignment(SwingConstants.TOP);
-        choiceButton3.setHorizontalAlignment(SwingConstants.LEFT);
+        //choiceButton3.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton3.setHorizontalAlignment(SwingConstants.CENTER);
         choiceButtonPanel.add(choiceButton3);
 
         choiceButton4 = new JButton();
@@ -370,8 +370,8 @@ public class Game {
         choiceButton4.setActionCommand("c4");
         choiceButton4.addActionListener(choiceHandler);
         choiceButton4.setFocusPainted(false);
-        choiceButton4.setVerticalAlignment(SwingConstants.TOP);
-        choiceButton4.setHorizontalAlignment(SwingConstants.LEFT);
+        //choiceButton4.setVerticalAlignment(SwingConstants.TOP);
+        choiceButton4.setHorizontalAlignment(SwingConstants.CENTER);
         choiceButtonPanel.add(choiceButton4);
 
         ImagePanel.setVisible(true);
